@@ -17,9 +17,9 @@ issues, as well as missing features.
 ************
 Installation
 ************
--Import database with the name "pa_hpp"
--Save the folder into htdocs
--If there is an error "mysqli :: real_connect (): access denied for user root @ localhost ....". Just go into the application / config / database.php folder and change the username and password. If using XAMPP, usually username = '' root 'and password =' '
+- `Import database with the name "pa_hpp"`_
+- `Save the folder into htdocs`_
+- `If there is an error "mysqli :: real_connect (): access denied for user root @ localhost ....". Just go into the application / config / database.php folder and change the username and password. If using XAMPP, usually username = '' root 'and password =' '`_
 
 
 
