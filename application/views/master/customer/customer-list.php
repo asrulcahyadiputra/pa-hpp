@@ -45,7 +45,8 @@ $this->load->view('_partials/header');
 												<td><?= $cs->cus_address ?></td>
 												<td class="text-center">
 													<button type="button" class="btn btn-info mb-2" data-toggle="modal" data-target="#edit_customer<?= $cs->customer_id ?>">Edit</button>
-													<a href="<?= site_url('master/customer/deleted/' . $cs->customer_id) ?>" class="btn btn-danger mb-2">Hapus</a>
+
+													<a href="<?= site_url('master/customer/deleted/' . $cs->customer_id) ?>" onclick="confirm('Data Akan dihapus, Apakah Anda Yakin ?')" class="btn btn-danger mb-2">Hapus</a>
 												</td>
 											</tr>
 										<?php endforeach ?>
