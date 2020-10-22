@@ -28,4 +28,7 @@ $route['Dasboard']					= 'Dashboard';
 | customer
 | -------------------------------------------------------------------------
 */
-$route['master/pelanggan']			= 'master/Customer';
+$route['master/pelanggan']				= 'master/Customer';
+$route['master/pelanggan/add']			= 'master/Customer/add';
+$route['master/pelanggan/edit']			= 'master/Customer/edit';
+$route['master/pelanggan/deleted/(:any)']	= 'master/Customer/deleted/$1';

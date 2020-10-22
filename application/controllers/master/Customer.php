@@ -19,6 +19,60 @@ class Customer extends CI_Controller
 		];
 		$this->load->view('master/customer/customer-list', $data);
 	}
+	public function add()
+	{
+		$rules = [
+			[
+				'field'		=> 'cus_name',
+				'label'		=> 'Nama Pelanggan',
+				'rules'		=> 'required|is_unique[customers.cus_name]',
+				'errors'		=> [
+					'required'		=> '%s Wajib di isi',
+					'is_unique'		=> '%s sudah digunakan, mohon ganti agar terlihat unik'
+				]
+			],
+			[
+				'field'		=> 'cus_phone',
+				'label'		=> 'No Telepon',
+				'rules'		=> 'required|is_natural|max_length[13]|is_unique[customers.cus_phone]',
+				'errors'		=> [
+					'required'		=> '%s wajib di isi',
+					'is_natural'		=> '%s harus angka',
+					'max_length'		=> '%s maksimal 13 angka',
+					'is_unique'		=> '%s sudah digunakan'
+				]
+			],
+			[
+				'field'		=> 'cus_email',
+				'label'		=> 'Email',
+				'rules'		=> 'valid_email',
+				'errors'		=> [
+					'valid_email'		=> '%s email tidak valid',
+				]
+			],
+			[
+				'field'		=> 'cus_address',
+				'label'		=> 'Alamat',
+				'rules'		=> 'required',
+				'errors'		=> [
+					'required'		=> '%s wajib di isi',
+				]
+			],
+		];
+		$this->form_validation->set_rules($rules);
+		if ($this->form_validation->run() == false) {
+			$this->index();
+		} else {
+			$this->model->store();
+			redirect('master/pelanggan');
+		}
+	}
+	public function edit()
+	{
+	}
+	public function deleted($id)
+	{
+	}
 }
 
 /* End of file Customer.php */
