@@ -44,8 +44,8 @@ $this->load->view('_partials/header');
 												<td><?= $cs->cus_phone ?></td>
 												<td><?= $cs->cus_address ?></td>
 												<td class="text-center">
-													<a href="#addCustomer" data-toggle="modal" data-target="#editCustomer<?= $cs->customer_id ?>" class="btn btn-info">Edit</a>
-													<a href="<?= site_url('master/customer/deleted/' . $cs->customer_id) ?>" class="btn btn-danger">Hapus</a>
+													<button type="button" class="btn btn-info mb-2" data-toggle="modal" data-target="#edit_customer<?= $cs->customer_id ?>">Edit</button>
+													<a href="<?= site_url('master/customer/deleted/' . $cs->customer_id) ?>" class="btn btn-danger mb-2">Hapus</a>
 												</td>
 											</tr>
 										<?php endforeach ?>
@@ -61,7 +61,7 @@ $this->load->view('_partials/header');
 </div>
 
 
-<!-- Modal -->
+<!-- Modal add a new customer -->
 <div class="modal fade" id="addCustomer" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-lg modal-dialog-centered">
 		<div class="modal-content">
@@ -102,4 +102,49 @@ $this->load->view('_partials/header');
 		</div>
 	</div>
 </div>
+<!-- end add a new customer modal -->
+<?php foreach ($all as $ce) : ?>
+	<!-- Modal edit  customer -->
+	<div class="modal fade" id="edit_customer<?= $ce->customer_id ?>" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Buat Pelanggan Baru</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<form action="<?= site_url('master/pelanggan/edit/' . $ce->customer_id) ?>" method="POST">
+					<div class="modal-body">
+						<div class="form-group">
+							<label for="cus_name">Nama Pelanggan</label>
+							<input type="text" name="cus_name" id="cus_name" class="form-control" value="<?= $ce->cus_name ?>">
+							<small class="text-danger"><?= form_error('cus_name') ?></small>
+						</div>
+						<div class="form-group">
+							<label for="cus_phone">No Telepon</label>
+							<input type="text" name="cus_phone" id="cus_phone" class="form-control" value="<?= $ce->cus_phone ?>">
+							<small class="text-danger"><?= form_error('cus_phone') ?></small>
+						</div>
+						<div class="form-group">
+							<label for="cus_email">Email</label>
+							<input type="text" name="cus_email" id="cus_email" class="form-control" value="<?= $ce->cus_email ?>">
+							<small class="text-danger"><?= form_error('cus_email') ?></small>
+						</div>
+						<div class="form-group">
+							<label for="cus_address">Alamat</label>
+							<textarea name="cus_address" id="cus_address" cols="30" rows="10" class="form-control"><?= $ce->cus_address ?></textarea>
+							<small class="text-danger"><?= form_error('cus_address') ?></small>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+						<button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+<?php endforeach ?>
+<!-- end edit customer modal -->
 <?php $this->load->view('_partials/footer'); ?>

@@ -33,9 +33,19 @@ class M_customer extends CI_Model
 			'cus_name'		=> $this->input->post('cus_name'),
 			'cus_address'		=> $this->input->post('cus_address'),
 			'cus_phone'		=> $this->input->post('cus_phone'),
-			'cus_email'		=> $this->input->post('cus_name'),
+			'cus_email'		=> $this->input->post('cus_email'),
 		];
 		return $this->db->insert('customers', $data);
+	}
+	public function update($id)
+	{
+		$data = [
+			'cus_name'		=> $this->input->post('cus_name'),
+			'cus_address'		=> $this->input->post('cus_address'),
+			'cus_phone'		=> $this->input->post('cus_phone'),
+			'cus_email'		=> $this->input->post('cus_email'),
+		];
+		return $this->db->update('customers', $data, ['customer_id' => $id]);
 	}
 }
 
