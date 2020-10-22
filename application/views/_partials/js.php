@@ -39,6 +39,11 @@ if ($this->uri->segment(1) == "Dashboard") { ?>
 <!-- Template JS File -->
 <script src="<?php echo base_url(); ?>assets/js/scripts.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/custom.js"></script>
+<script>
+	$(document).ready(function() {
+		$(".alert").fadeIn().delay(3000).fadeOut();
+	});
+</script>
 </body>
 
 </html>

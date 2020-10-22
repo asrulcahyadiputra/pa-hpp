@@ -16,6 +16,30 @@ $this->load->view('_partials/header');
 
 		<div class="section-body">
 			<button class="btn btn-primary" data-toggle="modal" data-target="#addCustomer"><i class="fas fa-plus"></i> Buat Pelanggan Baru</button>
+			<?php if ($this->session->flashdata('success')) : ?>
+				<div class="alert alert-success alert-dismissible fade show mt-3 col-md-4" role="alert">
+					<strong>Berhasil !</strong> <?= $this->session->flashdata('success') ?>
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+			<?php endif ?>
+			<?php if ($this->session->flashdata('error')) : ?>
+				<div class="alert alert-danger alert-dismissible fade show mt-3 col-md-4" role="alert">
+					<strong>Gagal !</strong> <?= $this->session->flashdata('error') ?>
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+			<?php endif ?>
+			<?php if ($this->session->flashdata('warning')) : ?>
+				<div class="alert alert-warning alert-dismissible fade show mt-3 col-md-4" role="alert">
+					<strong>Peringatan !</strong> <?= $this->session->flashdata('warning') ?>
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+			<?php endif ?>
 			<div class="row mt-4">
 				<div class="col-12">
 					<div class="card">
@@ -46,7 +70,7 @@ $this->load->view('_partials/header');
 												<td class="text-center">
 													<button type="button" class="btn btn-info mb-2" data-toggle="modal" data-target="#edit_customer<?= $cs->customer_id ?>">Edit</button>
 
-													<a href="<?= site_url('master/customer/deleted/' . $cs->customer_id) ?>" onclick="confirm('Data Akan dihapus, Apakah Anda Yakin ?')" class="btn btn-danger mb-2">Hapus</a>
+													<a href="<?= site_url('master/pelanggan/deleted/' . $cs->customer_id) ?>" onclick="return confirm('Data Akan dihapus, Apakah Anda Yakin ?')" class="btn btn-danger mb-2">Hapus</a>
 												</td>
 											</tr>
 										<?php endforeach ?>

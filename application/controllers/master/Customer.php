@@ -64,6 +64,7 @@ class Customer extends CI_Controller
 			$this->index();
 		} else {
 			$this->model->store();
+			$this->session->set_flashdata('success', 'Data Pelanggan Berhasi di Tambahkan.');
 			redirect('master/pelanggan');
 		}
 	}
@@ -107,16 +108,31 @@ class Customer extends CI_Controller
 		];
 		$this->form_validation->set_rules($rules);
 		if ($this->form_validation->run() == false) {
+			$this->session->set_flashdata('error', 'Data Pelanggan Gagal di perbaharui.');
 			redirect('master/pelanggan');
 		} else {
-			$this->model->update($id);
-			redirect('master/pelanggan');
+			$customer = $this->db->get_where('customers', ['customer_id' => $id, 'deleted' => 0])->row_array();
+			if ($customer) {
+				$this->model->update($id);
+				$this->session->set_flashdata('success', 'Data Pelanggan Berhasi di perbaharui.');
+				redirect('master/pelanggan');
+			} else {
+				$this->session->set_flashdata('warning', 'Data Pelanggan Tidak di temukan.');
+				redirect('master/pelanggan');
+			}
 		}
 	}
 	public function deleted($id)
 	{
-		$this->model->deleted($id);
-		redirect('master/pelanggan');
+		$customer = $this->db->get_where('customers', ['customer_id' => $id])->row_array();
+		if ($customer) {
+			$this->model->deleted($id);
+			$this->session->set_flashdata('success', 'Data Pelanggan Berhasi di hapus.');
+			redirect('master/pelanggan');
+		} else {
+			$this->session->set_flashdata('error', 'Data Pelanggan Gagal di hapus.');
+			redirect('master/pelanggan');
+		}
 	}
 }
 
