@@ -47,6 +47,15 @@ class M_customer extends CI_Model
 		];
 		return $this->db->update('customers', $data, ['customer_id' => $id]);
 	}
+	public function deleted($id)
+	{
+		date_default_timezone_set("Asia/Jakarta");
+		$data = [
+			'deleted'		=> 1,
+			'deleted_at'	=> date('Y-m-d H:i:s')
+		];
+		return $this->db->update('customers', $data, ['customer_id' => $id]);
+	}
 }
 
 /* End of file M_customer.php */

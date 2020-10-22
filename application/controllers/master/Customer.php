@@ -115,6 +115,8 @@ class Customer extends CI_Controller
 	}
 	public function deleted($id)
 	{
+		$this->model->deleted($id);
+		redirect('master/pelanggan');
 	}
 }
 
