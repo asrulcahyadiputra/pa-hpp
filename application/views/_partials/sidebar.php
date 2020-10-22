@@ -11,13 +11,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
 		</div>
 		<ul class="sidebar-menu">
 			<li class="<?php echo $this->uri->segment(1) == 'Dashboard' ? 'active' : ''; ?>">
-				<a href="#" class="nav-link"><i class="fas fa-home"></i><span>Dashboard</span></a>
+				<a href="<?= site_url('Dashboard') ?>" class="nav-link"><i class="fas fa-home"></i><span>Dashboard</span></a>
 			</li>
 			<!-- ./dashboard -->
-			<li class="dropdown <?php echo $this->uri->segment(2) == 'layout_default' || $this->uri->segment(2) == 'layout_transparent' || $this->uri->segment(2) == 'layout_top_navigation' ? 'active' : ''; ?>">
+			<li class="dropdown <?php echo $this->uri->segment(1) == 'master'  ? 'active' : ''; ?>">
 				<a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-server"></i> <span>Data Master</span></a>
 				<ul class="dropdown-menu">
-					<li class="<?php echo $this->uri->segment(2) == 'layout_default' ? 'active' : ''; ?>"><a class="nav-link" href="<?php echo base_url(); ?>dist/layout_default">Pelanggan</a></li>
+					<li class="<?php echo $this->uri->segment(2) == 'pelanggan' ? 'active' : ''; ?>"><a class="nav-link" href="<?php echo base_url(); ?>master/pelanggan">Pelanggan</a></li>
 					<li><a class="nav-link" href="<?php echo base_url(); ?>dist/layout_transparent">Produk</a></li>
 					<li><a class="nav-link" href="<?php echo base_url(); ?>dist/layout_top_navigation">Bahan Baku</a></li>
 					<li><a class="nav-link" href="<?php echo base_url(); ?>dist/layout_top_navigation">Bill of Materials (BOM)</a></li>
