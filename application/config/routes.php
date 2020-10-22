@@ -42,3 +42,13 @@ $route['master/produk']				= 'master/Product';
 $route['master/produk/add']			= 'master/Product/add';
 $route['master/produk/edit/(:any)']	= 'master/Product/edit/$1';
 $route['master/produk/deleted/(:any)']	= 'master/Product/deleted/$1';
+
+/*
+| -------------------------------------------------------------------------
+| materials
+| -------------------------------------------------------------------------
+*/
+$route['master/bahan_baku']				= 'master/Material';
+$route['master/bahan_baku/add']			= 'master/Material/add';
+$route['master/bahan_baku/edit/(:any)']		= 'master/Material/edit/$1';
+$route['master/bahan_baku/deleted/(:any)']	= 'master/Material/deleted/$1';

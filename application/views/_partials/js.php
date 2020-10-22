@@ -43,6 +43,13 @@ if ($this->uri->segment(1) == "Dashboard") { ?>
 		});
 	</script>
 <?php endif ?>
+<?php if ($this->uri->segment(2) == "bahan_baku" && $this->uri->segment(3) == "add") : ?>
+	<script>
+		$(document).ready(function() {
+			$('#addMaterial').modal('show')
+		});
+	</script>
+<?php endif ?>
 <!-- Template JS File -->
 <script src="<?php echo base_url(); ?>assets/js/scripts.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/custom.js"></script>

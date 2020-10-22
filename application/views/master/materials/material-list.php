@@ -15,7 +15,7 @@ $this->load->view('_partials/header');
 		</div>
 
 		<div class="section-body">
-			<button class="btn btn-primary" data-toggle="modal" data-target="#addProduct"><i class="fas fa-plus"></i> Buat Produk Baru</button>
+			<button class="btn btn-primary" data-toggle="modal" data-target="#addMaterial"><i class="fas fa-plus"></i> Buat Bahan Baku Baru</button>
 			<?php if ($this->session->flashdata('success')) : ?>
 				<div class="alert alert-success alert-dismissible fade show mt-3 col-md-4" role="alert">
 					<strong>Berhasil !</strong> <?= $this->session->flashdata('success') ?>
@@ -48,29 +48,26 @@ $this->load->view('_partials/header');
 								<table class="table table-striped" id="table-1">
 									<thead>
 										<tr>
-											<th class="text-center">
-												#
-											</th>
-											<th>Nama Produk</th>
+											<th class="text-center">#</th>
+											<th>Nama Bahan Baku</th>
 											<th>Unit</th>
-											<th>Harga /Unit</th>
-											<th>Kategori</th>
+											<th>Tersedia</th>
+											<th>Harga Beli Terakhir</th>
 											<th class="text-center">Aksi</th>
 										</tr>
 									</thead>
 									<tbody>
 										<?php $no = 1;
-										foreach ($all as $pr) : ?>
+										foreach ($all as $mt) : ?>
 											<tr>
 												<td class="text-center"><?= $no++ ?></td>
-												<td><?= $pr->product_id . ' - ' . $pr->product_name ?></td>
-												<td><?= $pr->product_unit ?></td>
-												<td><?= nominal2($pr->sales_price) ?></td>
-												<td><?= $pr->product_category ?></td>
+												<td><?= $mt->material_id . ' - ' . $mt->material_name ?></td>
+												<td><?= $mt->material_unit ?></td>
+												<td><?= $mt->material_stock ?></td>
+												<td><?= nominal2($mt->last_unit_price) ?></td>
 												<td class="text-center">
-													<button type="button" class="btn btn-info mb-2" data-toggle="modal" data-target="#edit_product<?= $pr->product_id ?>">Edit</button>
-
-													<a href="<?= site_url('master/produk/deleted/' . $pr->product_id) ?>" onclick="return confirm('Data Akan dihapus, Apakah Anda Yakin ?')" class="btn btn-danger mb-2">Hapus</a>
+													<button type="button" class="btn btn-info mb-2" data-toggle="modal" data-target="#edit_material<?= $mt->material_id ?>">Edit</button>
+													<a href="<?= site_url('master/bahan_baku/deleted/' . $mt->material_id) ?>" onclick="return confirm('Data Akan dihapus, Apakah Anda Yakin ?')" class="btn btn-danger mb-2">Hapus</a>
 												</td>
 											</tr>
 										<?php endforeach ?>
@@ -87,36 +84,31 @@ $this->load->view('_partials/header');
 
 
 <!-- Modal add a new product -->
-<div class="modal fade" id="addProduct" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="addMaterial" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-lg modal-dialog-centered">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Buat Produk Baru</h5>
+				<h5 class="modal-title" id="exampleModalLabel">Buat Bahan Baku Baru</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-			<form action="<?= site_url('master/produk/add') ?>" method="POST">
+			<form action="<?= site_url('master/bahan_baku/add') ?>" method="POST">
 				<div class="modal-body">
 					<div class="form-group">
-						<label for="product_name">Nama Produk</label>
-						<input type="text" name="product_name" value="<?= set_value('product_name') ?>" id="product_name" class="form-control">
-						<small class="text-danger"><?= form_error('product_name') ?></small>
+						<label for="material_name">Nama Bahan Baku</label>
+						<input type="text" name="material_name" value="<?= set_value('material_name') ?>" id="material_name" class="form-control">
+						<small class="text-danger"><?= form_error('material_name') ?></small>
 					</div>
 					<div class="form-group">
-						<label for="product_unit">Unit</label>
-						<input type="text" name="product_unit" value="<?= set_value('product_unit') ?>" id="product_unit" class="form-control">
-						<small class="text-danger"><?= form_error('product_unit') ?></small>
+						<label for="material_unit">Unit</label>
+						<input type="text" name="material_unit" value="<?= set_value('material_unit') ?>" id="material_unit" class="form-control">
+						<small class="text-danger"><?= form_error('material_unit') ?></small>
 					</div>
 					<div class="form-group">
-						<label for="sales_price">Harga Jual</label>
-						<input type="text" name="sales_price" value="<?= set_value('sales_price') ?>" id="sales_price" class="form-control" data-type="currency">
-						<small class="text-danger"><?= form_error('sales_price') ?></small>
-					</div>
-					<div class="form-group">
-						<label for="product_categori">Kategori Produk</label>
-						<input type="text" name="product_category" value="<?= set_value('product_category') ?>" id="product_category" class="form-control">
-						<small class="text-danger"><?= form_error('product_category') ?></small>
+						<label for="material_stock">Stok Awal</label>
+						<input type="text" name="material_stock" value="<?= set_value('material_stock') ?>" id="material_stock" class="form-control">
+						<small class="text-danger"><?= form_error('material_stock') ?></small>
 					</div>
 				</div>
 				<div class="modal-footer">
@@ -128,40 +120,29 @@ $this->load->view('_partials/header');
 	</div>
 </div>
 <!-- end add a new product modal -->
-<?php foreach ($all as $ep) : ?>
+<?php foreach ($all as $em) : ?>
 	<!-- Modal edit  customer -->
-	<div class="modal fade" id="edit_product<?= $ep->product_id ?>" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal fade" id="edit_material<?= $em->material_id ?>" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-lg modal-dialog-centered">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Edit Produk</h5>
+					<h5 class="modal-title" id="exampleModalLabel">Edit Bahan Baku</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				<form action="<?= site_url('master/produk/edit/' . $ep->product_id) ?>" method="POST">
+				<form action="<?= site_url('master/bahan_baku/edit/' . $em->material_id) ?>" method="POST">
 					<div class="modal-body">
 						<div class="form-group">
-							<label for="product_name">Nama Produk</label>
-							<input type="text" name="product_name" id="product_name" class="form-control" value="<?= $ep->product_name ?>">
-							<small class="text-danger"><?= form_error('product_name') ?></small>
+							<label for="material_name">Nama Bahan Baku</label>
+							<input type="text" name="material_name" id="material_name" class="form-control" value="<?= $em->material_name ?>">
+							<small class="text-danger"><?= form_error('material_name') ?></small>
 						</div>
 						<div class="form-group">
-							<label for="product_unit">Unit</label>
-							<input type="text" name="product_unit" id="product_unit" class="form-control" value="<?= $ep->product_unit ?>">
-							<small class="text-danger"><?= form_error('product_unit') ?></small>
+							<label for="material_unit">Unit</label>
+							<input type="text" name="material_unit" id="material_unit" class="form-control" value="<?= $em->material_unit ?>">
+							<small class="text-danger"><?= form_error('material_unit') ?></small>
 						</div>
-						<div class="form-group">
-							<label for="sales_price">Harga Jual</label>
-							<input type="text" name="sales_price" id="sales_price" class="form-control" data-type="currency" value="<?= nominal2($ep->sales_price) ?>">
-							<small class="text-danger"><?= form_error('sales_price') ?></small>
-						</div>
-						<div class="form-group">
-							<label for="product_category">Kategori Produk</label>
-							<input type="text" name="product_category" id="product_category" class="form-control" value="<?= $ep->product_category ?>">
-							<small class="text-danger"><?= form_error('product_category') ?></small>
-						</div>
-
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
