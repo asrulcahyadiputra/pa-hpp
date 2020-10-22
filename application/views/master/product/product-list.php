@@ -65,7 +65,7 @@ $this->load->view('_partials/header');
 												<td class="text-center"><?= $no++ ?></td>
 												<td><?= $pr->product_id . ' - ' . $pr->product_name ?></td>
 												<td><?= $pr->product_unit ?></td>
-												<td><?= $pr->sales_price ?></td>
+												<td><?= nominal2($pr->sales_price) ?></td>
 												<td><?= $pr->product_category ?></td>
 												<td class="text-center">
 													<button type="button" class="btn btn-info mb-2" data-toggle="modal" data-target="#edit_product<?= $pr->product_id ?>">Edit</button>
