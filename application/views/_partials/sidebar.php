@@ -18,6 +18,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 				<a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-server"></i> <span>Data Master</span></a>
 				<ul class="dropdown-menu">
 					<li class="<?php echo $this->uri->segment(2) == 'pelanggan' ? 'active' : ''; ?>"><a class="nav-link" href="<?php echo base_url(); ?>master/pelanggan">Pelanggan</a></li>
+					<li class="<?php echo $this->uri->segment(2) == 'karyawan' ? 'active' : ''; ?>"><a class="nav-link" href="<?php echo base_url(); ?>master/karyawan">Karyawan</a></li>
 					<li class="<?php echo $this->uri->segment(2) == 'produk' ? 'active' : ''; ?>"><a class="nav-link" href="<?php echo base_url(); ?>master/produk">Produk</a></li>
 					<li class="<?php echo $this->uri->segment(2) == 'bahan_baku' ? 'active' : ''; ?>"><a class="nav-link" href="<?php echo base_url(); ?>master/bahan_baku">Bahan Baku</a></li>
 
