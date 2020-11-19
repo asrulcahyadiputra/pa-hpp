@@ -57,6 +57,28 @@ if ($this->uri->segment(1) == "Dashboard") { ?>
 		});
 	</script>
 <?php endif ?>
+<?php if ($this->uri->segment(2) == "bom" && $this->uri->segment(3) == "create") : ?>
+	<script>
+		$(document).ready(function() {
+			$('#material_id').change(function() {
+			var material_id = $('#material_id').val();
+				$.ajax({
+					url: '<?=site_url()?>transaksi/bom/find_material',
+					method: 'POST',
+					async: true,
+					dataType: "JSON",
+					data: {
+						material_id: material_id
+					},
+					success: function(data) {
+						$('#unit').html(data.material_unit);
+					}
+				});
+				return false;
+    			});
+		});
+	</script>
+<?php endif ?>
 <!-- Template JS File -->
 <script src="<?php echo base_url(); ?>assets/js/scripts.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/custom.js"></script>

@@ -25,13 +25,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
 				</ul>
 			</li>
 			<!-- ./data master -->
-			<li class="dropdown <?php echo $this->uri->segment(2) == 'features_activities' || $this->uri->segment(2) == 'features_post_create' || $this->uri->segment(2) == 'features_posts' || $this->uri->segment(2) == 'features_profile' || $this->uri->segment(2) == 'features_settings' || $this->uri->segment(2) == 'features_setting_detail' || $this->uri->segment(2) == 'features_tickets' ? 'active' : ''; ?>">
+			<li class="dropdown <?php echo $this->uri->segment(1) == 'transaksi'  ? 'active' : ''; ?>">
 				<a href="#" class="nav-link has-dropdown"><i class="fas fa-handshake"></i> <span>Transaksi</span></a>
 				<ul class="dropdown-menu">
+					<li class="<?php echo $this->uri->segment(2) == 'bom' ? 'active' : ''; ?>"><a class="nav-link" href="<?php echo base_url(); ?>transaksi/bom">Bill of Materials (BOM)</a></li>
 					<li class="<?php echo $this->uri->segment(2) == 'features_activities' ? 'active' : ''; ?>"><a class="nav-link" href="<?php echo base_url(); ?>dist/features_activities">Pesanan</a></li>
 					<li class="<?php echo $this->uri->segment(2) == 'features_post_create' ? 'active' : ''; ?>"><a class="nav-link" href="<?php echo base_url(); ?>dist/features_post_create">Produksi</a></li>
 					<li class="<?php echo $this->uri->segment(2) == 'features_posts' ? 'active' : ''; ?>"><a class="nav-link" href="<?php echo base_url(); ?>dist/features_posts">Pembelian</a></li>
-					<li><a class="nav-link" href="<?php echo base_url(); ?>dist/layout_top_navigation">Bill of Materials (BOM)</a></li>
+					
 				</ul>
 			</li>
 			<!-- ./transaksi -->

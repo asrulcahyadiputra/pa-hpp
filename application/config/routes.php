@@ -62,3 +62,23 @@ $route['master/karyawan']				= 'master/Employee';
 $route['master/karyawan/add']				= 'master/Employee/add';
 $route['master/karyawan/edit/(:any)']		= 'master/Employee/edit/$1';
 $route['master/karyawan/deleted/(:any)']	= 'master/Employee/deleted/$1';
+
+##########################################################################
+# 						-Transactions- 					   #
+##########################################################################
+
+/*
+| -------------------------------------------------------------------------
+| Bill of
+| -------------------------------------------------------------------------
+*/
+$route['transaksi/bom']							= 'transactions/Bom';
+$route['transaksi/bom/draf']						= 'transactions/Bom/create_draff';
+$route['transaksi/bom/create/(:any)']				= 'transactions/Bom/create/$1';
+$route['transaksi/bom/store/(:any)']				= 'transactions/Bom/store/$1';
+$route['transaksi/bom/update/(:any)']				= 'transactions/Bom/update/$1';
+$route['transaksi/bom/delete/(:any)']				= 'transactions/Bom/destroy/$1';
+$route['transaksi/bom/show/(:any)']				= 'transactions/Bom/show/$1';
+$route['transaksi/bom/find_material']				= 'transactions/Bom/find_material';
+$route['transaksi/bom/store_item']					= 'transactions/Bom/store_item';
+$route['transaksi/bom/delete_item/(:any)/(:any)']		= 'transactions/Bom/delete_item/$1/$2';
