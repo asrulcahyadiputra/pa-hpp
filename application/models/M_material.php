@@ -7,7 +7,14 @@ class M_material extends CI_Model
 
 	public function all()
 	{
-		return $this->db->get_where('raw_materials', ['deleted' => 0])->result();
+		$this->db->select('a.material_id,a.material_name,a.material_stock,a.material_unit,a.deleted,b.id as type_id,b.name as type_name')
+			->from('raw_materials as a')
+			->join('type_of_materials as b','a.material_type=b.id')
+			->where('a.deleted',0);
+		return $this->db->get()->result();
+	}
+	public function type(){
+		return $this->db->get('type_of_materials')->result();
 	}
 	private function material_id()
 	{
@@ -33,6 +40,7 @@ class M_material extends CI_Model
 			'material_id'			=> $this->material_id(),
 			'material_name'		=> $this->input->post('material_name'),
 			'material_unit'		=> $this->input->post('material_unit'),
+			'material_type'		=> $this->input->post('material_type'),
 			'material_stock'		=> $this->input->post('material_stock'),
 		];
 		return $this->db->insert('raw_materials', $data);
@@ -43,6 +51,7 @@ class M_material extends CI_Model
 			'material_id'			=> $this->material_id(),
 			'material_name'		=> $this->input->post('material_name'),
 			'material_unit'		=> $this->input->post('material_unit'),
+			'material_type'		=> $this->input->post('material_type'),
 		];
 		return $this->db->update('raw_materials', $data, ['material_id' => $id]);
 	}

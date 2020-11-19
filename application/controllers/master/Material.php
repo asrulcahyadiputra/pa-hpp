@@ -15,6 +15,7 @@ class Material extends CI_Controller
 	{
 		$data = [
 			'title'		=> 'Bahan Baku',
+			'type'		=> $this->model->type(),
 			'all'		=> $this->model->all()
 		];
 		$this->load->view('master/materials/material-list', $data);
@@ -34,6 +35,14 @@ class Material extends CI_Controller
 			[
 				'field'		=> 'material_unit',
 				'label'		=> 'Unit',
+				'rules'		=> 'required',
+				'errors'		=> [
+					'required'		=> '%s wajib di isi',
+				]
+			],
+			[
+				'field'		=> 'material_type',
+				'label'		=> 'Jenis Bahan Baku',
 				'rules'		=> 'required',
 				'errors'		=> [
 					'required'		=> '%s wajib di isi',

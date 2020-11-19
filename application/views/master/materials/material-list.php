@@ -64,7 +64,7 @@ $this->load->view('_partials/header');
 												<td><?= $mt->material_id . ' - ' . $mt->material_name ?></td>
 												<td><?= $mt->material_unit ?></td>
 												<td><?= $mt->material_stock ?></td>
-												<td><?= nominal2($mt->last_unit_price) ?></td>
+												<td><?=$mt->type_name?></td>
 												<td class="text-center">
 													<button type="button" class="btn btn-info mb-2" data-toggle="modal" data-target="#edit_material<?= $mt->material_id ?>">Edit</button>
 													<a href="<?= site_url('master/bahan_baku/deleted/' . $mt->material_id) ?>" onclick="return confirm('Data Akan dihapus, Apakah Anda Yakin ?')" class="btn btn-danger mb-2">Hapus</a>
@@ -110,6 +110,16 @@ $this->load->view('_partials/header');
 						<input type="text" name="material_stock" value="<?= set_value('material_stock') ?>" id="material_stock" class="form-control">
 						<small class="text-danger"><?= form_error('material_stock') ?></small>
 					</div>
+					<div class="form-group">
+						<label for="material_stock">Jenis Bahan Baku</label>
+						<select name="material_type" id="material_type" class="form-control">
+							<option value="">-pilih-</option>
+							<?php foreach($type as $ty):?>
+								<option value="<?=$ty->id?>" <?=$ty->id == set_value('material_type') ? 'selected' : ''?> ><?=$ty->name?></option>
+							<?php endforeach ?>
+						</select>
+						<small class="text-danger"><?= form_error('material_type') ?></small>
+					</div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
@@ -142,6 +152,16 @@ $this->load->view('_partials/header');
 							<label for="material_unit">Unit</label>
 							<input type="text" name="material_unit" id="material_unit" class="form-control" value="<?= $em->material_unit ?>">
 							<small class="text-danger"><?= form_error('material_unit') ?></small>
+						</div>
+						<div class="form-group">
+							<label for="material_stock">Jenis Bahan Baku</label>
+							<select name="material_type" id="material_type" class="form-control">
+								<option value="">-pilih-</option>
+								<?php foreach($type as $ty):?>
+									<option value="<?=$ty->id?>" <?=$ty->id == $em->type_id ? 'selected' : ''?> ><?=$ty->name?></option>
+								<?php endforeach ?>
+							</select>
+							<small class="text-danger"><?= form_error('material_type') ?></small>
 						</div>
 					</div>
 					<div class="modal-footer">
