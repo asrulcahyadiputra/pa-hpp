@@ -79,6 +79,29 @@ if ($this->uri->segment(1) == "Dashboard") { ?>
 		});
 	</script>
 <?php endif ?>
+<?php if ($this->uri->segment(2) == "pesanan") : ?>
+	<script>
+		$(document).ready(function() {
+			$('#product_id').change(function() {
+			var product_id = $('#product_id').val();
+				$.ajax({
+					url: '<?=site_url()?>transaksi/order/find_product',
+					method: 'POST',
+					async: true,
+					dataType: "JSON",
+					data: {
+						product_id: product_id
+					},
+					success: function(data) {
+						$('#order_qty').val(1);
+						$('#order_price').val(data.sales_price);
+					}
+				});
+				return false;
+    			});
+		});
+	</script>
+<?php endif ?>
 <!-- Template JS File -->
 <script src="<?php echo base_url(); ?>assets/js/scripts.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/custom.js"></script>

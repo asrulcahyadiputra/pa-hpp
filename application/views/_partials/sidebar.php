@@ -22,7 +22,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 					<li class="<?php echo $this->uri->segment(2) == 'produk' ? 'active' : ''; ?>"><a class="nav-link" href="<?php echo base_url(); ?>master/produk">Produk</a></li>
 					<li class="<?php echo $this->uri->segment(2) == 'bahan_baku' ? 'active' : ''; ?>"><a class="nav-link" href="<?php echo base_url(); ?>master/bahan_baku">Bahan Baku</a></li>
 					<li class="<?php echo $this->uri->segment(2) == 'coa' ? 'active' : ''; ?>"><a class="nav-link" href="<?php echo base_url(); ?>master/coa">Chart of Acccount</a></li>
-
 				</ul>
 			</li>
 			<!-- ./data master -->

@@ -97,3 +97,6 @@ $route['transaksi/bom/delete_item/(:any)/(:any)']		= 'transactions/Bom/delete_it
 | -------------------------------------------------------------------------
 */
 $route['transaksi/pesanan']						= 'transactions/Order';
+$route['transaksi/order/find_product']				= 'transactions/Order/find_product';
+$route['transaksi/pesanan/add']					= 'transactions/Order/add';
+$route['transaksi/pesanan/delete/(:any)']			= 'transactions/Order/delete/$1';
