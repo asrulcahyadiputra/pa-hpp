@@ -21,6 +21,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 					<li class="<?php echo $this->uri->segment(2) == 'karyawan' ? 'active' : ''; ?>"><a class="nav-link" href="<?php echo base_url(); ?>master/karyawan">Karyawan</a></li>
 					<li class="<?php echo $this->uri->segment(2) == 'produk' ? 'active' : ''; ?>"><a class="nav-link" href="<?php echo base_url(); ?>master/produk">Produk</a></li>
 					<li class="<?php echo $this->uri->segment(2) == 'bahan_baku' ? 'active' : ''; ?>"><a class="nav-link" href="<?php echo base_url(); ?>master/bahan_baku">Bahan Baku</a></li>
+					<li class="<?php echo $this->uri->segment(2) == 'coa' ? 'active' : ''; ?>"><a class="nav-link" href="<?php echo base_url(); ?>master/coa">Chart of Acccount</a></li>
 
 				</ul>
 			</li>
@@ -29,10 +30,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
 				<a href="#" class="nav-link has-dropdown"><i class="fas fa-handshake"></i> <span>Transaksi</span></a>
 				<ul class="dropdown-menu">
 					<li class="<?php echo $this->uri->segment(2) == 'bom' ? 'active' : ''; ?>"><a class="nav-link" href="<?php echo base_url(); ?>transaksi/bom">Bill of Materials (BOM)</a></li>
-					<li class="<?php echo $this->uri->segment(2) == 'features_activities' ? 'active' : ''; ?>"><a class="nav-link" href="<?php echo base_url(); ?>dist/features_activities">Pesanan</a></li>
-					<li class="<?php echo $this->uri->segment(2) == 'features_post_create' ? 'active' : ''; ?>"><a class="nav-link" href="<?php echo base_url(); ?>dist/features_post_create">Produksi</a></li>
+					<li class="<?php echo $this->uri->segment(2) == 'pesanan' ? 'active' : ''; ?>"><a class="nav-link" href="<?php echo base_url(); ?>transaksi/pesanan">Pesanan</a></li>
 					<li class="<?php echo $this->uri->segment(2) == 'features_posts' ? 'active' : ''; ?>"><a class="nav-link" href="<?php echo base_url(); ?>dist/features_posts">Pembelian</a></li>
-					
+					<li class="<?php echo $this->uri->segment(2) == 'features_post_create' ? 'active' : ''; ?>"><a class="nav-link" href="<?php echo base_url(); ?>dist/features_post_create">Produksi</a></li>
 				</ul>
 			</li>
 			<!-- ./transaksi -->
