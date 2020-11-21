@@ -110,7 +110,9 @@ $this->load->view('_partials/header');
 									<div class="col-12 mt-4">
 										<div class="text-right">
 											<a href="<?=site_url('transaksi/pembelian')?>" class="btn btn-secondary">Simpan Sebagai Draff</a>
+											<?php if($details): ?>
 											<a href="<?=site_url('transaksi/pembelian/store/'.$trans_id.'/'.$tb.'/'.$tp.'/'.$total)?>" class="btn btn-success">Selesaikan</a>
+											<?php endif ?>
 										</div>
 									</div>
 								</form>

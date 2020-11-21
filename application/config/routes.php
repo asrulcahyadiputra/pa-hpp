@@ -113,6 +113,15 @@ $route['transaksi/pembelian/add_item']						= 'transactions/Purchase/add_item';
 $route['transaksi/pembelian/delete_item/(:any)/(:any)']		= 'transactions/Purchase/delete_item/$1/$2';
 $route['transaksi/pembelian/store/(:any)/(:any)/(:any)/(:any)']	= 'transactions/Purchase/store/$1/$2/$3/$4';
 
+/*
+| -------------------------------------------------------------------------
+| Produksi
+| -------------------------------------------------------------------------
+*/
+$route['transaksi/produksi']								= 'transactions/Production';
+$route['transaksi/create']								= 'transactions/Production/create';
+
+
 ##########################################################################
 # 						-Reports- 					   	   #
 ##########################################################################
