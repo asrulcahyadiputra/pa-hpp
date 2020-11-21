@@ -20,7 +20,7 @@ class M_ledger extends CI_Model {
 			->where('year(a.gl_date)',$y)
 			->group_by('a.trans_id')
 			->group_by('date(a.gl_date)')
-			->order_by('a.trans_id','ASC');
+			->order_by('date(a.gl_date)','ASC');
 		return $this->db->get()->result_array();
 	}
 

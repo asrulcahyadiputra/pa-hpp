@@ -23,6 +23,7 @@ class M_order extends CI_Model {
 	private function trans_id()
 	{
 		$this->db->select('RIGHT(trans_id,4) as trans_id', FALSE);
+		$this->db->where('trans_type','order');
 		$this->db->order_by('trans_id', 'DESC');
 		$this->db->limit(1);
 		$query = $this->db->get('transactions');
@@ -42,7 +43,8 @@ class M_order extends CI_Model {
 			'trans_id'		=> $this->trans_id(),
 			'customer_id'		=> $this->input->post('customer_id'),
 			'order_done'		=> 0,
-			'trans_total'		=> $this->input->post('order_qty')*$this->input->post('order_price')
+			'trans_total'		=> $this->input->post('order_qty')*$this->input->post('order_price'),
+			'trans_type'		=> 'order'
 		];
 		$order=[
 			'trans_id'		=> $this->trans_id(),

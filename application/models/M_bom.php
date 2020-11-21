@@ -36,6 +36,7 @@ class M_bom extends CI_Model {
 	private function trans_id()
 	{
 		$this->db->select('RIGHT(trans_id,4) as trans_id', FALSE);
+		$this->db->where('trans_type','bom');
 		$this->db->order_by('trans_id', 'DESC');
 		$this->db->limit(1);
 		$query = $this->db->get('transactions');
@@ -52,7 +53,8 @@ class M_bom extends CI_Model {
 	public function create_draff(){
 		$data=[
 			'trans_id'		=> $this->trans_id(),
-			'product_id'		=> $this->input->post('product_id')
+			'product_id'		=> $this->input->post('product_id'),
+			'trans_type'		=> 'bom'
 		];
 		if($this->db->insert('transactions',$data)){
 			return $data;

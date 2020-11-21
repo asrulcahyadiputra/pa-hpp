@@ -101,6 +101,17 @@ $route['transaksi/order/find_product']				= 'transactions/Order/find_product';
 $route['transaksi/pesanan/add']					= 'transactions/Order/add';
 $route['transaksi/pesanan/delete/(:any)']			= 'transactions/Order/delete/$1';
 
+/*
+| -------------------------------------------------------------------------
+| Purchasing
+| -------------------------------------------------------------------------
+*/
+$route['transaksi/pembelian']								= 'transactions/Purchase';
+$route['transaksi/pembelian/create_draff']					= 'transactions/Purchase/create_draff';
+$route['transaksi/pembelian/draff/(:any)']					= 'transactions/Purchase/create/$1';
+$route['transaksi/pembelian/add_item']						= 'transactions/Purchase/add_item';
+$route['transaksi/pembelian/delete_item/(:any)/(:any)']		= 'transactions/Purchase/delete_item/$1/$2';
+$route['transaksi/pembelian/store/(:any)/(:any)/(:any)/(:any)']	= 'transactions/Purchase/store/$1/$2/$3/$4';
 
 ##########################################################################
 # 						-Reports- 					   	   #

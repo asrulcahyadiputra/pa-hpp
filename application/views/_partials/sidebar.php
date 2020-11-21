@@ -30,7 +30,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 				<ul class="dropdown-menu">
 					<li class="<?php echo $this->uri->segment(2) == 'bom' ? 'active' : ''; ?>"><a class="nav-link" href="<?php echo base_url(); ?>transaksi/bom">Bill of Materials (BOM)</a></li>
 					<li class="<?php echo $this->uri->segment(2) == 'pesanan' ? 'active' : ''; ?>"><a class="nav-link" href="<?php echo base_url(); ?>transaksi/pesanan">Pesanan</a></li>
-					<li class="<?php echo $this->uri->segment(2) == 'features_posts' ? 'active' : ''; ?>"><a class="nav-link" href="<?php echo base_url(); ?>dist/features_posts">Pembelian</a></li>
+					<li class="<?php echo $this->uri->segment(2) == 'pembelian' ? 'active' : ''; ?>"><a class="nav-link" href="<?php echo base_url(); ?>transaksi/pembelian">Pembelian</a></li>
 					<li class="<?php echo $this->uri->segment(2) == 'features_post_create' ? 'active' : ''; ?>"><a class="nav-link" href="<?php echo base_url(); ?>dist/features_post_create">Produksi</a></li>
 				</ul>
 			</li>
