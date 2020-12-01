@@ -16,7 +16,11 @@ class Dashboard extends CI_Controller
 	{
 		$data = [
 			'title'			=> 'Dashboard',
-			'new_purchasing'	=> $this->model->new_purchasing()
+			'new_purchasing'	=> $this->model->new_purchasing(),
+			'new_order'		=> $this->model->new_order(),
+			'sum_customer'		=> $this->model->sum_customer(),
+			'sum_order'		=> $this->model->sum_order(),
+			'sum_product'		=> $this->model->sum_product(),
 		];
 		$this->load->view('dashboard', $data);
 	}
