@@ -83,10 +83,30 @@ $this->load->view('_partials/header');
 									<tr>
 										<th>#</th>
 										<th>No Transaksi</th>
+										<th>Tanggal</th>
 										<th>Status</th>
 										<th>Total</th>
 									</tr>
 								</thead>
+								<tbody>
+									<?php $no = 1;
+									foreach ($new_purchasing as $np) : ?>
+										<tr>
+											<td><?= $no++ ?></td>
+											<td><?= $np['trans_id'] ?></td>
+											<td><?= date('d-m-Y H:i:s', strtotime($np['trans_date'])) ?></td>
+											<td>
+												<?php if ($np['status'] == 0) : ?>
+													<span class="text-warning"><i class="fa fa-lock-open"></i></span>
+												<?php endif ?>
+												<?php if ($np['status'] == 1) : ?>
+													<span class="text-success"><i class="fa fa-check"></i></span>
+												<?php endif ?>
+											</td>
+											<td><?= nominal($np['trans_total']) ?></td>
+										</tr>
+									<?php endforeach ?>
+								</tbody>
 							</table>
 						</div>
 					</div>
