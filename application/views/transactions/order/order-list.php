@@ -15,7 +15,7 @@ $this->load->view('_partials/header');
 		</div>
 
 		<div class="section-body">
-			<button class="btn btn-primary" data-toggle="modal" data-target="#newOrder"><i class="fas fa-plus"></i> Buat <?=$title?> Baru</button>
+			<button class="btn btn-primary" data-toggle="modal" data-target="#newOrder"><i class="fas fa-plus"></i> Buat <?= $title ?> Baru</button>
 			<?php if ($this->session->flashdata('success')) : ?>
 				<div class="alert alert-success alert-dismissible fade show mt-3 col-md-4" role="alert">
 					<strong>Berhasil !</strong> <?= $this->session->flashdata('success') ?>
@@ -50,6 +50,7 @@ $this->load->view('_partials/header');
 										<tr>
 											<th>#</th>
 											<th>Kode Pesanan</th>
+											<th>Tanggal</th>
 											<th>Pelanggan</th>
 											<th>Produk</th>
 											<th class="text-center">Qty</th>
@@ -59,29 +60,31 @@ $this->load->view('_partials/header');
 										</tr>
 									</thead>
 									<tbody>
-										<?php $no=1; foreach($all as $row): ?>
-										<tr>
-											<td><?=$no++?></td>
-											<td><?=$row['trans_id']?></td>
-											<td><?=$row['cus_name']?></td>
-											<td><?=$row['product_name']?></td>
-											<td class="text-center"><?=$row['order_qty'].' '.$row['product_unit']?></td>
-											<td class="text-right"><?=nominal($row['order_qty']*$row['order_price'])?></td>
-											<td>
-												<?php if($row['status'] == 0): ?>
-													<span class="text-warning"><i class="fa fa-lock-open"></i> Belum Produksi</span>
-												<?php endif ?>
-												<?php if($row['status'] == 1): ?>
-													<span class="text-primary"><i class="fa fa-lock"></i> <i class="fa fa-clock"></i> Proses Produksi</span>
-												<?php endif ?>
-												<?php if($row['status'] == 2): ?>
-													<span class="text-success"><i class="fa fa-lock"></i> <i class="fa fa-check"></i>Selesai Produksi</span>
-												<?php endif ?>
-											</td>
-											<td class="text-center">
-												<a href="<?=site_url('transaksi/pesanan/delete/'.$row['trans_id'])?>" onclick="return confirm('Semua Data terkait transaksi ini akan hilang. Apakah anda yakin ?')" class="btn btn-danger btn-sm"  ><i class="fa fa-trash"></i></a>
-											</td>
-										</tr>
+										<?php $no = 1;
+										foreach ($all as $row) : ?>
+											<tr>
+												<td><?= $no++ ?></td>
+												<td><?= $row['trans_id'] ?></td>
+												<td><?= date('d-m-Y', strtotime($row['trans_date'])) ?></td>
+												<td><?= $row['cus_name'] ?></td>
+												<td><?= $row['product_name'] ?></td>
+												<td class="text-center"><?= $row['order_qty'] . ' ' . $row['product_unit'] ?></td>
+												<td class="text-right"><?= nominal($row['order_qty'] * $row['order_price']) ?></td>
+												<td>
+													<?php if ($row['status'] == 0) : ?>
+														<span class="text-warning"><i class="fa fa-lock-open"></i> Belum Produksi</span>
+													<?php endif ?>
+													<?php if ($row['status'] == 1) : ?>
+														<span class="text-primary"><i class="fa fa-lock"></i> <i class="fa fa-clock"></i> Proses Produksi</span>
+													<?php endif ?>
+													<?php if ($row['status'] == 2) : ?>
+														<span class="text-success"><i class="fa fa-lock"></i> <i class="fa fa-check"></i>Selesai Produksi</span>
+													<?php endif ?>
+												</td>
+												<td class="text-center">
+													<a href="<?= site_url('transaksi/pesanan/delete/' . $row['trans_id']) ?>" onclick="return confirm('Semua Data terkait transaksi ini akan hilang. Apakah anda yakin ?')" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+												</td>
+											</tr>
 										<?php endforeach ?>
 									</tbody>
 								</table>
@@ -99,7 +102,7 @@ $this->load->view('_partials/header');
 	<div class="modal-dialog modal-lg modal-dialog-centered">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Buat <?=$title?> Baru</h5>
+				<h5 class="modal-title" id="exampleModalLabel">Buat <?= $title ?> Baru</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -110,8 +113,8 @@ $this->load->view('_partials/header');
 						<label for="cus_name">Pilih Pelanggan</label>
 						<select name="customer_id" id="customer_id" class="form-control" required>
 							<option value="">-pilih pelanggan-</option>
-							<?php foreach($customers as $cs): ?>
-								<option value="<?=$cs['customer_id']?>"><?=$cs['customer_id'].' '.$cs['cus_name']?></option>
+							<?php foreach ($customers as $cs) : ?>
+								<option value="<?= $cs['customer_id'] ?>"><?= $cs['customer_id'] . ' ' . $cs['cus_name'] ?></option>
 							<?php endforeach ?>
 						</select>
 					</div>
@@ -119,8 +122,8 @@ $this->load->view('_partials/header');
 						<label for="cus_phone">Pilih Produk</label>
 						<select name="product_id" id="product_id" class="form-control" required>
 							<option value="">-pilih produk-</option>
-							<?php foreach($product as $pr): ?>
-								<option value="<?=$pr['product_id']?>"><?=$pr['product_id'].' '.$pr['product_name']?></option>
+							<?php foreach ($product as $pr) : ?>
+								<option value="<?= $pr['product_id'] ?>"><?= $pr['product_id'] . ' ' . $pr['product_name'] ?></option>
 							<?php endforeach ?>
 						</select>
 					</div>
@@ -134,7 +137,7 @@ $this->load->view('_partials/header');
 					</div>
 					<div class="form-group">
 						<label for="cus_email">Pembayaran</label>
-						<input type="text" name="sales_payment" value="" id="sales_payment" data-type="currency"  class="form-control" required>
+						<input type="text" name="sales_payment" value="" id="sales_payment" data-type="currency" class="form-control" required>
 					</div>
 				</div>
 				<div class="modal-footer">
@@ -147,24 +150,24 @@ $this->load->view('_partials/header');
 </div>
 
 
-	<script>
-		// Example starter JavaScript for disabling form submissions if there are invalid fields
-		(function() {
-			'use strict';
-			window.addEventListener('load', function() {
-				// Fetch all the forms we want to apply custom Bootstrap validation styles to
-				var forms = document.getElementsByClassName('needs-validation');
-				// Loop over them and prevent submission
-				var validation = Array.prototype.filter.call(forms, function(form) {
-					form.addEventListener('submit', function(event) {
-						if (form.checkValidity() === false) {
-							event.preventDefault();
-							event.stopPropagation();
-						}
-						form.classList.add('was-validated');
-					}, false);
-				});
-			}, false);
-		})();
-	</script>
+<script>
+	// Example starter JavaScript for disabling form submissions if there are invalid fields
+	(function() {
+		'use strict';
+		window.addEventListener('load', function() {
+			// Fetch all the forms we want to apply custom Bootstrap validation styles to
+			var forms = document.getElementsByClassName('needs-validation');
+			// Loop over them and prevent submission
+			var validation = Array.prototype.filter.call(forms, function(form) {
+				form.addEventListener('submit', function(event) {
+					if (form.checkValidity() === false) {
+						event.preventDefault();
+						event.stopPropagation();
+					}
+					form.classList.add('was-validated');
+				}, false);
+			});
+		}, false);
+	})();
+</script>
 <?php $this->load->view('_partials/footer'); ?>
