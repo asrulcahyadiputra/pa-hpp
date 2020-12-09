@@ -30,6 +30,7 @@ class Production extends CI_Controller
 			'title'		=> 'Hitung Biaya Produksi',
 			'orders'		=> $this->model->orders(),
 			'order'		=> $this->model->find_order($id),
+			'bom'		=> $this->model->find_bom($id),
 
 		];
 		$this->load->view('transactions/production/create_production', $data);
