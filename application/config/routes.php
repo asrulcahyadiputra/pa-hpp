@@ -132,3 +132,10 @@ $route['transaksi/create']								= 'transactions/Production/create';
 | -------------------------------------------------------------------------
 */
 $route['laporan/jurnal']							= 'reports/General_ledger';
+
+/*
+| -------------------------------------------------------------------------
+| Ledger
+| -------------------------------------------------------------------------
+*/
+$route['laporan/buku_besar']						= 'reports/Ledger';

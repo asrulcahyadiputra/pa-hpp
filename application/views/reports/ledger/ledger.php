@@ -43,7 +43,7 @@ $this->load->view('_partials/header');
 				<div class="col-4">
 					<div class="card mb-4">
 						<div class="card-body">
-							<form class="form-inline" method="POST" action="<?=site_url('laporan/jurnal')?>">
+							<form class="form-inline" method="POST" action="<?= site_url('laporan/jurnal') ?>">
 								<div class="input-group mb-2 mr-sm-2">
 									<div class="input-group-prepend">
 										<div class="input-group-text"><i class="fa fa-calendar"></i></div>
@@ -63,7 +63,7 @@ $this->load->view('_partials/header');
 									<div class="text-center">
 										<h4>KONVEKSI KEN JR</h4>
 										<h6>Jurnal Umum</h6>
-										<h6>Periode <?=bulan($month).' '.$year?></h6>
+										<h6>Periode <?= bulan($month) . ' ' . $year ?></h6>
 									</div>
 								</div>
 							</div>
@@ -81,47 +81,41 @@ $this->load->view('_partials/header');
 												</tr>
 											</thead>
 											<tbody>
-												<?php foreach($row_ledger as $r1): ?>
+												<?php foreach ($row_ledger as $r1) : ?>
 													<tr>
-														<td rowspan="<?=$r1['row']+1?>"><?=$r1['gl_date']?></td>
+														<td rowspan="<?= $r1['row'] + 1 ?>"><?= $r1['gl_date'] ?></td>
 													</tr>
-													<?php foreach($ledger as $r2): ?>
-														<?php if($r1['trans_id'] == $r2['trans_id']): ?>
-														<tr>
-															<?php if($r2['gl_balance'] == 'd'): ?>
-																<td><?=$r2['account_no'].' '.$r2['account_name']?></td>
-															<?php endif ?>
-															<?php if($r2['gl_balance'] == 'k'): ?>
-																<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?=$r2['account_no'].' '.$r2['account_name']?></td>
-															<?php endif ?>
-															<td><?=$r2['trans_id']?></td>
-															<td>
-																<span class="text-left">Rp</span>
-																<span style="float:right;">
-																	<?php if($r2['gl_balance'] == 'd')
-																	{
-																		echo nominal1($r2['nominal']);
-																	}
-																	else
-																	{
-																		echo "-";
-																	} ?>
-																</span>
-															</td>
-															<td>
-															<span class="text-left">Rp</span>
-																<span style="float:right;">
-																	<?php if($r2['gl_balance'] == 'k')
-																	{
-																		echo nominal1($r2['nominal']);
-																	}
-																	else
-																	{
-																		echo "-";
-																	} ?>
-																</span>
-															</td>
-														</tr>
+													<?php foreach ($ledger as $r2) : ?>
+														<?php if ($r1['trans_id'] == $r2['trans_id']) : ?>
+															<tr>
+																<?php if ($r2['gl_balance'] == 'd') : ?>
+																	<td><?= $r2['account_no'] . ' ' . $r2['account_name'] ?></td>
+																<?php endif ?>
+																<?php if ($r2['gl_balance'] == 'k') : ?>
+																	<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?= $r2['account_no'] . ' ' . $r2['account_name'] ?></td>
+																<?php endif ?>
+																<td><?= $r2['trans_id'] ?></td>
+																<td>
+																	<span class="text-left">Rp</span>
+																	<span style="float:right;">
+																		<?php if ($r2['gl_balance'] == 'd') {
+																			echo nominal1($r2['nominal']);
+																		} else {
+																			echo "-";
+																		} ?>
+																	</span>
+																</td>
+																<td>
+																	<span class="text-left">Rp</span>
+																	<span style="float:right;">
+																		<?php if ($r2['gl_balance'] == 'k') {
+																			echo nominal1($r2['nominal']);
+																		} else {
+																			echo "-";
+																		} ?>
+																	</span>
+																</td>
+															</tr>
 														<?php endif ?>
 													<?php endforeach ?>
 												<?php endforeach ?>
