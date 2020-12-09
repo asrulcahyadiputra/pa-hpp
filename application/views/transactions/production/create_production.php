@@ -42,14 +42,17 @@ $this->load->view('_partials/header');
 			<div class="row mt-4">
 				<div class="col-12">
 					<div class="card">
+						<div class="card-header">
+							<h6 class="card-title">Cari Pesanan</h6>
+						</div>
 						<div class="card-body">
 							<form class="form-inline">
 								<label class="sr-only" for="inlineFormInputName2">Name</label>
 								<div class="input-group mb-2 mr-sm-2">
-									<select name="" id="" class="form-control">
+									<select name="id_transaksi" id="id_transaksi" class="form-control">
 										<option value="">-pilih pesanan untuk dihitung--</option>
-										<?php foreach($orders as $or): ?>
-											<option value="<?=$or['trans_id']?>"><?=$or['trans_id'].'-'.$or['cus_name'].'-'.$or['product_name']?></option>
+										<?php foreach ($orders as $or) : ?>
+											<option value="<?= $or['trans_id'] ?>"><?= $or['trans_id'] . '-' . $or['cus_name'] . '-' . $or['product_name'] ?></option>
 										<?php endforeach ?>
 									</select>
 								</div>
@@ -60,6 +63,29 @@ $this->load->view('_partials/header');
 				</div>
 				<div class="col-12 mt-2">
 					<div class="card">
+						<div class="card-header">
+							<h6 class="card-title">Data Pesanan</h6>
+						</div>
+						<div class="card-body">
+
+						</div>
+					</div>
+				</div>
+				<div class="col-6 mt-2">
+					<div class="card">
+						<div class="card-header">
+							<h6 class="card-title">Kebutuhan Bahan Baku (<i>Direct Materials</i>)</h6>
+						</div>
+						<div class="card-body">
+
+						</div>
+					</div>
+				</div>
+				<div class="col-6 mt-2">
+					<div class="card">
+						<div class="card-header">
+							<h6 class="card-title">Kebutuhan Bahan Penolong </h6>
+						</div>
 						<div class="card-body">
 
 						</div>

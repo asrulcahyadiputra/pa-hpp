@@ -1,38 +1,42 @@
-<?php 
+<?php
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Production extends CI_Controller {
-	
+class Production extends CI_Controller
+{
+
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('M_production','model');
-		
+		$this->load->model('M_production', 'model');
 	}
-	
+
 	public function index()
 	{
-		$data=[
+		$data = [
 			'title'		=> 'Produksi'
 		];
 		$this->load->view('transactions/production/production_list', $data);
-		
 	}
-	public function create(){
-		$data=[
+	public function create()
+	{
+		$id_transaksi = $this->input->post('id_transaksi');
+		if ($id_transaksi === null) {
+			$id = '';
+		} else {
+			$id = $id_transaksi;
+		}
+		$data = [
 			'title'		=> 'Hitung Biaya Produksi',
-			'orders'		=> $this->model->orders()
+			'orders'		=> $this->model->orders(),
+			'order'		=> $this->model->find_order($id),
+
 		];
 		$this->load->view('transactions/production/create_production', $data);
 	}
-	public function conversion(){
-
+	public function conversion()
+	{
 	}
-
 }
 
 /* End of file Production.php */
-
-
-?>
