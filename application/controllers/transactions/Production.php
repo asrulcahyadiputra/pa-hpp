@@ -14,7 +14,8 @@ class Production extends CI_Controller
 	public function index()
 	{
 		$data = [
-			'title'		=> 'Produksi'
+			'title'		=> 'Produksi',
+			'all'		=> $this->model->all()
 		];
 		$this->load->view('transactions/production/production_list', $data);
 	}
@@ -98,7 +99,7 @@ class Production extends CI_Controller
 	{
 		$request = $this->model->done_production($trans_id);
 		$this->session->set_flashdata('success', 'Perhitungan Biaya Produksi Berhasil Dilakukan  !');
-		redirect('transaksi/produksi/production_step/' . $trans_id);
+		redirect('transaksi/produksi');
 	}
 }
 

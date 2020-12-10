@@ -213,7 +213,7 @@ $this->load->view('_partials/header');
 								</table>
 								<?php if ($production['production_step'] == 3) : ?>
 									<div class="text-right">
-										<a href="<?= site_url('done/production/' . $production['trans_id']) ?>" class="btn btn-success">Lakukan Produksi Sekarang</a>
+										<a href="<?= site_url('transaksi/produksi/selesai/' . $production['trans_id']) ?>" class="btn btn-success">Perhitungan Selesai</a>
 									</div>
 								<?php endif ?>
 							</div>

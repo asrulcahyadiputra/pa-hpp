@@ -70,7 +70,7 @@ $this->load->view('_partials/header');
 							<div class="row">
 								<div class="col-12">
 									<div class="table-responsive">
-										<table class="table table-sm table-bordered">
+										<table class="table table-bordered">
 											<thead>
 												<tr>
 													<th>Tanggal</th>

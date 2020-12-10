@@ -4,6 +4,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class M_production extends CI_Model
 {
+	public function all()
+	{
+		return $this->db->get_where('transactions', ['trans_type' => 'production'])->result_array();
+	}
 	public function employee()
 	{
 		return $this->db->get_where('employees', ['status' => 1])->result_array();
@@ -20,6 +24,7 @@ class M_production extends CI_Model
 			->join('orders as b', 'a.trans_id=b.trans_id')
 			->join('customers as c', 'c.customer_id=a.customer_id')
 			->join('products as d', 'd.product_id=b.product_id')
+			->where('a.status', 0)
 			->order_by('a.trans_id', 'ASC');
 		return $this->db->get()->result_array();
 	}
@@ -69,6 +74,7 @@ class M_production extends CI_Model
 		$transaksi = [
 			'trans_id'			=> $id_transaksi,
 			'ref_production'		=> $id_transaksi_order,
+			'production_step'		=> 1,
 			'trans_type'			=> 'production'
 		];
 		// update transactions for transaction type -order
@@ -256,9 +262,123 @@ class M_production extends CI_Model
 		$order = $this->find_order($tras['ref_production']);
 		return $order;
 	}
-
+	private function bbp($trans_id)
+	{
+		$this->db->select('sum(unit_price*qty)as bbp')
+			->from('direct_material_cost')
+			->where('trans_id', $trans_id)
+			->where('type', 'BBP')
+			->group_by('type');
+		return $this->db->get()->row_array();
+	}
 	public function done_production($trans_id)
 	{
+		$p_cost 			= $this->production_costs($trans_id);
+		$production 		=  $this->db->get_where('transactions', ['trans_id' => $trans_id])->row_array(); //data hasil perhitungan biaya produksi
+		$production_cost 	= $p_cost['material_cost'] + $p_cost['direct_labor_cost'] + $p_cost['overhead_cost']; //total biaya produksi
+		$order 			= $this->db->get_where('transactions', ['trans_id' => $production['ref_production']])->row_array(); //data pesanan
+		$payment 			= $this->db->get_where('payments', ['trans_id' => $production['ref_production']])->row_array(); //Pendapatan diterima dimuka
+		$bbp				= $this->bbp($trans_id);
+		$transaksi = [
+			'status'					=> 1,
+			'production_step'			=> 4, //hpp selesai
+			'trans_total'				=> $production_cost
+		];
+		$tras_order = [
+			'status'					=> 2
+		];
+		$gl = [
+			[
+				'account_no'	     => '2-10001',
+				'trans_id'		=> $trans_id,
+				'nominal'			=> $payment['nominal'],
+				'gl_balance'		=> 'd'
+			],
+			[
+				'account_no'	     => '1-10002',
+				'trans_id'		=> $trans_id,
+				'nominal'			=> $order['trans_total'] - $payment['nominal'],
+				'gl_balance'		=> 'd'
+			],
+			[
+				'account_no'	     => '4-10001',
+				'trans_id'		=> $trans_id,
+				'nominal'			=> $order['trans_total'],
+				'gl_balance'		=> 'k'
+			],
+			[
+				'account_no'	     => '5-20001',
+				'trans_id'		=> $trans_id,
+				'nominal'			=> $p_cost['material_cost'],
+				'gl_balance'		=> 'd'
+			],
+			[
+				'account_no'	     => '1-10003',
+				'trans_id'		=> $trans_id,
+				'nominal'			=> $p_cost['material_cost'],
+				'gl_balance'		=> 'k'
+			],
+			[
+				'account_no'	     => '5-20004',
+				'trans_id'		=> $trans_id,
+				'nominal'			=> $bbp['bbp'],
+				'gl_balance'		=> 'd'
+			],
+			[
+				'account_no'	     => '1-10004',
+				'trans_id'		=> $trans_id,
+				'nominal'			=> $bbp['bbp'],
+				'gl_balance'		=> 'k'
+			],
+			[
+				'account_no'	     => '5-20003',
+				'trans_id'		=> $trans_id,
+				'nominal'			=> $p_cost['overhead_cost'],
+				'gl_balance'		=> 'd'
+			],
+			[
+				'account_no'	     => '5-20005',
+				'trans_id'		=> $trans_id,
+				'nominal'			=> $p_cost['overhead_cost'],
+				'gl_balance'		=> 'k'
+			],
+			[
+				'account_no'	     => '1-10005',
+				'trans_id'		=> $trans_id,
+				'nominal'			=> $production_cost,
+				'gl_balance'		=> 'd'
+			],
+			[
+				'account_no'	     => '5-20001',
+				'trans_id'		=> $trans_id,
+				'nominal'			=> $p_cost['material_cost'],
+				'gl_balance'		=> 'k'
+			],
+			[
+				'account_no'	     => '5-20002',
+				'trans_id'		=> $trans_id,
+				'nominal'			=> $p_cost['direct_labor_cost'],
+				'gl_balance'		=> 'k'
+			],
+			[
+				'account_no'	     => '5-20003',
+				'trans_id'		=> $trans_id,
+				'nominal'			=> $p_cost['overhead_cost'],
+				'gl_balance'		=> 'k'
+			],
+		];
+
+		// echo "<pre>";
+		// print_r($transaksi);
+		// print_r($gl);
+		// echo "</pre>";
+		// die;
+
+		$this->db->trans_start();
+		$this->db->update('transactions', $transaksi, ['trans_id' => $trans_id]);
+		$this->db->update('transactions', $tras_order, ['trans_id' => $production['ref_production']]);
+		$this->db->insert_batch('general_ledger', $gl);
+		$this->db->trans_complete();
 	}
 }
 

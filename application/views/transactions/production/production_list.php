@@ -51,13 +51,32 @@ $this->load->view('_partials/header');
 											<th>#</th>
 											<th>Kode Transaksi</th>
 											<th>Tanggal</th>
-											<th>Total</th>
+											<th>Biaya Produksi</th>
 											<th>Status</th>
 											<th class="no-content"></th>
 										</tr>
 									</thead>
 									<tbody>
-
+										<?php $no = 1;
+										foreach ($all as $row) : ?>
+											<tr>
+												<td><?= $no++ ?></td>
+												<td><?= $row['trans_id'] ?></td>
+												<td><?= date('d-m-Y H:i:s', strtotime($row['trans_date'])) ?></td>
+												<td><?= nominal($row['trans_total']) ?></td>
+												<td>
+													<?php if ($row['status'] == 0) : ?>
+														<span class="text-primary"><i class="fa fa-lock"></i> <i class="fa fa-clock"></i> Proses Produksi</span>
+													<?php endif ?>
+													<?php if ($row['status'] == 1) : ?>
+														<span class="text-success"><i class="fa fa-lock"></i> <i class="fa fa-check"></i>Selesai Produksi</span>
+													<?php endif ?>
+												</td>
+												<td>
+													<a href="<?= site_url('transaksi/produksi/production_step/' . $row['trans_id']) ?>" class="btn btn-info"><i class="fa fa-list"></i></a>
+												</td>
+											</tr>
+										<?php endforeach ?>
 									</tbody>
 								</table>
 							</div>
