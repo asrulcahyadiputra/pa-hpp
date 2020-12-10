@@ -15,7 +15,7 @@ $this->load->view('_partials/header');
 		</div>
 
 		<div class="section-body">
-			<a href="<?=site_url('transaksi/create')?>" class="btn btn-primary"><i class="fas fa-square-root-alt"></i> Hitung Biaya Produksi</a>
+			<a href="<?= site_url('transaksi/produksi/create') ?>" class="btn btn-primary"><i class="fas fa-square-root-alt"></i> Hitung Biaya Produksi</a>
 			<?php if ($this->session->flashdata('success')) : ?>
 				<div class="alert alert-success alert-dismissible fade show mt-3 col-md-4" role="alert">
 					<strong>Berhasil !</strong> <?= $this->session->flashdata('success') ?>
@@ -57,7 +57,7 @@ $this->load->view('_partials/header');
 										</tr>
 									</thead>
 									<tbody>
-									
+
 									</tbody>
 								</table>
 							</div>

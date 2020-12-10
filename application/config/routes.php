@@ -119,7 +119,16 @@ $route['transaksi/pembelian/store/(:any)/(:any)/(:any)/(:any)']	= 'transactions/
 | -------------------------------------------------------------------------
 */
 $route['transaksi/produksi']								= 'transactions/Production';
-$route['transaksi/create']								= 'transactions/Production/create';
+$route['transaksi/produksi/create']						= 'transactions/Production/create';
+$route['transaksi/produksi/konversi/(:any)']					= 'transactions/Production/conversion/$1';
+$route['transaksi/produksi/production_step/(:any)']			= 'transactions/Production/production_step/$1';
+$route['store/btkl']									= 'transactions/Production/store_btkl';
+$route['delete/btkl/(:any)/(:any)']						= 'transactions/Production/delete_btkl/$1/$2';
+$route['done/btkl/(:any)/(:any)']							= 'transactions/Production/done_btkl/$1/$2';
+$route['store/bop']										= 'transactions/Production/store_bop';
+$route['delete/bop/(:any)/(:any)']							= 'transactions/Production/delete_bop/$1/$2';
+$route['done/bop/(:any)/(:any)']							= 'transactions/Production/done_bop/$1/$2';
+$route['transaksi/produksi/selesai/(:any)']					= 'transactions/Production/done_production/$1';
 
 
 ##########################################################################
@@ -131,11 +140,11 @@ $route['transaksi/create']								= 'transactions/Production/create';
 | General Ledger
 | -------------------------------------------------------------------------
 */
-$route['laporan/jurnal']							= 'reports/General_ledger';
+$route['laporan/jurnal']									= 'reports/General_ledger';
 
 /*
 | -------------------------------------------------------------------------
 | Ledger
 | -------------------------------------------------------------------------
 */
-$route['laporan/buku_besar']						= 'reports/Ledger';
+$route['laporan/buku_besar']								= 'reports/Ledger';
