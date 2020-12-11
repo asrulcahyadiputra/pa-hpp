@@ -15,7 +15,7 @@ $this->load->view('_partials/header');
 		</div>
 
 		<div class="section-body">
-			<button class="btn btn-primary" data-toggle="modal" data-target="#addCoa"><i class="fas fa-plus"></i> Buat <?=$title?></button>
+			<button class="btn btn-primary" data-toggle="modal" data-target="#addCoa"><i class="fas fa-plus"></i> Buat <?= $title ?></button>
 			<?php if ($this->session->flashdata('success')) : ?>
 				<div class="alert alert-success alert-dismissible fade show mt-3 col-md-4" role="alert">
 					<strong>Berhasil !</strong> <?= $this->session->flashdata('success') ?>
@@ -55,38 +55,44 @@ $this->load->view('_partials/header');
 										</tr>
 									</thead>
 									<tbody>
-										<?php $no=1; foreach ($head as $h) : ?>
-										<tr>
-											<td><?= $no++ ?></td>
-											<td><b><?= $h['head_code'] . ' ' . $h['name'] ?></b></td>
-											<td></td>
-											<td></td>
-										</tr>
-										<?php foreach ($sub as $s) : ?>
-											<?php if ($s['head_code'] == $h['head_code']) : ?>
-												<tr>
-													<td><?= $no++ ?></td>
-													<td><b>&nbsp;&nbsp;&nbsp;<?= $s['sub_code'] . ' ' . $s['name'] ?></b></td>
-													<td></td>
-													<td></td>
-												</tr>
-											<?php foreach ($all as $row) : ?>
-												<?php if ($s['sub_code'] == $row['sub_code']) : ?>
-														<tr>
-															<td><?= $no++ ?></td>
-															<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <?= $row['account_no'] . ' ' . $row['account_name'] ?></td>
-															<td><?php
-																if ($row['normal_balance'] == 'd') {
-																	echo "Debet";
-																} else {
-																	echo "Kredit";
-																}
-																?></td>
-															<td class="text-center">
-																	<button type="button" class="btn btn-info mb-2" data-toggle="modal" data-target="#editCoa<?= $row['account_no'] ?>">Edit</button>
-																
-															</td>
-														</tr>
+										<?php $no = 1;
+										foreach ($head as $h) : ?>
+											<tr>
+												<td><?= $no++ ?></td>
+												<td><b><?= $h['head_code'] . ' ' . $h['name'] ?></b></td>
+												<td></td>
+												<td></td>
+											</tr>
+											<?php foreach ($sub as $s) : ?>
+												<?php if ($s['head_code'] == $h['head_code']) : ?>
+													<tr>
+														<td><?= $no++ ?></td>
+														<td><b>&nbsp;&nbsp;&nbsp;<?= $s['sub_code'] . ' ' . $s['name'] ?></b></td>
+														<td></td>
+														<td></td>
+													</tr>
+													<?php foreach ($all as $row) : ?>
+														<?php if ($s['sub_code'] == $row['sub_code']) : ?>
+															<tr>
+																<td><?= $no++ ?></td>
+																<td>
+																	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+																	<?= $row['account_no'] . ' ' . $row['account_name'] ?>
+																	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+																	<i class="<?= $row['manual_entry'] == 0 ? 'fa fa-lock' : 'fa fa-lock-open' ?>"></i>
+																</td>
+
+																<td><?php
+																	if ($row['normal_balance'] == 'd') {
+																		echo "Debet";
+																	} else {
+																		echo "Kredit";
+																	}
+																	?></td>
+																<td class="text-center">
+																	<button type="button" class="btn btn-info mb-2" <?= $row['manual_entry'] == 0 ? 'disabled' : '' ?> data-toggle="modal" data-target="#editCoa<?= $row['account_no'] ?>">Edit</button>
+																</td>
+															</tr>
 														<?php endif ?>
 													<?php endforeach ?>
 												<?php endif ?>
@@ -154,65 +160,65 @@ $this->load->view('_partials/header');
 </div>
 <!-- eedit coa -->
 <?php foreach ($all as $row) : ?>
-		<div class="modal fade" id="editCoa<?= $row['account_no'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Edit Cara Pembayaran</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<form action="<?= site_url('master/coa/update') ?>" method="POST" class="needs-validation" novalidate>
-						<div class="modal-body">
-							<div class="form-group">
-								<label>Kode CoA</label>
-								<input type="text" value="<?= $row['account_no'] ?>" class="form-control" name="account_no" readonly>
-							</div>
-							<div class="form-group">
-								<label>Nama CoA</label>
-								<input type="text" class="form-control" value="<?= $row['account_name'] ?>" name="account_name" required>
-							</div>
-							<div class="form-group">
-								<label>Normal Balance</label><br>
-								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="normal_balance" id="inlineRadio1" value="d" <?= $row['normal_balance'] == 'd' ? 'checked' : '' ?>>
-									<label class="form-check-label" for="inlineRadio1">Debet</label>
-								</div>
-								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="normal_balance" id="inlineRadio2" value="k" <?= $row['normal_balance'] == 'k' ? 'checked' : '' ?>>
-									<label class="form-check-label" for="inlineRadio2">Kredit</label>
-								</div>
-							</div>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-danger" data-dismiss="modal">Batalkan</button>
-							<button type="sumbit" class="btn btn-primary">Simpan Perubahan</button>
-						</div>
-					</form>
+	<div class="modal fade" id="editCoa<?= $row['account_no'] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Edit Cara Pembayaran</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
 				</div>
+				<form action="<?= site_url('master/coa/update') ?>" method="POST" class="needs-validation" novalidate>
+					<div class="modal-body">
+						<div class="form-group">
+							<label>Kode CoA</label>
+							<input type="text" value="<?= $row['account_no'] ?>" class="form-control" name="account_no" readonly>
+						</div>
+						<div class="form-group">
+							<label>Nama CoA</label>
+							<input type="text" class="form-control" value="<?= $row['account_name'] ?>" name="account_name" required>
+						</div>
+						<div class="form-group">
+							<label>Normal Balance</label><br>
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="radio" name="normal_balance" id="inlineRadio1" value="d" <?= $row['normal_balance'] == 'd' ? 'checked' : '' ?>>
+								<label class="form-check-label" for="inlineRadio1">Debet</label>
+							</div>
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="radio" name="normal_balance" id="inlineRadio2" value="k" <?= $row['normal_balance'] == 'k' ? 'checked' : '' ?>>
+								<label class="form-check-label" for="inlineRadio2">Kredit</label>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Batalkan</button>
+						<button type="sumbit" class="btn btn-primary">Simpan Perubahan</button>
+					</div>
+				</form>
 			</div>
 		</div>
-	<?php endforeach ?>
+	</div>
+<?php endforeach ?>
 
-	<script>
-		// Example starter JavaScript for disabling form submissions if there are invalid fields
-		(function() {
-			'use strict';
-			window.addEventListener('load', function() {
-				// Fetch all the forms we want to apply custom Bootstrap validation styles to
-				var forms = document.getElementsByClassName('needs-validation');
-				// Loop over them and prevent submission
-				var validation = Array.prototype.filter.call(forms, function(form) {
-					form.addEventListener('submit', function(event) {
-						if (form.checkValidity() === false) {
-							event.preventDefault();
-							event.stopPropagation();
-						}
-						form.classList.add('was-validated');
-					}, false);
-				});
-			}, false);
-		})();
-	</script>
+<script>
+	// Example starter JavaScript for disabling form submissions if there are invalid fields
+	(function() {
+		'use strict';
+		window.addEventListener('load', function() {
+			// Fetch all the forms we want to apply custom Bootstrap validation styles to
+			var forms = document.getElementsByClassName('needs-validation');
+			// Loop over them and prevent submission
+			var validation = Array.prototype.filter.call(forms, function(form) {
+				form.addEventListener('submit', function(event) {
+					if (form.checkValidity() === false) {
+						event.preventDefault();
+						event.stopPropagation();
+					}
+					form.classList.add('was-validated');
+				}, false);
+			});
+		}, false);
+	})();
+</script>
 <?php $this->load->view('_partials/footer'); ?>
