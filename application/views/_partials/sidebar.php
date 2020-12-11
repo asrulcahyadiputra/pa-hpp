@@ -38,9 +38,18 @@ defined('BASEPATH') or exit('No direct script access allowed');
 			<li class="dropdown <?php echo $this->uri->segment(1) == 'laporan'  ? 'active' : ''; ?>">
 				<a href="#" class="nav-link has-dropdown"><i class="fas fa-book"></i> <span>Laporan</span></a>
 				<ul class="dropdown-menu">
-					<li class="<?php echo $this->uri->segment(2) == 'jurnal' ? 'active' : ''; ?>"><a class="nav-link" href="<?php echo base_url(); ?>laporan/jurnal">Jurnal Umum</a></li>
-					<li class="<?php echo $this->uri->segment(2) == 'buku_besar' ? 'active' : ''; ?>"><a class="nav-link" href="<?php echo base_url(); ?>laporan/buku_besar">Buku Besar</a></li>
-					<li class="<?php echo $this->uri->segment(2) == 'features_posts' ? 'active' : ''; ?>"><a class="nav-link" href="<?php echo base_url(); ?>dist/features_posts">Harga Pokok Produksi</a></li>
+					<li class="<?php echo $this->uri->segment(2) == 'jurnal' ? 'active' : ''; ?>">
+						<a class="nav-link" href="<?php echo base_url(); ?>laporan/jurnal">Jurnal Umum</a>
+					</li>
+					<li class="<?php echo $this->uri->segment(2) == 'buku_besar' ? 'active' : ''; ?>">
+						<a class="nav-link" href="<?php echo base_url(); ?>laporan/buku_besar">Buku Besar</a>
+					</li>
+					<li class="<?php echo $this->uri->segment(2) == 'kartu_pesanan' ? 'active' : ''; ?>">
+						<a class="nav-link" href="<?php echo base_url(); ?>laporan/kartu_pesanan">Kartu Pesanan</a>
+					</li>
+					<li class="<?php echo $this->uri->segment(2) == 'features_posts' ? 'active' : ''; ?>">
+						<a class="nav-link" href="<?php echo base_url(); ?>dist/features_posts">Harga Pokok Produksi</a>
+					</li>
 				</ul>
 			</li>
 		</ul>
