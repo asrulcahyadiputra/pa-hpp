@@ -64,14 +64,7 @@ $this->load->view('_partials/header');
 										foreach ($all as $row) : ?>
 											<tr>
 												<td><?= $no++ ?></td>
-												<td>
-													<?php if ($row['status'] == 2) : ?>
-														<a href="<?= site_url('transaksi/pesanan/kartu_pesanan/' . $row['trans_id']) ?>"><?= $row['trans_id'] ?></a>
-													<?php endif ?>
-													<?php if ($row['status'] == 1 || $row['status'] == 0) : ?>
-														<?= $row['trans_id'] ?>
-													<?php endif ?>
-												</td>
+												<td><?= $row['trans_id'] ?></td>
 												<td><?= date('d-m-Y', strtotime($row['trans_date'])) ?></td>
 												<td><?= $row['cus_name'] ?></td>
 												<td><?= $row['product_name'] ?></td>
