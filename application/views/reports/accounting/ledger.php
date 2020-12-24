@@ -105,8 +105,8 @@ $this->load->view('_partials/header');
 													<td>
 														<span class="text-left">Rp</span>
 														<span style="float:right;">
-															<?php if ($first['normal_balance'] == 'd') {
-																$saldo_awal = $first['debet'] - $first['kredit'];
+															<?php if ($first['saldo_normal'] == 'd') {
+																$saldo_awal = $first['opening_debet'] - $first['opening_kredit'];
 															} else {
 																$saldo_awal = 0;
 															} ?>
@@ -117,8 +117,8 @@ $this->load->view('_partials/header');
 													<td>
 														<span class="text-left">Rp</span>
 														<span style="float:right;">
-															<?php if ($first['normal_balance'] == 'k') {
-																$saldo_awal = $first['kredit'] - $first['debet'];
+															<?php if ($first['saldo_normal'] == 'k') {
+																$saldo_awal = $first['opening_kredit'] - $first['opening_debet'];
 															} else {
 																$saldo_awal = 0;
 															} ?>
@@ -160,7 +160,7 @@ $this->load->view('_partials/header');
 															<span class="text-left">Rp</span>
 															<span style="float:right;">
 																<?php if ($b['normal_balance'] == 'd') {
-																	$saldo_awal = $first['debet'] - $first['kredit'];
+																	$saldo_awal = $first['opening_debet'] - $first['opening_kredit'];
 																	echo nominal1($saldo_awal + $debet);
 																} else {
 																	echo nominal1(0);

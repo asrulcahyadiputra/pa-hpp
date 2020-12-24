@@ -31,7 +31,7 @@ class Ledger extends CI_Controller
 			'sub'			=> $this->model->sub_akun(),
 			'list_akun'		=> $this->model->akun(),
 			'row_ledger'		=> $this->model->get_row_jurnal($y, $m),
-			'first'			=> $this->model->first_balance($y, $m, $a),
+			'first'			=> $this->model->first($y, $m, $a),
 			'month'			=> $m,
 			'year'			=> $y,
 			'akun'			=> $a
