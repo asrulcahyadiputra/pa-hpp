@@ -75,8 +75,8 @@ class M_ledger extends CI_Model
 		} else {
 			$saldo_awal = ($this->opening_balance1($y, $m, $a)->kredit - $this->opening_balance1($y, $m, $a)->debet) + ($this->opening_balance2($y, $a)->kredit - $this->opening_balance2($y, $a)->debet);
 		}
-		var_dump($saldo_awal);
-		die;
+		// var_dump($saldo_awal);
+		// die;
 		return $saldo_awal;
 	}
 	public function first($y, $m, $a)

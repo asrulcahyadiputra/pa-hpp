@@ -51,7 +51,7 @@ $this->load->view('_partials/header');
 											<th class="text-center">#</th>
 											<th><i>Chart of Account</i></th>
 											<th>Saldo Normal</th>
-											<th class="text-center">Aksi</th>
+											<th></th>
 										</tr>
 									</thead>
 									<tbody>
@@ -75,23 +75,22 @@ $this->load->view('_partials/header');
 														<?php if ($s['sub_code'] == $row['sub_code']) : ?>
 															<tr>
 																<td><?= $no++ ?></td>
+
 																<td>
 																	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 																	<?= $row['account_no'] . ' ' . $row['account_name'] ?>
-																	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-																	<i class="<?= $row['manual_entry'] == 0 ? 'fa fa-lock' : 'fa fa-lock-open' ?>"></i>
 																</td>
 
-																<td><?php
+																<td>
+																	<?php
 																	if ($row['normal_balance'] == 'd') {
 																		echo "Debet";
 																	} else {
 																		echo "Kredit";
 																	}
-																	?></td>
-																<td class="text-center">
-																	<button type="button" class="btn btn-info mb-2" <?= $row['manual_entry'] == 0 ? 'disabled' : '' ?> data-toggle="modal" data-target="#editCoa<?= $row['account_no'] ?>">Edit</button>
+																	?>
 																</td>
+																<td></td>
 															</tr>
 														<?php endif ?>
 													<?php endforeach ?>
