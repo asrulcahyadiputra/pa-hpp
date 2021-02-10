@@ -47,8 +47,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 					<li class="<?php echo $this->uri->segment(2) == 'kartu_pesanan' ? 'active' : ''; ?>">
 						<a class="nav-link" href="<?php echo base_url(); ?>laporan/kartu_pesanan">Kartu Pesanan</a>
 					</li>
-					<li class="<?php echo $this->uri->segment(2) == 'features_posts' ? 'active' : ''; ?>">
-						<a class="nav-link" href="<?php echo base_url(); ?>dist/features_posts">Harga Pokok Produksi</a>
+					<li class="<?php echo $this->uri->segment(2) == 'hpp' ? 'active' : ''; ?>">
+						<a class="nav-link" href="<?php echo base_url(); ?>laporan/hpp">Harga Pokok Produksi</a>
 					</li>
 				</ul>
 			</li>
