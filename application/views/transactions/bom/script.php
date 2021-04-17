@@ -39,6 +39,32 @@ defined('BASEPATH') or exit('No direct script access allowed');
             });
             return false;
         });
+        $('.btn-submit').click(function(e) {
+            e.preventDefault()
+            var transId = $('.btn-submit').attr('bom-id')
+            var BahanBakuRowCount = $('#tbl_posts >tbody >tr').length;
+            var BtklRowCount = $('#tbl_posts_btkl >tbody >tr').length;
+            var BopRowCount = $('#tbl_posts_bop >tbody >tr').length;
+            var html = ''
+            console.log('Klik Submit Handler')
+            console.log(transId)
+            console.log(BahanBakuRowCount)
+            console.log(BtklRowCount)
+            console.log(BopRowCount)
+            if (BahanBakuRowCount < 1 && BtklRowCount < 1 && BopRowCount < 1) {
+                $('#alertModal').modal('show')
+                html += `<p class="text-center">Bill of Material tidak valid, mohon cek kembali isian Anda</p>`
+                $('.modal-body').html(html)
+            } else if (BahanBakuRowCount < 1) {
+                $('#alertModal').modal('show')
+                html += `<p class="text-center">Tabel bahan baku (BB) tidak boleh kosong</p>`
+                $('.modal-body').html(html)
+            } else if (BtklRowCount < 1) {
+                $('#alertModal').modal('show')
+                html += `<p class="text-center">Tabel biaya tenaga kerja langsung (BTKL) tidak boleh kosong</p>`
+                $('.modal-body').html(html)
+            }
+        });
     });
 </script>
 <!-- material script -->
