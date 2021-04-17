@@ -15,9 +15,9 @@ class Bom extends CI_Controller {
 	public function index()
 	{
 		$data=[
-			'title'		=> 'Bill of Materials',
+			'title'			=> 'Bill of Materials',
 			'product'		=> $this->model->get_product(),
-			'all'		=> $this->model->get_bom()
+			'all'			=> $this->model->get_bom()
 		];
 		$this->load->view('transactions/bom/bom-list', $data);
 		
@@ -37,11 +37,11 @@ class Bom extends CI_Controller {
 		$validate = $this->db->get_where('transactions',['trans_id' => $trans_id,'status' => 0])->row_array();
 		if($validate){
 			$data=[
-				'title'		=> 'Draf Bill of Materials Baru',
-				'trans_id'	=> $trans_id,
-				'materials'	=> $this->model->get_materials(),
+				'title'			=> 'Draf Bill of Materials Baru',
+				'trans_id'		=> $trans_id,
+				'materials'		=> $this->model->get_materials(),
 				'product'		=> $this->model->select_product($trans_id),
-				'bom'		=> $this->model->select_bom($trans_id)
+				'bom'			=> $this->model->select_bom($trans_id)
 			];
 			$this->load->view('transactions/bom/create-bom', $data);
 		}else{
@@ -76,10 +76,10 @@ class Bom extends CI_Controller {
 			redirect('transaksi/bom/create/'.$trans_id);
 		}else{
 			$data=[
-				'title'		=> 'Bill of Materials',
-				'trans_id'	=> $trans_id,
+				'title'			=> 'Bill of Materials',
+				'trans_id'		=> $trans_id,
 				'product'		=> $this->model->select_product($trans_id),
-				'bom'		=> $this->model->select_bom($trans_id)
+				'bom'			=> $this->model->select_bom($trans_id)
 			];
 			$this->load->view('transactions/bom/detail-bom', $data);
 		}
@@ -101,5 +101,3 @@ class Bom extends CI_Controller {
 }
 
 /* End of file Bom.php */
-
-?>

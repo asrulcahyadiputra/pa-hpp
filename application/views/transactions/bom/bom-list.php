@@ -15,7 +15,7 @@ $this->load->view('_partials/header');
 		</div>
 
 		<div class="section-body">
-			<button class="btn btn-primary" data-toggle="modal" data-target="#addMaterial"><i class="fas fa-plus"></i> Buat <?=$title?> Baru</button>
+			<button class="btn btn-primary" data-toggle="modal" data-target="#addMaterial"><i class="fas fa-plus"></i> Buat <?= $title ?> Baru</button>
 			<?php if ($this->session->flashdata('success')) : ?>
 				<div class="alert alert-success alert-dismissible fade show mt-3 col-md-4" role="alert">
 					<strong>Berhasil !</strong> <?= $this->session->flashdata('success') ?>
@@ -57,24 +57,25 @@ $this->load->view('_partials/header');
 										</tr>
 									</thead>
 									<tbody>
-										<?php  $no=1;foreach($all as $bl): ?>
+										<?php $no = 1;
+										foreach ($all as $bl) : ?>
 											<tr>
-												<td><?=$no++?></td>
-												<td><?=$bl['trans_id']?></td>
-												<td><?=$bl['product_id'].' '.$bl['product_name']?></td>
-												<td><?=date('d-m-Y',strtotime($bl['date_created']))?></td>
+												<td><?= $no++ ?></td>
+												<td><?= $bl['trans_id'] ?></td>
+												<td><?= $bl['product_id'] . ' ' . $bl['product_name'] ?></td>
+												<td><?= date('d-m-Y', strtotime($bl['date_created'])) ?></td>
 												<td>
-													<?php if($bl['status'] == 0): ?>
-														<span class="text-warning">Open</span>
+													<?php if ($bl['status'] == 0) : ?>
+														<span class="text-success">Open</span>
 													<?php endif ?>
-													<?php if($bl['status'] == 1): ?>
+													<?php if ($bl['status'] == 1) : ?>
 														<span class="text-warning">Closed</span>
 													<?php endif ?>
 												</td>
 												<td class="text-center">
-													<a href="<?=site_url('transaksi/bom/show/'.$bl['trans_id'])?>" class="btn btn-info btn-sm mr-2"><i class="fa fa-list"></i></a>
-													<a href="<?=site_url('transaksi/bom/update/'.$bl['trans_id'])?>" class="btn btn-warning btn-sm mr-2"><i class="fa fa-edit"></i></a>
-													<a href="<?=site_url('transaksi/bom/delete/'.$bl['trans_id'])?>" class="btn btn-danger btn-sm mr-2"><i class="fa fa-trash"></i></a>
+													<a href="<?= site_url('transaksi/bom/show/' . $bl['trans_id']) ?>" class="btn btn-info btn-sm mr-2"><i class="fa fa-list"></i></a>
+													<a href="<?= site_url('transaksi/bom/update/' . $bl['trans_id']) ?>" class="btn btn-warning btn-sm mr-2"><i class="fa fa-edit"></i></a>
+													<a href="<?= site_url('transaksi/bom/delete/' . $bl['trans_id']) ?>" class="btn btn-danger btn-sm mr-2"><i class="fa fa-trash"></i></a>
 												</td>
 											</tr>
 										<?php endforeach ?>
@@ -95,7 +96,7 @@ $this->load->view('_partials/header');
 	<div class="modal-dialog modal-lg modal-dialog-centered">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Buat <?=$title?> Baru</h5>
+				<h5 class="modal-title" id="exampleModalLabel">Buat <?= $title ?> Baru</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -106,8 +107,8 @@ $this->load->view('_partials/header');
 						<label for="material_name">Pilih Produk</label>
 						<select name="product_id" id="product_id" class="form-control" required>
 							<option value="">Pilih Produk...</option>
-							<?php foreach($product as $pr): ?>
-								<option value="<?=$pr['product_id']?>"><?=$pr['product_id'].' '.$pr['product_name']?></option>
+							<?php foreach ($product as $pr) : ?>
+								<option value="<?= $pr['product_id'] ?>"><?= $pr['product_id'] . ' ' . $pr['product_name'] ?></option>
 							<?php endforeach ?>
 						</select>
 					</div>
