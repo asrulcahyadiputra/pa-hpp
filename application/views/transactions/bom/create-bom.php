@@ -110,7 +110,23 @@ $this->load->view('_partials/header');
 											</div>
 											<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
 												<div class="card-body">
-													Some placeholder content for the second accordion panel. This panel is hidden by default.
+													<div class="table-responsive">
+														<table class="table table-bordered table-sm table-striped" id="tbl_posts_btkl">
+															<thead>
+																<tr>
+																	<th class="text-center">#</th>
+																	<th>Bahan Baku</th>
+																	<th>Qty</th>
+																	<th class="no-content"></th>
+																</tr>
+															</thead>
+															<tbody>
+															<tbody id="tbl_posts_body_btkl" class="contents">
+
+															</tbody>
+														</table>
+														<a href="#" class="btn btn-secondary btn-sm btn-block add-record-btkl" data-added="0"><i class="fa fa-plus"></i> Tambah Baris</a>
+													</div>
 												</div>
 											</div>
 										</div>
@@ -124,7 +140,22 @@ $this->load->view('_partials/header');
 											</div>
 											<div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
 												<div class="card-body">
-													And lastly, the placeholder content for the third and final accordion panel. This panel is hidden by default.
+													<div class="table-responsive">
+														<table class="table table-bordered table-sm table-striped" id="tbl_posts_bop">
+															<thead>
+																<tr>
+																	<th class="text-center">#</th>
+																	<th>Bahan Baku</th>
+																	<th>Qty</th>
+																	<th class="no-content"></th>
+																</tr>
+															</thead>
+															<tbody id="tbl_posts_body_bop" class="contents">
+
+															</tbody>
+														</table>
+														<a href="#" class="btn btn-secondary btn-sm btn-block add-record-bop" data-added="0"><i class="fa fa-plus"></i> Tambah Baris</a>
+													</div>
 												</div>
 											</div>
 										</div>
@@ -161,6 +192,9 @@ $this->load->view('_partials/header');
 			<td>
 				<select name="kd_bahan[]" class="form-control" required>
 					<option value="">-pilih bahan baku-</option>
+					<?php foreach ($materials as $rowData) : ?>
+						<option value="<?= $rowData['material_id'] ?>"><?= $rowData['material_id'] . ' ' . $rowData['material_name'] . ' [Satuan:' . $rowData['material_unit'] . ']' ?></option>
+					<?php endforeach ?>
 				</select>
 			</td>
 			<td>
@@ -174,5 +208,59 @@ $this->load->view('_partials/header');
 		</tr>
 	</table>
 </div>
+
+<div class="invisible">
+	<table id="sample_table_btkl">
+		<tr>
+			<td class="text-center">
+				<span class="sn"></span>
+			</td>
+			<td>
+				<select name="kd_bahan[]" class="form-control" required>
+					<option value="">-pilih karyawan-</option>
+					<?php foreach ($materials as $rowData) : ?>
+						<option value="<?= $rowData['material_id'] ?>"><?= $rowData['material_id'] . ' ' . $rowData['material_name'] . ' [Satuan:' . $rowData['material_unit'] . ']' ?></option>
+					<?php endforeach ?>
+				</select>
+			</td>
+			<td>
+				<input type="number" name="qty_bb[]" class="form-control" min="1" value="1" required>
+			</td>
+			<td class="text-center">
+				<a href="#" class="text-danger  btn-icon delete-record-btkl" btkl-id="0">
+					<i class="fa fa-trash-alt"></i>
+				</a>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<div class="invisible">
+	<table id="sample_table_bop">
+		<tr>
+			<td class="text-center">
+				<span class="sn"></span>
+			</td>
+			<td>
+				<select name="kd_bahan[]" class="form-control" required>
+					<option value="">-pilih komponen-</option>
+					<?php foreach ($materials as $rowData) : ?>
+						<option value="<?= $rowData['material_id'] ?>"><?= $rowData['material_id'] . ' ' . $rowData['material_name'] . ' [Satuan:' . $rowData['material_unit'] . ']' ?></option>
+					<?php endforeach ?>
+				</select>
+			</td>
+			<td>
+				<input type="number" name="qty_bb[]" class="form-control" min="1" value="1" required>
+			</td>
+			<td class="text-center">
+				<a href="#" class="text-danger  btn-icon delete-record-bop" bop-id="0">
+					<i class="fa fa-trash-alt"></i>
+				</a>
+			</td>
+		</tr>
+	</table>
+</div>
+
+
 
 <?php $this->load->view('transactions/bom/script'); ?>

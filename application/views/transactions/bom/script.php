@@ -41,6 +41,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
         });
     });
 </script>
+<!-- material script -->
 <script type="text/javascript">
     jQuery(document).delegate('a.add-record', 'click', function(e) {
         console.log("add row")
@@ -67,6 +68,80 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
             //regnerate index number on table
             $('#tbl_posts_body tr').each(function(index) {
+                //alert(index);
+                $(this).find('span.sn').html(index + 1);
+            });
+            return true;
+        } else {
+            return false;
+        }
+    });
+</script>
+
+<!-- direct labor script -->
+<script type="text/javascript">
+    jQuery(document).delegate('a.add-record-btkl', 'click', function(e) {
+        console.log("add row")
+        e.preventDefault();
+        var content = jQuery('#sample_table_btkl tr'),
+            size = jQuery('#tbl_posts_btkl >tbody >tr').length + 1,
+            element = null,
+            element = content.clone();
+
+        element.attr('id', 'rec-btkl-' + size);
+        element.find('.delete-record-btkl').attr('btkl-id', size);
+        element.appendTo('#tbl_posts_body_btkl');
+        element.find('.sn').html(size);
+    });
+</script>
+<script>
+    jQuery(document).delegate('a.delete-record-btkl', 'click', function(e) {
+        e.preventDefault();
+        var didConfirm = confirm("Data BTKL dikembalikan, Anda yakin ?");
+        if (didConfirm == true) {
+            var id = jQuery(this).attr('btkl-id');
+            var targetDiv = jQuery(this).attr('targetDiv');
+            jQuery('#rec-btkl-' + id).remove();
+
+            //regnerate index number on table
+            $('#tbl_posts_body_btkl tr').each(function(index) {
+                //alert(index);
+                $(this).find('span.sn').html(index + 1);
+            });
+            return true;
+        } else {
+            return false;
+        }
+    });
+</script>
+
+<!-- overhead script -->
+<script type="text/javascript">
+    jQuery(document).delegate('a.add-record-bop', 'click', function(e) {
+        console.log("add row")
+        e.preventDefault();
+        var content = jQuery('#sample_table_bop tr'),
+            size = jQuery('#tbl_posts_bop >tbody >tr').length + 1,
+            element = null,
+            element = content.clone();
+
+        element.attr('id', 'rec-bop-' + size);
+        element.find('.delete-record-bop').attr('bop-id', size);
+        element.appendTo('#tbl_posts_body_bop');
+        element.find('.sn').html(size);
+    });
+</script>
+<script>
+    jQuery(document).delegate('a.delete-record-bop', 'click', function(e) {
+        e.preventDefault();
+        var didConfirm = confirm("Data BOP dikembalikan, Anda yakin ?");
+        if (didConfirm == true) {
+            var id = jQuery(this).attr('bop-id');
+            var targetDiv = jQuery(this).attr('targetDiv');
+            jQuery('#rec-bop-' + id).remove();
+
+            //regnerate index number on table
+            $('#tbl_posts_body_bop tr').each(function(index) {
                 //alert(index);
                 $(this).find('span.sn').html(index + 1);
             });
