@@ -63,6 +63,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 $('#alertModal').modal('show')
                 html += `<p class="text-center">Tabel biaya tenaga kerja langsung (BTKL) tidak boleh kosong</p>`
                 $('.modal-body').html(html)
+            } else if (BopRowCount < 1) {
+                $('#alertModal').modal('show')
+                html += `<p class="text-center">Tabel biaya overhead pabrik (BOP) tidak boleh kosong</p>`
+                $('.modal-body').html(html)
+            } else {
+                $('#createBom').submit()
             }
         });
     });

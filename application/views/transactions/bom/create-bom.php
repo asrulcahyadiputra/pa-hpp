@@ -65,7 +65,7 @@ $this->load->view('_partials/header');
 								</div>
 							</div>
 							<!-- form start -->
-							<form action="" method="POST">
+							<form action="<?= site_url("transaksi/bom/store/" . $trans_id) ?>" method="POST" id="createBom">
 								<div class="row">
 									<div class="col-12">
 										<div class="accordion" id="accordionExample">
@@ -193,7 +193,7 @@ $this->load->view('_partials/header');
 				<span class="sn"></span>
 			</td>
 			<td>
-				<select name="kd_bahan[]" class="form-control" required>
+				<select name="material_id[]" class="form-control" required>
 					<option value="">-pilih bahan baku-</option>
 					<?php foreach ($materials as $rowData) : ?>
 						<option value="<?= $rowData['material_id'] ?>"><?= $rowData['material_id'] . ' ' . $rowData['material_name'] . ' [Satuan:' . $rowData['material_unit'] . ']' ?></option>
@@ -221,13 +221,13 @@ $this->load->view('_partials/header');
 			<td>
 				<select name="employee_id[]" class="form-control" required>
 					<option value="">-pilih karyawan-</option>
-					<?php foreach ($materials as $rowData) : ?>
-						<option value="<?= $rowData['material_id'] ?>"><?= $rowData['material_id'] . ' ' . $rowData['material_name'] . ' [Satuan:' . $rowData['material_unit'] . ']' ?></option>
+					<?php foreach ($employees as $rowData) : ?>
+						<option value="<?= $rowData['employee_id'] ?>"><?= $rowData['employee_id'] . ' ' . $rowData['employee_name'] ?></option>
 					<?php endforeach ?>
 				</select>
 			</td>
 			<td>
-				<input type="number" name="cost[]" class="form-control" min="1" value="1" required>
+				<input type="number" name="cost[]" class="form-control" min="1" value="100" required>
 			</td>
 			<td class="text-center">
 				<a href="#" class="text-danger  btn-icon delete-record-btkl" btkl-id="0">
@@ -247,8 +247,8 @@ $this->load->view('_partials/header');
 			<td>
 				<select name="oc_id[]" class="form-control" required>
 					<option value="">-pilih komponen-</option>
-					<?php foreach ($materials as $rowData) : ?>
-						<option value="<?= $rowData['material_id'] ?>"><?= $rowData['material_id'] . ' ' . $rowData['material_name'] . ' [Satuan:' . $rowData['material_unit'] . ']' ?></option>
+					<?php foreach ($bop as $rowData) : ?>
+						<option value="<?= $rowData['oc_id'] ?>"><?= $rowData['oc_id'] . ' ' . $rowData['name']  ?></option>
 					<?php endforeach ?>
 				</select>
 			</td>
