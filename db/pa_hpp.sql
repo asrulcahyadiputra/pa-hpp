@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 4.9.7
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Dec 01, 2020 at 07:53 AM
--- Server version: 5.7.26
--- PHP Version: 7.3.8
+-- Generation Time: Apr 20, 2021 at 01:59 PM
+-- Server version: 5.7.32
+-- PHP Version: 7.4.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -23,22 +23,29 @@ SET time_zone = "+00:00";
 CREATE TABLE `bill_of_materials` (
   `bom_id` bigint(20) NOT NULL,
   `trans_id` varchar(50) NOT NULL,
-  `material_id` varchar(50) NOT NULL,
-  `qty` float NOT NULL,
-  `unit` varchar(100) NOT NULL
+  `material_id` varchar(50) DEFAULT NULL,
+  `qty` float DEFAULT NULL,
+  `unit` varchar(100) DEFAULT NULL,
+  `employee_id` varchar(50) DEFAULT NULL,
+  `cost` int(11) DEFAULT NULL,
+  `oc_id` char(5) DEFAULT NULL,
+  `overhead_cost` double DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `bill_of_materials`
 --
 
-INSERT INTO `bill_of_materials` (`bom_id`, `trans_id`, `material_id`, `qty`, `unit`) VALUES
-(16, 'TRX-BOM-000000001', 'MTR-0001', 2.5, 'Meter'),
-(17, 'TRX-BOM-000000001', 'MTR-0005', 5, 'Roll'),
-(18, 'TRX-BOM-000000001', 'MTR-0008', 1, 'Pcs'),
-(19, 'TRX-BOM-000000002', 'MTR-0004', 1.5, 'Meter'),
-(20, 'TRX-BOM-000000002', 'MTR-0005', 1, 'Roll'),
-(21, 'TRX-BOM-000000002', 'MTR-0008', 1, 'Pcs');
+INSERT INTO `bill_of_materials` (`bom_id`, `trans_id`, `material_id`, `qty`, `unit`, `employee_id`, `cost`, `oc_id`, `overhead_cost`) VALUES
+(16, 'TRX-BOM-000000001', 'MTR-0001', 2.5, 'Meter', NULL, NULL, NULL, NULL),
+(17, 'TRX-BOM-000000001', 'MTR-0005', 5, 'Roll', NULL, NULL, NULL, NULL),
+(18, 'TRX-BOM-000000001', 'MTR-0008', 1, 'Pcs', NULL, NULL, NULL, NULL),
+(19, 'TRX-BOM-000000002', 'MTR-0004', 1.5, 'Meter', NULL, NULL, NULL, NULL),
+(20, 'TRX-BOM-000000002', 'MTR-0005', 1, 'Roll', NULL, NULL, NULL, NULL),
+(21, 'TRX-BOM-000000002', 'MTR-0008', 1, 'Pcs', NULL, NULL, NULL, NULL),
+(25, 'TRX-BOM-000000004', NULL, NULL, NULL, 'KAR-0002', 100, NULL, NULL),
+(26, 'TRX-BOM-000000004', 'MTR-0001', 1, NULL, NULL, NULL, NULL, NULL),
+(27, 'TRX-BOM-000000004', NULL, NULL, NULL, NULL, NULL, 'OV02', 100);
 
 -- --------------------------------------------------------
 
@@ -398,7 +405,8 @@ INSERT INTO `raw_materials` (`material_id`, `material_name`, `material_stock`, `
 ('MTR-0001', 'Kain Katun', 0, 'Meter', 'BBB', 0, '2020-10-22 20:24:59', NULL, NULL),
 ('MTR-0004', 'Cotton Combed 40S', 0, 'Meter', 'BBB', 0, '2020-10-22 20:30:12', NULL, '2020-10-22 20:33:49'),
 ('MTR-0005', 'Benang', 0, 'Roll', 'BBB', 0, '2020-11-19 17:03:32', NULL, NULL),
-('MTR-0008', 'Plastik Kemasan', 0, 'Pcs', 'BBP', 0, '2020-11-19 17:07:02', NULL, NULL);
+('MTR-0008', 'Plastik Kemasan', 0, 'Pcs', 'BBP', 0, '2020-11-19 17:07:02', NULL, NULL),
+('MTR-0011', 'Kain Batik', 0, 'Meter', 'BBB', 0, '2021-04-17 03:08:23', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -424,8 +432,11 @@ CREATE TABLE `transactions` (
 --
 
 INSERT INTO `transactions` (`trans_id`, `trans_date`, `customer_id`, `product_id`, `order_done`, `trans_total`, `status`, `trans_type`, `date_created`, `updated_at`) VALUES
-('TRX-BOM-000000001', '2020-11-21 15:38:05', NULL, 'PRD-0003', NULL, 0, 1, 'bom', '2020-11-21 15:37:42', '2020-11-21 15:38:05'),
-('TRX-BOM-000000002', '2020-11-21 19:59:41', NULL, 'PRD-0004', NULL, 0, 1, 'bom', '2020-11-21 19:59:10', '2020-11-21 19:59:41'),
+('TRX-BOM-000000001', '2021-04-18 11:20:50', NULL, 'PRD-0003', NULL, 0, 0, 'bom', '2020-11-21 15:37:42', '2021-04-18 11:20:50'),
+('TRX-BOM-000000002', '2021-04-20 13:55:26', NULL, 'PRD-0004', NULL, 0, 0, 'bom', '2020-11-21 19:59:10', '2021-04-20 13:55:26'),
+('TRX-BOM-000000003', '2021-04-17 19:07:08', NULL, 'PRD-0003', NULL, 0, 0, 'bom', '2021-04-17 04:16:10', '2021-04-17 19:07:08'),
+('TRX-BOM-000000004', '2021-04-20 13:53:28', NULL, 'PRD-0003', NULL, 0, 0, 'bom', '2021-04-17 19:07:31', '2021-04-20 13:53:28'),
+('TRX-BOM-000000005', '2021-04-20 13:51:29', NULL, 'PRD-0004', NULL, 0, 0, 'bom', '2021-04-20 13:51:29', NULL),
 ('TRX-PMB-000000001', '2020-11-21 17:16:15', NULL, NULL, NULL, 8740000, 1, 'purchasing', '2020-11-21 15:40:44', '2020-11-21 17:16:15'),
 ('TRX-PMB-000000002', '2020-11-21 17:24:25', NULL, NULL, NULL, 1800000, 1, 'purchasing', '2020-11-21 17:24:09', '2020-11-21 17:24:25'),
 ('TRX-PMB-000000003', '2020-11-21 17:28:00', NULL, NULL, NULL, 460000, 1, 'purchasing', '2020-11-21 17:27:32', '2020-11-21 17:28:00'),
@@ -476,7 +487,9 @@ CREATE TABLE `users` (
 ALTER TABLE `bill_of_materials`
   ADD PRIMARY KEY (`bom_id`),
   ADD KEY `material_id` (`material_id`),
-  ADD KEY `bill_of_materials_ibfk_3` (`trans_id`);
+  ADD KEY `bill_of_materials_ibfk_3` (`trans_id`),
+  ADD KEY `employee_id` (`employee_id`),
+  ADD KEY `oc_id` (`oc_id`);
 
 --
 -- Indexes for table `chart_of_accounts`
@@ -611,7 +624,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `bill_of_materials`
 --
 ALTER TABLE `bill_of_materials`
-  MODIFY `bom_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `bom_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `direct_labor_costs`
@@ -670,7 +683,9 @@ ALTER TABLE `users`
 --
 ALTER TABLE `bill_of_materials`
   ADD CONSTRAINT `bill_of_materials_ibfk_1` FOREIGN KEY (`material_id`) REFERENCES `raw_materials` (`material_id`),
-  ADD CONSTRAINT `bill_of_materials_ibfk_3` FOREIGN KEY (`trans_id`) REFERENCES `transactions` (`trans_id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `bill_of_materials_ibfk_3` FOREIGN KEY (`trans_id`) REFERENCES `transactions` (`trans_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `bill_of_materials_ibfk_4` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`),
+  ADD CONSTRAINT `bill_of_materials_ibfk_5` FOREIGN KEY (`oc_id`) REFERENCES `overhead_component` (`oc_id`);
 
 --
 -- Constraints for table `chart_of_accounts`
