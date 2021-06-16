@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Apr 20, 2021 at 01:59 PM
--- Server version: 5.7.32
--- PHP Version: 7.4.12
+-- Waktu pembuatan: 16 Jun 2021 pada 09.51
+-- Versi server: 5.7.32
+-- Versi PHP: 7.4.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `bill_of_materials`
+-- Struktur dari tabel `bill_of_materials`
 --
 
 CREATE TABLE `bill_of_materials` (
@@ -33,24 +33,31 @@ CREATE TABLE `bill_of_materials` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `bill_of_materials`
+-- Dumping data untuk tabel `bill_of_materials`
 --
 
 INSERT INTO `bill_of_materials` (`bom_id`, `trans_id`, `material_id`, `qty`, `unit`, `employee_id`, `cost`, `oc_id`, `overhead_cost`) VALUES
-(16, 'TRX-BOM-000000001', 'MTR-0001', 2.5, 'Meter', NULL, NULL, NULL, NULL),
-(17, 'TRX-BOM-000000001', 'MTR-0005', 5, 'Roll', NULL, NULL, NULL, NULL),
-(18, 'TRX-BOM-000000001', 'MTR-0008', 1, 'Pcs', NULL, NULL, NULL, NULL),
-(19, 'TRX-BOM-000000002', 'MTR-0004', 1.5, 'Meter', NULL, NULL, NULL, NULL),
-(20, 'TRX-BOM-000000002', 'MTR-0005', 1, 'Roll', NULL, NULL, NULL, NULL),
-(21, 'TRX-BOM-000000002', 'MTR-0008', 1, 'Pcs', NULL, NULL, NULL, NULL),
 (25, 'TRX-BOM-000000004', NULL, NULL, NULL, 'KAR-0002', 100, NULL, NULL),
 (26, 'TRX-BOM-000000004', 'MTR-0001', 1, NULL, NULL, NULL, NULL, NULL),
-(27, 'TRX-BOM-000000004', NULL, NULL, NULL, NULL, NULL, 'OV02', 100);
+(27, 'TRX-BOM-000000004', NULL, NULL, NULL, NULL, NULL, 'OV02', 100),
+(28, 'TRX-BOM-000000003', NULL, NULL, NULL, 'KAR-0001', 100, NULL, NULL),
+(29, 'TRX-BOM-000000003', NULL, NULL, NULL, 'KAR-0002', 100, NULL, NULL),
+(30, 'TRX-BOM-000000003', 'MTR-0001', 1, NULL, NULL, NULL, NULL, NULL),
+(31, 'TRX-BOM-000000003', 'MTR-0004', 1, NULL, NULL, NULL, NULL, NULL),
+(32, 'TRX-BOM-000000003', NULL, NULL, NULL, NULL, NULL, 'OV01', 100),
+(33, 'TRX-BOM-000000003', NULL, NULL, NULL, NULL, NULL, 'OV02', 50),
+(34, 'TRX-BOM-000000005', NULL, NULL, NULL, 'KAR-0001', 100, NULL, NULL),
+(35, 'TRX-BOM-000000005', NULL, NULL, NULL, 'KAR-0004', 100, NULL, NULL),
+(36, 'TRX-BOM-000000005', NULL, NULL, NULL, 'KAR-0002', 100, NULL, NULL),
+(37, 'TRX-BOM-000000005', 'MTR-0004', 0.5, NULL, NULL, NULL, NULL, NULL),
+(38, 'TRX-BOM-000000005', NULL, NULL, NULL, NULL, NULL, 'OV02', 100),
+(39, 'TRX-BOM-000000005', NULL, NULL, NULL, NULL, NULL, 'OV02', 100),
+(40, 'TRX-BOM-000000005', NULL, NULL, NULL, NULL, NULL, 'OV03', 100);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `chart_of_accounts`
+-- Struktur dari tabel `chart_of_accounts`
 --
 
 CREATE TABLE `chart_of_accounts` (
@@ -61,7 +68,7 @@ CREATE TABLE `chart_of_accounts` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `chart_of_accounts`
+-- Dumping data untuk tabel `chart_of_accounts`
 --
 
 INSERT INTO `chart_of_accounts` (`account_no`, `account_name`, `normal_balance`, `sub_code`) VALUES
@@ -88,7 +95,7 @@ INSERT INTO `chart_of_accounts` (`account_no`, `account_name`, `normal_balance`,
 -- --------------------------------------------------------
 
 --
--- Table structure for table `coa_head`
+-- Struktur dari tabel `coa_head`
 --
 
 CREATE TABLE `coa_head` (
@@ -97,7 +104,7 @@ CREATE TABLE `coa_head` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `coa_head`
+-- Dumping data untuk tabel `coa_head`
 --
 
 INSERT INTO `coa_head` (`head_code`, `name`) VALUES
@@ -110,7 +117,7 @@ INSERT INTO `coa_head` (`head_code`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `coa_subhead`
+-- Struktur dari tabel `coa_subhead`
 --
 
 CREATE TABLE `coa_subhead` (
@@ -120,7 +127,7 @@ CREATE TABLE `coa_subhead` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `coa_subhead`
+-- Dumping data untuk tabel `coa_subhead`
 --
 
 INSERT INTO `coa_subhead` (`sub_code`, `name`, `head_code`) VALUES
@@ -137,7 +144,7 @@ INSERT INTO `coa_subhead` (`sub_code`, `name`, `head_code`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `customers`
+-- Struktur dari tabel `customers`
 --
 
 CREATE TABLE `customers` (
@@ -152,7 +159,7 @@ CREATE TABLE `customers` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `customers`
+-- Dumping data untuk tabel `customers`
 --
 
 INSERT INTO `customers` (`customer_id`, `cus_name`, `cus_address`, `cus_phone`, `cus_email`, `date_created`, `deleted`, `deleted_at`) VALUES
@@ -165,7 +172,7 @@ INSERT INTO `customers` (`customer_id`, `cus_name`, `cus_address`, `cus_phone`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `direct_labor_costs`
+-- Struktur dari tabel `direct_labor_costs`
 --
 
 CREATE TABLE `direct_labor_costs` (
@@ -175,10 +182,39 @@ CREATE TABLE `direct_labor_costs` (
   `cost` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data untuk tabel `direct_labor_costs`
+--
+
+INSERT INTO `direct_labor_costs` (`direct_labor_id`, `trans_id`, `employee_id`, `cost`) VALUES
+(1, 'TRX-PRD-000000001', 'KAR-0001', 100);
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `employees`
+-- Struktur dari tabel `direct_material_cost`
+--
+
+CREATE TABLE `direct_material_cost` (
+  `id` int(11) NOT NULL,
+  `material_id` varchar(20) DEFAULT NULL,
+  `qty` int(11) DEFAULT NULL,
+  `trans_id` varchar(50) DEFAULT NULL,
+  `type` varchar(150) DEFAULT NULL,
+  `unit_price` double DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data untuk tabel `direct_material_cost`
+--
+
+INSERT INTO `direct_material_cost` (`id`, `material_id`, `qty`, `trans_id`, `type`, `unit_price`) VALUES
+(1, 'MTR-0004', 6, 'TRX-PRD-000000001', 'BBB', 23000);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `employees`
 --
 
 CREATE TABLE `employees` (
@@ -186,24 +222,26 @@ CREATE TABLE `employees` (
   `employee_name` varchar(100) NOT NULL,
   `employee_address` text NOT NULL,
   `employee_phone` varchar(13) NOT NULL,
+  `department` varchar(100) DEFAULT NULL,
   `status` int(1) NOT NULL DEFAULT '1',
   `date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `date_updated` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `employees`
+-- Dumping data untuk tabel `employees`
 --
 
-INSERT INTO `employees` (`employee_id`, `employee_name`, `employee_address`, `employee_phone`, `status`, `date_created`, `date_updated`) VALUES
-('KAR-0001', 'Kang Dandang Suherman', 'Bandung Juara', '087780087787', 1, '2020-11-17 16:31:39', '2020-11-17 16:55:18'),
-('KAR-0002', 'Neng Sulisa Tisna', 'Bandung Bermartabat', '085585850858', 1, '2020-11-17 16:34:30', NULL),
-('KAR-0003', 'Ujang Doni Maulana', 'Bandung Kota Kembang', '081558855288', 1, '2020-11-17 16:56:03', NULL);
+INSERT INTO `employees` (`employee_id`, `employee_name`, `employee_address`, `employee_phone`, `department`, `status`, `date_created`, `date_updated`) VALUES
+('KAR-0001', 'Kang Dandang Suherman', 'Bandung Juara', '087780087787', 'Potong Kain', 1, '2020-11-17 16:31:39', '2021-06-16 09:01:08'),
+('KAR-0002', 'Neng Sulisa Tisna', 'Bandung Bermartabat', '085585850858', 'Jahit', 1, '2020-11-17 16:34:30', '2021-06-16 09:00:55'),
+('KAR-0003', 'Ujang Doni Maulana', 'Bandung Kota Kembang', '081558855288', 'Potong Kain', 1, '2020-11-17 16:56:03', '2021-06-16 09:00:37'),
+('KAR-0004', 'Teh Tia', 'Bojongsoang', '085145645545', 'Obras', 1, '2021-06-16 08:59:31', NULL);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `general_ledger`
+-- Struktur dari tabel `general_ledger`
 --
 
 CREATE TABLE `general_ledger` (
@@ -216,7 +254,7 @@ CREATE TABLE `general_ledger` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `general_ledger`
+-- Dumping data untuk tabel `general_ledger`
 --
 
 INSERT INTO `general_ledger` (`gl_id`, `account_no`, `gl_date`, `trans_id`, `nominal`, `gl_balance`) VALUES
@@ -232,34 +270,51 @@ INSERT INTO `general_ledger` (`gl_id`, `account_no`, `gl_date`, `trans_id`, `nom
 (20, '1-10003', '2020-11-21 17:40:02', 'TRX-PMB-000000004', 230000, 'd'),
 (21, '1-10001', '2020-11-21 17:40:02', 'TRX-PMB-000000004', 230000, 'k'),
 (22, '1-10001', '2020-11-21 17:56:57', 'TRX-PSN-000000002', 250000, 'd'),
-(23, '2-10001', '2020-11-21 17:56:57', 'TRX-PSN-000000002', 250000, 'k');
+(23, '2-10001', '2020-11-21 17:56:57', 'TRX-PSN-000000002', 250000, 'k'),
+(26, '1-10001', '2021-06-16 09:13:28', 'TRX-PSN-000000003', 198000, 'd'),
+(27, '2-10001', '2021-06-16 09:13:28', 'TRX-PSN-000000003', 198000, 'k'),
+(28, '2-10001', '2021-06-16 09:41:59', 'TRX-PRD-000000001', 198000, 'd'),
+(29, '1-10002', '2021-06-16 09:41:59', 'TRX-PRD-000000001', 462000, 'd'),
+(30, '4-10001', '2021-06-16 09:41:59', 'TRX-PRD-000000001', 660000, 'k'),
+(31, '5-20001', '2021-06-16 09:41:59', 'TRX-PRD-000000001', 138000, 'd'),
+(32, '1-10003', '2021-06-16 09:41:59', 'TRX-PRD-000000001', 138000, 'k'),
+(33, '5-20004', '2021-06-16 09:41:59', 'TRX-PRD-000000001', 0, 'd'),
+(34, '1-10004', '2021-06-16 09:41:59', 'TRX-PRD-000000001', 0, 'k'),
+(35, '5-20003', '2021-06-16 09:41:59', 'TRX-PRD-000000001', 10, 'd'),
+(36, '5-20005', '2021-06-16 09:41:59', 'TRX-PRD-000000001', 10, 'k'),
+(37, '1-10005', '2021-06-16 09:41:59', 'TRX-PRD-000000001', 138110, 'd'),
+(38, '5-20001', '2021-06-16 09:41:59', 'TRX-PRD-000000001', 138000, 'k'),
+(39, '5-20002', '2021-06-16 09:41:59', 'TRX-PRD-000000001', 100, 'k'),
+(40, '5-20003', '2021-06-16 09:41:59', 'TRX-PRD-000000001', 10, 'k');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `orders`
+-- Struktur dari tabel `orders`
 --
 
 CREATE TABLE `orders` (
   `order_id` bigint(20) NOT NULL,
   `trans_id` varchar(50) NOT NULL,
   `product_id` varchar(50) NOT NULL,
+  `order_size` varchar(50) DEFAULT NULL,
   `order_qty` varchar(20) NOT NULL,
   `order_price` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `orders`
+-- Dumping data untuk tabel `orders`
 --
 
-INSERT INTO `orders` (`order_id`, `trans_id`, `product_id`, `order_qty`, `order_price`) VALUES
-(8, 'TRX-PSN-000000001', 'PRD-0003', '360', 120000),
-(9, 'TRX-PSN-000000002', 'PRD-0004', '12', 55000);
+INSERT INTO `orders` (`order_id`, `trans_id`, `product_id`, `order_size`, `order_qty`, `order_price`) VALUES
+(8, 'TRX-PSN-000000001', 'PRD-0003', 'M', '360', 120000),
+(9, 'TRX-PSN-000000002', 'PRD-0004', 'M', '12', 55000),
+(11, 'TRX-PSN-000000003', 'PRD-0004', 'M', '12', 55000);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `overhead_component`
+-- Struktur dari tabel `overhead_component`
 --
 
 CREATE TABLE `overhead_component` (
@@ -268,7 +323,7 @@ CREATE TABLE `overhead_component` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `overhead_component`
+-- Dumping data untuk tabel `overhead_component`
 --
 
 INSERT INTO `overhead_component` (`oc_id`, `name`) VALUES
@@ -280,7 +335,7 @@ INSERT INTO `overhead_component` (`oc_id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `overhead_cost`
+-- Struktur dari tabel `overhead_cost`
 --
 
 CREATE TABLE `overhead_cost` (
@@ -290,10 +345,17 @@ CREATE TABLE `overhead_cost` (
   `overhead_cost` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data untuk tabel `overhead_cost`
+--
+
+INSERT INTO `overhead_cost` (`id`, `trans_id`, `oc_id`, `overhead_cost`) VALUES
+(3, 'TRX-PRD-000000001', 'OV02', 10);
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `payments`
+-- Struktur dari tabel `payments`
 --
 
 CREATE TABLE `payments` (
@@ -304,17 +366,18 @@ CREATE TABLE `payments` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `payments`
+-- Dumping data untuk tabel `payments`
 --
 
 INSERT INTO `payments` (`payment_id`, `trans_id`, `nominal`, `description`) VALUES
 (6, 'TRX-PSN-000000001', 15000000, 'Down Payment (DP)'),
-(7, 'TRX-PSN-000000002', 250000, 'Down Payment (DP)');
+(7, 'TRX-PSN-000000002', 250000, 'Down Payment (DP)'),
+(9, 'TRX-PSN-000000003', 198000, 'Down Payment (DP)');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `production_costs`
+-- Struktur dari tabel `production_costs`
 --
 
 CREATE TABLE `production_costs` (
@@ -325,10 +388,17 @@ CREATE TABLE `production_costs` (
   `overhead_cost` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data untuk tabel `production_costs`
+--
+
+INSERT INTO `production_costs` (`cost_id`, `trans_id`, `material_cost`, `direct_labor_cost`, `overhead_cost`) VALUES
+(2, 'TRX-PRD-000000001', 138000, 100, 10);
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `products`
+-- Struktur dari tabel `products`
 --
 
 CREATE TABLE `products` (
@@ -344,7 +414,7 @@ CREATE TABLE `products` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `products`
+-- Dumping data untuk tabel `products`
 --
 
 INSERT INTO `products` (`product_id`, `product_name`, `sales_price`, `product_unit`, `product_category`, `date_created`, `deleted`, `date_updated`, `deleted_at`) VALUES
@@ -356,7 +426,7 @@ INSERT INTO `products` (`product_id`, `product_name`, `sales_price`, `product_un
 -- --------------------------------------------------------
 
 --
--- Table structure for table `purchase`
+-- Struktur dari tabel `purchase`
 --
 
 CREATE TABLE `purchase` (
@@ -368,7 +438,7 @@ CREATE TABLE `purchase` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `purchase`
+-- Dumping data untuk tabel `purchase`
 --
 
 INSERT INTO `purchase` (`purchase_id`, `trans_id`, `material_id`, `purchase_qty`, `purchase_price`) VALUES
@@ -382,7 +452,7 @@ INSERT INTO `purchase` (`purchase_id`, `trans_id`, `material_id`, `purchase_qty`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `raw_materials`
+-- Struktur dari tabel `raw_materials`
 --
 
 CREATE TABLE `raw_materials` (
@@ -398,7 +468,7 @@ CREATE TABLE `raw_materials` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `raw_materials`
+-- Dumping data untuk tabel `raw_materials`
 --
 
 INSERT INTO `raw_materials` (`material_id`, `material_name`, `material_stock`, `material_unit`, `material_type`, `deleted`, `date_created`, `date_updated`, `deleted_at`) VALUES
@@ -411,7 +481,7 @@ INSERT INTO `raw_materials` (`material_id`, `material_name`, `material_stock`, `
 -- --------------------------------------------------------
 
 --
--- Table structure for table `transactions`
+-- Struktur dari tabel `transactions`
 --
 
 CREATE TABLE `transactions` (
@@ -420,6 +490,8 @@ CREATE TABLE `transactions` (
   `customer_id` varchar(20) DEFAULT NULL,
   `product_id` varchar(50) DEFAULT NULL,
   `order_done` date DEFAULT NULL,
+  `production_step` int(11) DEFAULT NULL,
+  `ref_production` varchar(50) DEFAULT NULL,
   `trans_total` double NOT NULL,
   `status` int(1) NOT NULL DEFAULT '0',
   `trans_type` varchar(100) NOT NULL,
@@ -428,26 +500,28 @@ CREATE TABLE `transactions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `transactions`
+-- Dumping data untuk tabel `transactions`
 --
 
-INSERT INTO `transactions` (`trans_id`, `trans_date`, `customer_id`, `product_id`, `order_done`, `trans_total`, `status`, `trans_type`, `date_created`, `updated_at`) VALUES
-('TRX-BOM-000000001', '2021-04-18 11:20:50', NULL, 'PRD-0003', NULL, 0, 0, 'bom', '2020-11-21 15:37:42', '2021-04-18 11:20:50'),
-('TRX-BOM-000000002', '2021-04-20 13:55:26', NULL, 'PRD-0004', NULL, 0, 0, 'bom', '2020-11-21 19:59:10', '2021-04-20 13:55:26'),
-('TRX-BOM-000000003', '2021-04-17 19:07:08', NULL, 'PRD-0003', NULL, 0, 0, 'bom', '2021-04-17 04:16:10', '2021-04-17 19:07:08'),
-('TRX-BOM-000000004', '2021-04-20 13:53:28', NULL, 'PRD-0003', NULL, 0, 0, 'bom', '2021-04-17 19:07:31', '2021-04-20 13:53:28'),
-('TRX-BOM-000000005', '2021-04-20 13:51:29', NULL, 'PRD-0004', NULL, 0, 0, 'bom', '2021-04-20 13:51:29', NULL),
-('TRX-PMB-000000001', '2020-11-21 17:16:15', NULL, NULL, NULL, 8740000, 1, 'purchasing', '2020-11-21 15:40:44', '2020-11-21 17:16:15'),
-('TRX-PMB-000000002', '2020-11-21 17:24:25', NULL, NULL, NULL, 1800000, 1, 'purchasing', '2020-11-21 17:24:09', '2020-11-21 17:24:25'),
-('TRX-PMB-000000003', '2020-11-21 17:28:00', NULL, NULL, NULL, 460000, 1, 'purchasing', '2020-11-21 17:27:32', '2020-11-21 17:28:00'),
-('TRX-PMB-000000004', '2020-11-21 17:40:02', NULL, NULL, NULL, 230000, 1, 'purchasing', '2020-11-21 17:37:09', '2020-11-21 17:40:02'),
-('TRX-PSN-000000001', '2020-11-21 17:37:39', 'CUS-0003', NULL, '0000-00-00', 43200000, 0, 'order', '2020-11-21 17:37:39', NULL),
-('TRX-PSN-000000002', '2020-11-21 17:56:57', 'CUS-0002', NULL, '0000-00-00', 660000, 0, 'order', '2020-11-21 17:56:57', NULL);
+INSERT INTO `transactions` (`trans_id`, `trans_date`, `customer_id`, `product_id`, `order_done`, `production_step`, `ref_production`, `trans_total`, `status`, `trans_type`, `date_created`, `updated_at`) VALUES
+('TRX-BOM-000000003', '2021-06-16 08:49:00', NULL, 'PRD-0003', NULL, NULL, NULL, 0, 1, 'bom', '2021-04-17 04:16:10', '2021-06-16 08:49:00'),
+('TRX-BOM-000000004', '2021-04-20 13:53:28', NULL, 'PRD-0003', NULL, NULL, NULL, 0, 0, 'bom', '2021-04-17 19:07:31', '2021-04-20 13:53:28'),
+('TRX-BOM-000000005', '2021-06-16 09:28:22', NULL, 'PRD-0004', NULL, NULL, NULL, 0, 1, 'bom', '2021-04-20 13:51:29', '2021-06-16 09:28:22'),
+('TRX-BOM-000000006', '2021-05-21 17:15:05', NULL, 'PRD-0001', NULL, NULL, NULL, 0, 0, 'bom', '2021-05-21 17:15:05', NULL),
+('TRX-PMB-000000001', '2020-11-21 17:16:15', NULL, NULL, NULL, NULL, NULL, 8740000, 1, 'purchasing', '2020-11-21 15:40:44', '2020-11-21 17:16:15'),
+('TRX-PMB-000000002', '2020-11-21 17:24:25', NULL, NULL, NULL, NULL, NULL, 1800000, 1, 'purchasing', '2020-11-21 17:24:09', '2020-11-21 17:24:25'),
+('TRX-PMB-000000003', '2020-11-21 17:28:00', NULL, NULL, NULL, NULL, NULL, 460000, 1, 'purchasing', '2020-11-21 17:27:32', '2020-11-21 17:28:00'),
+('TRX-PMB-000000004', '2020-11-21 17:40:02', NULL, NULL, NULL, NULL, NULL, 230000, 1, 'purchasing', '2020-11-21 17:37:09', '2020-11-21 17:40:02'),
+('TRX-PMB-000000005', '2021-06-16 08:50:46', NULL, NULL, NULL, NULL, NULL, 0, 0, 'purchasing', '2021-06-16 08:50:46', NULL),
+('TRX-PRD-000000001', '2021-06-16 09:41:59', NULL, NULL, NULL, 4, 'TRX-PSN-000000003', 138110, 1, 'production', '2021-06-16 09:40:34', '2021-06-16 09:41:59'),
+('TRX-PSN-000000001', '2020-11-21 17:37:39', 'CUS-0003', NULL, '0000-00-00', NULL, NULL, 43200000, 0, 'order', '2020-11-21 17:37:39', NULL),
+('TRX-PSN-000000002', '2020-11-21 17:56:57', 'CUS-0002', NULL, '0000-00-00', NULL, NULL, 660000, 0, 'order', '2020-11-21 17:56:57', NULL),
+('TRX-PSN-000000003', '2021-06-16 09:41:59', 'CUS-0005', NULL, '0000-00-00', NULL, NULL, 660000, 2, 'order', '2021-06-16 09:13:28', '2021-06-16 09:41:59');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `type_of_materials`
+-- Struktur dari tabel `type_of_materials`
 --
 
 CREATE TABLE `type_of_materials` (
@@ -456,7 +530,7 @@ CREATE TABLE `type_of_materials` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `type_of_materials`
+-- Dumping data untuk tabel `type_of_materials`
 --
 
 INSERT INTO `type_of_materials` (`id`, `name`) VALUES
@@ -466,7 +540,7 @@ INSERT INTO `type_of_materials` (`id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Struktur dari tabel `users`
 --
 
 CREATE TABLE `users` (
@@ -482,7 +556,7 @@ CREATE TABLE `users` (
 --
 
 --
--- Indexes for table `bill_of_materials`
+-- Indeks untuk tabel `bill_of_materials`
 --
 ALTER TABLE `bill_of_materials`
   ADD PRIMARY KEY (`bom_id`),
@@ -492,33 +566,33 @@ ALTER TABLE `bill_of_materials`
   ADD KEY `oc_id` (`oc_id`);
 
 --
--- Indexes for table `chart_of_accounts`
+-- Indeks untuk tabel `chart_of_accounts`
 --
 ALTER TABLE `chart_of_accounts`
   ADD PRIMARY KEY (`account_no`),
   ADD KEY `sub_code` (`sub_code`);
 
 --
--- Indexes for table `coa_head`
+-- Indeks untuk tabel `coa_head`
 --
 ALTER TABLE `coa_head`
   ADD PRIMARY KEY (`head_code`);
 
 --
--- Indexes for table `coa_subhead`
+-- Indeks untuk tabel `coa_subhead`
 --
 ALTER TABLE `coa_subhead`
   ADD PRIMARY KEY (`sub_code`),
   ADD KEY `head_code` (`head_code`);
 
 --
--- Indexes for table `customers`
+-- Indeks untuk tabel `customers`
 --
 ALTER TABLE `customers`
   ADD PRIMARY KEY (`customer_id`);
 
 --
--- Indexes for table `direct_labor_costs`
+-- Indeks untuk tabel `direct_labor_costs`
 --
 ALTER TABLE `direct_labor_costs`
   ADD PRIMARY KEY (`direct_labor_id`),
@@ -526,13 +600,19 @@ ALTER TABLE `direct_labor_costs`
   ADD KEY `trans_id` (`trans_id`);
 
 --
--- Indexes for table `employees`
+-- Indeks untuk tabel `direct_material_cost`
+--
+ALTER TABLE `direct_material_cost`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `employees`
 --
 ALTER TABLE `employees`
   ADD PRIMARY KEY (`employee_id`);
 
 --
--- Indexes for table `general_ledger`
+-- Indeks untuk tabel `general_ledger`
 --
 ALTER TABLE `general_ledger`
   ADD PRIMARY KEY (`gl_id`),
@@ -540,7 +620,7 @@ ALTER TABLE `general_ledger`
   ADD KEY `trans_id` (`trans_id`);
 
 --
--- Indexes for table `orders`
+-- Indeks untuk tabel `orders`
 --
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`order_id`),
@@ -548,13 +628,13 @@ ALTER TABLE `orders`
   ADD KEY `orders_ibfk_1` (`trans_id`);
 
 --
--- Indexes for table `overhead_component`
+-- Indeks untuk tabel `overhead_component`
 --
 ALTER TABLE `overhead_component`
   ADD PRIMARY KEY (`oc_id`);
 
 --
--- Indexes for table `overhead_cost`
+-- Indeks untuk tabel `overhead_cost`
 --
 ALTER TABLE `overhead_cost`
   ADD PRIMARY KEY (`id`),
@@ -562,27 +642,27 @@ ALTER TABLE `overhead_cost`
   ADD KEY `trans_id` (`trans_id`);
 
 --
--- Indexes for table `payments`
+-- Indeks untuk tabel `payments`
 --
 ALTER TABLE `payments`
   ADD PRIMARY KEY (`payment_id`),
   ADD KEY `payments_ibfk_1` (`trans_id`);
 
 --
--- Indexes for table `production_costs`
+-- Indeks untuk tabel `production_costs`
 --
 ALTER TABLE `production_costs`
   ADD PRIMARY KEY (`cost_id`),
   ADD KEY `trans_id` (`trans_id`);
 
 --
--- Indexes for table `products`
+-- Indeks untuk tabel `products`
 --
 ALTER TABLE `products`
   ADD PRIMARY KEY (`product_id`);
 
 --
--- Indexes for table `purchase`
+-- Indeks untuk tabel `purchase`
 --
 ALTER TABLE `purchase`
   ADD PRIMARY KEY (`purchase_id`),
@@ -590,14 +670,14 @@ ALTER TABLE `purchase`
   ADD KEY `material_id` (`material_id`);
 
 --
--- Indexes for table `raw_materials`
+-- Indeks untuk tabel `raw_materials`
 --
 ALTER TABLE `raw_materials`
   ADD PRIMARY KEY (`material_id`),
   ADD KEY `material_type` (`material_type`);
 
 --
--- Indexes for table `transactions`
+-- Indeks untuk tabel `transactions`
 --
 ALTER TABLE `transactions`
   ADD PRIMARY KEY (`trans_id`),
@@ -605,81 +685,87 @@ ALTER TABLE `transactions`
   ADD KEY `product_id` (`product_id`);
 
 --
--- Indexes for table `type_of_materials`
+-- Indeks untuk tabel `type_of_materials`
 --
 ALTER TABLE `type_of_materials`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `users`
+-- Indeks untuk tabel `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`user_id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `bill_of_materials`
+-- AUTO_INCREMENT untuk tabel `bill_of_materials`
 --
 ALTER TABLE `bill_of_materials`
-  MODIFY `bom_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `bom_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
--- AUTO_INCREMENT for table `direct_labor_costs`
+-- AUTO_INCREMENT untuk tabel `direct_labor_costs`
 --
 ALTER TABLE `direct_labor_costs`
-  MODIFY `direct_labor_id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `direct_labor_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `general_ledger`
+-- AUTO_INCREMENT untuk tabel `direct_material_cost`
+--
+ALTER TABLE `direct_material_cost`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT untuk tabel `general_ledger`
 --
 ALTER TABLE `general_ledger`
-  MODIFY `gl_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `gl_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
--- AUTO_INCREMENT for table `orders`
+-- AUTO_INCREMENT untuk tabel `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `order_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- AUTO_INCREMENT for table `overhead_cost`
+-- AUTO_INCREMENT untuk tabel `overhead_cost`
 --
 ALTER TABLE `overhead_cost`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `payments`
+-- AUTO_INCREMENT untuk tabel `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `payment_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `payment_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT for table `production_costs`
+-- AUTO_INCREMENT untuk tabel `production_costs`
 --
 ALTER TABLE `production_costs`
-  MODIFY `cost_id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `cost_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `purchase`
+-- AUTO_INCREMENT untuk tabel `purchase`
 --
 ALTER TABLE `purchase`
   MODIFY `purchase_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `users`
+-- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
   MODIFY `user_id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
--- Constraints for dumped tables
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
 
 --
--- Constraints for table `bill_of_materials`
+-- Ketidakleluasaan untuk tabel `bill_of_materials`
 --
 ALTER TABLE `bill_of_materials`
   ADD CONSTRAINT `bill_of_materials_ibfk_1` FOREIGN KEY (`material_id`) REFERENCES `raw_materials` (`material_id`),
@@ -688,72 +774,72 @@ ALTER TABLE `bill_of_materials`
   ADD CONSTRAINT `bill_of_materials_ibfk_5` FOREIGN KEY (`oc_id`) REFERENCES `overhead_component` (`oc_id`);
 
 --
--- Constraints for table `chart_of_accounts`
+-- Ketidakleluasaan untuk tabel `chart_of_accounts`
 --
 ALTER TABLE `chart_of_accounts`
   ADD CONSTRAINT `chart_of_accounts_ibfk_1` FOREIGN KEY (`sub_code`) REFERENCES `coa_subhead` (`sub_code`);
 
 --
--- Constraints for table `coa_subhead`
+-- Ketidakleluasaan untuk tabel `coa_subhead`
 --
 ALTER TABLE `coa_subhead`
   ADD CONSTRAINT `coa_subhead_ibfk_1` FOREIGN KEY (`head_code`) REFERENCES `coa_head` (`head_code`);
 
 --
--- Constraints for table `direct_labor_costs`
+-- Ketidakleluasaan untuk tabel `direct_labor_costs`
 --
 ALTER TABLE `direct_labor_costs`
   ADD CONSTRAINT `direct_labor_costs_ibfk_1` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`employee_id`),
   ADD CONSTRAINT `direct_labor_costs_ibfk_2` FOREIGN KEY (`trans_id`) REFERENCES `transactions` (`trans_id`);
 
 --
--- Constraints for table `general_ledger`
+-- Ketidakleluasaan untuk tabel `general_ledger`
 --
 ALTER TABLE `general_ledger`
   ADD CONSTRAINT `general_ledger_ibfk_2` FOREIGN KEY (`account_no`) REFERENCES `chart_of_accounts` (`account_no`),
-  ADD CONSTRAINT `general_ledger_ibfk_3` FOREIGN KEY (`trans_id`) REFERENCES `transactions` (`trans_id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `general_ledger_ibfk_3` FOREIGN KEY (`trans_id`) REFERENCES `transactions` (`trans_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `orders`
+-- Ketidakleluasaan untuk tabel `orders`
 --
 ALTER TABLE `orders`
   ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`trans_id`) REFERENCES `transactions` (`trans_id`) ON DELETE CASCADE,
   ADD CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`);
 
 --
--- Constraints for table `overhead_cost`
+-- Ketidakleluasaan untuk tabel `overhead_cost`
 --
 ALTER TABLE `overhead_cost`
   ADD CONSTRAINT `overhead_cost_ibfk_1` FOREIGN KEY (`oc_id`) REFERENCES `overhead_component` (`oc_id`),
   ADD CONSTRAINT `overhead_cost_ibfk_2` FOREIGN KEY (`trans_id`) REFERENCES `transactions` (`trans_id`);
 
 --
--- Constraints for table `payments`
+-- Ketidakleluasaan untuk tabel `payments`
 --
 ALTER TABLE `payments`
   ADD CONSTRAINT `payments_ibfk_1` FOREIGN KEY (`trans_id`) REFERENCES `transactions` (`trans_id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `production_costs`
+-- Ketidakleluasaan untuk tabel `production_costs`
 --
 ALTER TABLE `production_costs`
   ADD CONSTRAINT `production_costs_ibfk_1` FOREIGN KEY (`trans_id`) REFERENCES `transactions` (`trans_id`);
 
 --
--- Constraints for table `purchase`
+-- Ketidakleluasaan untuk tabel `purchase`
 --
 ALTER TABLE `purchase`
   ADD CONSTRAINT `purchase_ibfk_1` FOREIGN KEY (`trans_id`) REFERENCES `transactions` (`trans_id`),
   ADD CONSTRAINT `purchase_ibfk_2` FOREIGN KEY (`material_id`) REFERENCES `raw_materials` (`material_id`);
 
 --
--- Constraints for table `raw_materials`
+-- Ketidakleluasaan untuk tabel `raw_materials`
 --
 ALTER TABLE `raw_materials`
   ADD CONSTRAINT `raw_materials_ibfk_1` FOREIGN KEY (`material_type`) REFERENCES `type_of_materials` (`id`);
 
 --
--- Constraints for table `transactions`
+-- Ketidakleluasaan untuk tabel `transactions`
 --
 ALTER TABLE `transactions`
   ADD CONSTRAINT `transactions_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`customer_id`),
