@@ -30,8 +30,9 @@ class M_employee extends CI_Model
 	{
 		$data = [
 			'employee_id'			=> $this->employee_id(),
-			'employee_name'		=> $this->input->post('employee_name'),
+			'employee_name'			=> $this->input->post('employee_name'),
 			'employee_address'		=> $this->input->post('employee_address'),
+			'department'			=> $this->input->post('department'),
 			'employee_phone'		=> $this->input->post('employee_phone'),
 		];
 		return $this->db->insert('employees', $data);
@@ -39,8 +40,9 @@ class M_employee extends CI_Model
 	public function update($id)
 	{
 		$data = [
-			'employee_name'		=> $this->input->post('employee_name'),
+			'employee_name'			=> $this->input->post('employee_name'),
 			'employee_address'		=> $this->input->post('employee_address'),
+			'department'			=> $this->input->post('department'),
 			'employee_phone'		=> $this->input->post('employee_phone'),
 		];
 		return $this->db->update('employees', $data, ['employee_id' => $id]);

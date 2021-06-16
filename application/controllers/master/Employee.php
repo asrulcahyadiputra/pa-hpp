@@ -32,6 +32,14 @@ class Employee extends CI_Controller
 				]
 			],
 			[
+				'field'		=> 'department',
+				'label'		=> 'Bidang',
+				'rules'		=> 'required',
+				'errors'		=> [
+					'required'		=> '%s wajib di isi',
+				]
+			],
+			[
 				'field'		=> 'employee_phone',
 				'label'		=> 'No Telepon',
 				'rules'		=> 'required|is_natural|max_length[13]|is_unique[employees.employee_phone]',
@@ -69,6 +77,14 @@ class Employee extends CI_Controller
 				'rules'		=> 'required',
 				'errors'		=> [
 					'required'		=> '%s Wajib di isi',
+				]
+			],
+			[
+				'field'		=> 'department',
+				'label'		=> 'Bidang',
+				'rules'		=> 'required',
+				'errors'		=> [
+					'required'		=> '%s wajib di isi',
 				]
 			],
 			[

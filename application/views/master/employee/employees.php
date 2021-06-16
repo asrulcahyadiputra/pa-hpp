@@ -52,6 +52,7 @@ $this->load->view('_partials/header');
 											<th>Nama Pegawai</th>
 											<th>Alamat</th>
 											<th>No Telepon</th>
+											<th>Bidang</th>
 											<th class="text-center">Aksi</th>
 										</tr>
 									</thead>
@@ -63,6 +64,7 @@ $this->load->view('_partials/header');
 												<td><?= $em->employee_id . ' - ' . $em->employee_name ?></td>
 												<td><?= $em->employee_phone ?></td>
 												<td><?= $em->employee_address ?></td>
+												<td><?= $em->department ?></td>
 												<td class="text-center">
 													<button type="button" class="btn btn-info mb-2" data-toggle="modal" data-target="#edit_employee<?= $em->employee_id ?>">Edit</button>
 
@@ -98,6 +100,11 @@ $this->load->view('_partials/header');
 						<label for="employee_name">Nama Karayawan</label>
 						<input type="text" name="employee_name" class="form-control">
 						<small class="text-danger"><?= form_error('employee_name') ?></small>
+					</div>
+					<div class="form-group">
+						<label for="cus_phone">Bidang</label>
+						<input type="text" name="department" id="department" class="form-control">
+						<small class="text-danger"><?= form_error('department') ?></small>
 					</div>
 					<div class="form-group">
 						<label for="cus_phone">No Telepon</label>
@@ -136,6 +143,11 @@ $this->load->view('_partials/header');
 							<label for="employee_name">Nama Karyawan</label>
 							<input type="text" name="employee_name" id="employee_name" class="form-control" value="<?= $kr->employee_name ?>">
 							<small class="text-danger"><?= form_error('employee_name') ?></small>
+						</div>
+						<div class="form-group">
+							<label for="cus_phone">Bidang</label>
+							<input type="text" name="department" id="department" value="<?= $kr->department ?>" class="form-control">
+							<small class="text-danger"><?= form_error('department') ?></small>
 						</div>
 						<div class="form-group">
 							<label for="employee_phone">No Telepon</label>
