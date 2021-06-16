@@ -18,7 +18,7 @@ class M_order extends CI_Model
 	}
 	public function all()
 	{
-		$this->db->select('a.trans_id,a.customer_id,a.trans_date,b.order_id,b.order_qty,b.order_price,c.customer_id,c.cus_name,d.product_id,d.product_name,d.product_unit,a.status')
+		$this->db->select('a.trans_id,a.customer_id,a.trans_date,b.order_id,b.order_qty,b.order_price,b.order_size,c.customer_id,c.cus_name,d.product_id,d.product_name,d.product_unit,a.status')
 			->from('transactions as a')
 			->join('orders as b', 'a.trans_id=b.trans_id')
 			->join('customers as c', 'c.customer_id=a.customer_id')
@@ -56,6 +56,7 @@ class M_order extends CI_Model
 			'trans_id'		=> $this->trans_id(),
 			'product_id'		=> $this->input->post('product_id'),
 			'order_qty'		=> $this->input->post('order_qty'),
+			'order_size'		=> $this->input->post('order_size'),
 			'order_price'		=> $this->input->post('order_price')
 		];
 		if ($payment > 0) {

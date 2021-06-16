@@ -53,6 +53,7 @@ $this->load->view('_partials/header');
 											<th>Tanggal</th>
 											<th>Pelanggan</th>
 											<th>Produk</th>
+											<th>Ukuran</th>
 											<th class="text-center">Qty</th>
 											<th class="text-right">Total</th>
 											<th>Status</th>
@@ -68,6 +69,7 @@ $this->load->view('_partials/header');
 												<td><?= date('d-m-Y', strtotime($row['trans_date'])) ?></td>
 												<td><?= $row['cus_name'] ?></td>
 												<td><?= $row['product_name'] ?></td>
+												<td><?= $row['order_size'] ?></td>
 												<td class="text-center"><?= $row['order_qty'] . ' ' . $row['product_unit'] ?></td>
 												<td class="text-right"><?= nominal($row['order_qty'] * $row['order_price']) ?></td>
 												<td>
@@ -130,6 +132,10 @@ $this->load->view('_partials/header');
 					<div class="form-group">
 						<label for="cus_email">Qty</label>
 						<input type="number" name="order_qty" value="" id="order_qty" min="1" class="form-control" required>
+					</div>
+					<div class="form-group">
+						<label for="cus_email">Ukuran</label>
+						<input type="text" name="order_size" value="" id="order_size" class="form-control" required>
 					</div>
 					<div class="form-group">
 						<label for="cus_email">Harga Satuan</label>
