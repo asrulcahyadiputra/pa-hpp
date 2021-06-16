@@ -41,12 +41,17 @@ class M_production extends CI_Model
 	public function find_bom($id)
 	{
 		$find = $this->find_order($id);
+		if (isset($find['product_id'])) {
+			$product_id = $find['product_id'];
+		} else {
+			$product_id = '';
+		}
 		$this->db->select('a.material_id,a.qty,a.unit,b.material_name,a.trans_id,avg(d.purchase_price) as unit_price,b.material_type')
 			->from('transactions as c')
 			->join('bill_of_materials as a', 'a.trans_id=c.trans_id')
 			->join('raw_materials as b', 'a.material_id=b.material_id')
 			->join('purchase as d', 'd.material_id=b.material_id')
-			->where('c.product_id', $find['product_id'])
+			->where('c.product_id', $product_id)
 			->group_by('a.material_id');
 		return $this->db->get()->result_array();
 	}
@@ -72,7 +77,7 @@ class M_production extends CI_Model
 		$id_transaksi = $this->trans_id();
 		// insert into transaction for new production
 		$transaksi = [
-			'trans_id'			=> $id_transaksi,
+			'trans_id'				=> $id_transaksi,
 			'ref_production'		=> $id_transaksi_order,
 			'production_step'		=> 1,
 			'trans_type'			=> 'production'
