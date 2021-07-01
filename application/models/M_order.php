@@ -18,12 +18,45 @@ class M_order extends CI_Model
 	}
 	public function all()
 	{
-		$this->db->select('a.trans_id,a.customer_id,a.trans_date,b.order_id,b.order_qty,b.order_price,b.order_size,c.customer_id,c.cus_name,d.product_id,d.product_name,d.product_unit,a.status')
+		$sql = $this->db->select('a.trans_id,a.customer_id,a.trans_date,a.description,c.customer_id,c.cus_name,a.status_production,a.trans_total,a.dp,a.lock_doc')
 			->from('transactions as a')
-			->join('orders as b', 'a.trans_id=b.trans_id')
 			->join('customers as c', 'c.customer_id=a.customer_id')
-			->join('products as d', 'd.product_id=b.product_id');
-		return $this->db->get()->result_array();
+			->get()
+			->result_array();
+		$no = 1;
+		$totRow = count($sql);
+		foreach ($sql as $key => $val) {
+			if ($val['status_production'] == 0) {
+				$status_html = "<p class='text-danger'>Belum Produksi</p>";
+			} elseif ($val['status_production'] == 1) {
+				$status_html = "<p class='text-warning'>Dalam Produksi</p>";
+			} else {
+				$status_html = "<p class='text-success'>Selesai Produksi</p>";
+			}
+
+			if ($val['lock_doc'] == 1) {
+				$lock_html = '<i class="fa fa-unlock"></i>';
+			} else {
+				$lock_html = '<i class="fa fa-lock"></i>';
+			}
+			$data[] = [
+				'no'			=> $no++,
+				'trans_id'		=> $val['trans_id'],
+				'keterangan'    => $val['description'],
+				'tanggal'		=> shortdate_indo(date('Y-m-d', strtotime($val['trans_date']))),
+				'pelanggan'		=> $val['cus_name'],
+				'total'			=> nominal($val['trans_total']),
+				'dp'			=> nominal($val['dp']),
+				'lock'			=> $lock_html,
+				'status'		=> $status_html
+			];
+		}
+		if ($totRow > 0) {
+			$response = $data;
+		} else {
+			$response = [];
+		}
+		return $response;
 	}
 	private function trans_id()
 	{

@@ -15,11 +15,15 @@ class Order extends CI_Controller
 	{
 		$data = [
 			'title'					=> 'Pesanan',
-			'all'					=> $this->model->all(),
 			'product'				=> $this->model->product(),
 			'customers'				=> $this->model->customers()
 		];
 		$this->load->view('transactions/order/order-list', $data);
+	}
+	public function get_order()
+	{
+		$request = $this->model->all();
+		echo json_encode($request);
 	}
 	public function find_product()
 	{

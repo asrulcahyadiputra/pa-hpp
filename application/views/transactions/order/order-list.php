@@ -27,11 +27,11 @@ $this->load->view('_partials/header');
 											<th>#</th>
 											<th>Kode Pesanan</th>
 											<th>Tanggal</th>
+											<th>Deskripsi</th>
 											<th>Pelanggan</th>
-											<th>Produk</th>
-											<th>Ukuran</th>
-											<th class="text-center">Qty</th>
-											<th class="text-right">Total</th>
+											<th class="text-center">Total</th>
+											<th class="text-right">DP</th>
+											<th>Kunci</th>
 											<th>Status</th>
 											<th class="no-content"></th>
 										</tr>

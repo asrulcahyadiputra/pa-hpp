@@ -100,6 +100,7 @@ $route['transaksi/bom/delete_item/(:any)/(:any)']      = 'transactions/Bom/delet
 | -------------------------------------------------------------------------
 */
 $route['transaksi/pesanan']                             = 'transactions/Order';
+$route['transaksi/get_order']                           = 'transactions/Order/get_order';
 $route['transaksi/pesanan/store']                       = 'transactions/Order/store';
 $route['transaksi/order/find_product']                  = 'transactions/Order/find_product';
 $route['transaksi/pesanan/add']                         = 'transactions/Order/add';

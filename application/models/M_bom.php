@@ -93,7 +93,7 @@ class M_bom extends CI_Model
 				'message'			=> 'Data Dalam Keadaan Terkunci',
 				'type'				=> 'error',
 				'data'				=> null,
-				'system_response'   => $this->db->trans_status()
+				'system_response'   => ''
 			];
 		}
 		return $response;

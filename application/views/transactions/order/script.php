@@ -71,28 +71,28 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     data: 'no'
                 },
                 {
-                    data: 'kode_bom'
+                    data: 'trans_id'
                 },
                 {
-                    data: 'description'
+                    data: 'tanggal'
                 },
                 {
-                    data: 'product'
+                    data: 'keterangan'
                 },
                 {
-                    data: 'lock_doc'
+                    data: 'pelanggan'
                 },
                 {
-                    data: 'lock_doc'
+                    data: 'total'
                 },
                 {
-                    data: 'lock_doc'
+                    data: 'dp'
                 },
                 {
-                    data: 'lock_doc'
+                    data: 'lock'
                 },
                 {
-                    data: 'lock_doc'
+                    data: 'status'
                 },
                 {
                     data: 'lock_doc'
@@ -228,17 +228,17 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
         function loadData() {
             OrderTable.clear().draw()
-            // $.ajax({
-            //     type: 'GET',
-            //     url: '<?= base_url('transaksi/get_bom') ?>',
-            //     dataType: 'JSON',
-            //     success: function(data) {
-            //         console.log(data)
-            //         var rowData = data.values
-            //         OrderTable.rows.add(rowData).draw(false)
-            //     }
+            $.ajax({
+                type: 'GET',
+                url: '<?= base_url('transaksi/get_order') ?>',
+                dataType: 'JSON',
+                success: function(data) {
+                    console.log(data)
 
-            // })
+                    OrderTable.rows.add(data).draw(false)
+                }
+
+            })
         }
 
         function editData(id) {
