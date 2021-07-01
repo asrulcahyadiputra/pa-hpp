@@ -199,9 +199,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         var no = 1;
                         var dataId = 1;
                         var id = 1;
-
+                        $(".material_id option[value='MTR-0001']").prop("selected", true);
+                        $(".material_id option[value='MTR-0001']").prop("selected", true);
                         for (let i = 0; i < detail.length; i++) {
-                            $(".material_id option[value='MTR-0001']").prop("selected", true);
+
                             $('.qty').val(detail[i].qty)
                             htmlDetail += `<tr id ="rec-` + id++ + `">
                                 <td class="text-center">
