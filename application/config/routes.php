@@ -99,10 +99,11 @@ $route['transaksi/bom/delete_item/(:any)/(:any)']      = 'transactions/Bom/delet
 | Sales order
 | -------------------------------------------------------------------------
 */
-$route['transaksi/pesanan']                        = 'transactions/Order';
-$route['transaksi/order/find_product']                = 'transactions/Order/find_product';
-$route['transaksi/pesanan/add']                    = 'transactions/Order/add';
-$route['transaksi/pesanan/delete/(:any)']            = 'transactions/Order/delete/$1';
+$route['transaksi/pesanan']                             = 'transactions/Order';
+$route['transaksi/pesanan/store']                       = 'transactions/Order/store';
+$route['transaksi/order/find_product']                  = 'transactions/Order/find_product';
+$route['transaksi/pesanan/add']                         = 'transactions/Order/add';
+$route['transaksi/pesanan/delete/(:any)']               = 'transactions/Order/delete/$1';
 
 /*
 | -------------------------------------------------------------------------

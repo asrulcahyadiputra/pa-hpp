@@ -42,16 +42,26 @@ class M_order extends CI_Model
 		$trans_id = "TRX-PSN-" . $code;
 		return $trans_id;
 	}
+
+
+
 	public function insert()
 	{
-		$payment = intval(preg_replace("/[^0-9]/", "", $this->input->post('sales_payment')));
+		$tanggal 		= $this->input->post('tanggal');
+		$customer_id 	= $this->input->post('customer_id');
+		$product_id 	= $this->input->post('product_id');
+		$payment 		= intval(preg_replace("/[^0-9]/", "", $this->input->post('sales_payment')));
+		$description 	= $this->input->post('description');
+		$qty 			= $this->input->post('order_qty');
+		$unit_price		= $this->input->post('order_price');
+
 		$data = [
-			'trans_id'		=> $this->trans_id(),
+			'trans_id'			=> $this->trans_id(),
 			'customer_id'		=> $this->input->post('customer_id'),
 			'order_done'		=> 0,
-			'trans_total'		=> $this->input->post('order_qty') * $this->input->post('order_price'),
 			'trans_type'		=> 'order'
 		];
+
 		$order = [
 			'trans_id'		=> $this->trans_id(),
 			'product_id'		=> $this->input->post('product_id'),
@@ -59,6 +69,7 @@ class M_order extends CI_Model
 			'order_size'		=> $this->input->post('order_size'),
 			'order_price'		=> $this->input->post('order_price')
 		];
+
 		if ($payment > 0) {
 			$gl = [
 				[
@@ -81,13 +92,25 @@ class M_order extends CI_Model
 				'description'		=> 'Down Payment (DP)'
 			];
 		}
-		$this->db->trans_start();
-		$this->db->insert('transactions', $data);
-		$this->db->insert('orders', $order);
-		$this->db->insert_batch('general_ledger', $gl);
-		$this->db->insert('payments', $py);
-		$this->db->trans_complete();
+
+
+		// $this->db->trans_start();
+		// $this->db->insert('transactions', $data);
+		// $this->db->insert('orders', $order);
+		// $this->db->insert_batch('general_ledger', $gl);
+		// $this->db->insert('payments', $py);
+		// $this->db->trans_complete();
+
+		$response = [
+			'status'		=> true,
+			'values'		=> $data
+		];
+
+		return $response;
 	}
+
+
+
 	public function delete($id)
 	{
 		$validate = $this->db->get_where('transactions', ['trans_id' => $id])->row();
