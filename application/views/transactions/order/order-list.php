@@ -160,7 +160,7 @@ $this->load->view('_partials/header');
 				<span class="sn"></span>
 			</td>
 			<td>
-				<select name="material_id[]" class="form-control form-calc product_id" id="product_id-" data-id="0" required>
+				<select name="product_id[]" class="form-control form-calc product_id" id="product_id-" data-id="0" required>
 					<option value="">-pilih produk-</option>
 					<?php foreach ($product as $rowData) : ?>
 						<option value="<?= $rowData['product_id'] ?>"><?= $rowData['product_id'] . ' ' . $rowData['product_name'] ?></option>
