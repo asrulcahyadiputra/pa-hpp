@@ -29,12 +29,13 @@ class Bom extends CI_Controller
 		echo json_encode($request);
 	}
 
-	// this function for destroy item to bom
-	public function delete_item($trans_id, $material_id)
+	public function edit($id)
 	{
-		$request = $this->model->delete_item($trans_id, $material_id);
-		redirect('transaksi/bom/create/' . $trans_id);
+		$request = $this->model->find_bom($id);
+		echo json_encode($request);
 	}
+
+
 	// this function for store bom final 
 	public function store()
 	{

@@ -27,7 +27,7 @@ class M_bom extends CI_Model
 	}
 	public function get_bom()
 	{
-		$sql = $this->db->select('a.trans_id,a.product_id,b.product_name,a.description,a.status,a.date_created,a.updated_at')
+		$sql = $this->db->select('a.trans_id,a.product_id,b.product_name,a.description,a.status,a.lock_doc,a.date_created,a.updated_at')
 			->from('transactions as a')
 			->join('products as b', 'a.product_id=b.product_id')
 			->order_by('a.date_created', 'DESC')
@@ -37,13 +37,20 @@ class M_bom extends CI_Model
 
 		$totData = count($sql);
 		$no = 1;
+
 		if ($totData > 0) {
 			foreach ($sql as $key => $val) {
+				if ($val['lock_doc'] == 1) {
+					$html = '<i class="fa fa-unlock"></i>';
+				} else {
+					$html = '<i class="fa fa-lock"></i>';
+				}
 				$data[] = [
 					'no' 			=> $no++,
 					'kode_bom' 		=> $val['trans_id'],
 					'description'	=> $val['description'],
-					'product'		=> $val['product_id'] . ' - ' . $val['product_name']
+					'product'		=> $val['product_id'] . ' - ' . $val['product_name'],
+					'lock_doc'		=> $html
 				];
 			}
 		} else {
@@ -57,6 +64,43 @@ class M_bom extends CI_Model
 
 		return $response;
 	}
+
+	public function find_bom($id)
+	{
+		// find bom document open
+		$sql1 = $this->db->get_where('transactions', ['trans_id' => $id, 'lock_doc' => 1])->result_array();
+
+		$totData = count($sql1);
+
+		if ($totData > 0) {
+			foreach ($sql1 as $i => $val) {
+				$sql2 = $this->db->get_where('bill_of_materials', ['trans_id' => $val['trans_id']])->result_array();
+				$data = [
+					'status'		=> true,
+					'total_data'	=> $totData,
+					'trans_id'		=> $val['trans_id'],
+					'product_id'	=> $val['product_id'],
+					'description'	=> $val['description'],
+					'details'		=> $sql2
+				];
+			}
+
+			$response = $data;
+		} else {
+			$response = [
+				'status'			=> false,
+				'title'				=> 'Gagal!',
+				'message'			=> 'Data Dalam Keadaan Terkunci',
+				'type'				=> 'error',
+				'data'				=> null,
+				'system_response'   => $this->db->trans_status()
+			];
+		}
+		return $response;
+	}
+
+
+
 	public function select_bom($id)
 	{
 		$this->db->select('a.material_id,a.qty,a.unit,b.material_name,a.trans_id')

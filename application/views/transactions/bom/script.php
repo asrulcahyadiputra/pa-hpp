@@ -32,10 +32,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
         var gridBB = $('#tbl_posts')
         var btnSubmit = $('#btn-submit')
         var btnCancel = $('#btn-cancel')
+
         contentList.show()
         formCreate.hide()
-
-        BomTable = $('#table-bom-list').DataTable({
+        var action_html = '<a href="#" id="btn-edit" class="text-warning"><i class="fa fa-pen"></i></a>'
+        var BomTable = $('#table-bom-list').DataTable({
             "paging": true,
             "info": true,
             "columnDefs": [{
@@ -54,13 +55,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     "targets": 0,
                     'className': 'text-center'
                 },
-                // {
-                //     "searchable": false,
-                //     "orderable": false,
-                //     "targets": 4,
-                //     "data": null,
-                //     'defaultContent': action_html,
-                // }
+                {
+                    "searchable": false,
+                    "orderable": false,
+                    "targets": 5,
+                    "data": null,
+                    'defaultContent': action_html,
+                }
             ],
             "columns": [{
                     data: 'no'
@@ -74,16 +75,35 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 {
                     data: 'product'
                 },
+                {
+                    data: 'lock_doc'
+                }
             ]
         })
 
         btnAdd.on('click', function() {
+            $('#trans_id').val('AUTO')
             contentList.hide()
             formCreate.show()
+            var html = ''
+            html += `<h5><i>Create Bill of Materials (BOM)</i></h5>`
+            $('#header-form').html(html)
             $('#tbl_posts >tbody >tr').remove()
         })
 
+        $('#table-bom-list').on('click', '#btn-edit', function(e) {
+            e.preventDefault()
+            var id = $(this).closest('tr').find('td').eq(1).html();
+            editData(id)
+        })
+
         btnBack.on('click', function() {
+            contentList.show()
+            formCreate.hide()
+            $('#createBom').trigger('reset')
+        })
+
+        btnCancel.on('click', function() {
             contentList.show()
             formCreate.hide()
             $('#createBom').trigger('reset')
@@ -143,6 +163,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
             }
         })
 
+
         function loadData() {
             BomTable.clear().draw()
             $.ajax({
@@ -150,11 +171,87 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 url: '<?= base_url('transaksi/get_bom') ?>',
                 dataType: 'JSON',
                 success: function(data) {
-                    // console.log(data)
+                    console.log(data)
                     var rowData = data.values
                     BomTable.rows.add(rowData).draw(false)
                 }
 
+            })
+        }
+
+        function editData(id) {
+            $.ajax({
+                type: 'GET',
+                url: '<?= base_url('transaksi/bom/edit/') ?>' + id,
+                dataType: 'JSON',
+                success: function(data) {
+                    console.log(data)
+                    if (data.status) {
+                        var html = ''
+                        var htmlDetail = ''
+                        html += `<h5><i>Edit Bill of Materials (BOM)</i></h5>`
+                        $('#header-form').html(html)
+                        // set  form value
+                        $('#trans_id').val(data.trans_id)
+                        $('#product_id').val(data.product_id)
+                        $('textarea#keterangan').val(data.description)
+                        var detail = data.details
+                        var no = 1;
+                        var dataId = 1;
+                        var id = 1;
+
+                        for (let i = 0; i < detail.length; i++) {
+                            $(".material_id option[value='MTR-0001']").prop("selected", true);
+                            $('.qty').val(detail[i].qty)
+                            htmlDetail += `<tr id ="rec-` + id++ + `">
+                                <td class="text-center">
+                                    <span class="sn">` + no++ + `</span>
+                                </td>
+                                <td>
+                                    <select name="material_id[]" class="form-control material_id"  required>
+                                        <option value="">-pilih bahan baku-</option>
+                                        <?php foreach ($materials as $rowData) : ?>
+                                            <option value="<?= $rowData['material_id'] ?>"><?= $rowData['material_id'] . ' ' . $rowData['material_name'] . ' [Satuan:' . $rowData['material_unit'] . ']' ?></option>
+                                        <?php endforeach ?>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="text" name="qty[]" class="form-control qty" value="1" required>
+                                </td>
+                                <td class="text-center" style="vertical-align: middle;">
+                                    <a href="#" class="text-danger  btn-icon delete-record" data-id="` + dataId++ + `">
+                                        <i class="fa fa-trash-alt"></i>
+                                    </a>
+                                </td>
+
+                            </tr>`
+                        }
+                        $('#tbl_posts_body').html(htmlDetail)
+                        // var content = jQuery('#sample_table tr'),
+                        //     size = jQuery('#tbl_posts >tbody >tr').length + 1,
+                        //     element = null,
+                        //     element = content.clone();
+
+                        // element.attr('id', 'rec-' + size);
+                        // element.find('.delete-record').attr('data-id', size);
+                        // element.appendTo('#tbl_posts_body');
+                        // element.find('.sn').html(size);
+
+                        contentList.hide()
+                        formCreate.show()
+                    } else {
+                        Swal.fire({
+                            title: data.title,
+                            icon: data.type,
+                            text: data.message,
+                            buttonsStyling: true,
+                            confirmButtonText: 'OK',
+                            confirmButtonColor: '#3f37c9',
+                        })
+
+                    }
+
+                }
             })
         }
 

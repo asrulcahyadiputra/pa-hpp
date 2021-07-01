@@ -15,7 +15,10 @@ $this->load->view('_partials/header');
 		</div>
 
 		<div class="section-body" id="list-data">
-			<button type="button" class="btn btn-primary" id="btn-pluss"><i class="fas fa-plus"></i> Buat <?= $title ?> Baru</button>
+			<div class="text-left">
+				<button type="button" class="btn btn-primary" id="btn-pluss"><i class="fas fa-plus"></i> Buat <?= $title ?> Baru</button>
+			</div>
+
 			<div class="row mt-4">
 				<div class="col-12">
 					<div class="card">
@@ -28,7 +31,8 @@ $this->load->view('_partials/header');
 											<th style="width: 15%;">Kode</th>
 											<th>Keterangan</th>
 											<th style="width: 20%;">Produk</th>
-											<!-- <th class="no-content"></th> -->
+											<th style="width: 5%;">Kunci</th>
+											<th class="no-content"></th>
 										</tr>
 									</thead>
 									<tbody>
@@ -45,7 +49,7 @@ $this->load->view('_partials/header');
 		<!-- BEGIN FORM ADD CONTENT -->
 		<div class="section-body" id="form-create">
 			<div class="row mt-4">
-				<div class="col-md-6">
+				<div class="col-md-12">
 					<div class="text-left">
 						<button type="button" class="btn btn-primary" id="btn-back"><i class="fa fa-arrow-left"></i> Kembali</button>
 					</div>
@@ -59,8 +63,7 @@ $this->load->view('_partials/header');
 
 					<div class="card">
 						<div class="card-header">
-							<div class="card-title">
-								<h5><i>Create Bill of Materials (BOM)</i></h5>
+							<div class="card-title" id="header-form">
 							</div>
 						</div>
 						<form action="<?= site_url("transaksi/bom/store/") ?>" method="POST" id="createBom" class="needs-validation" novalidate>
@@ -70,7 +73,7 @@ $this->load->view('_partials/header');
 									<div class="col-4">
 										<div class="form-group">
 											<label for="trans_id">Kode BoM</label>
-											<input type="text" name="trans_id" id="trans_id" class="form-control" value="AUTO" disabled>
+											<input type="text" name="trans_id" id="trans_id" class="form-control" disabled>
 										</div>
 									</div>
 									<div class="col-4">
