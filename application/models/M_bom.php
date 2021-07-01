@@ -107,11 +107,22 @@ class M_bom extends CI_Model
 			}
 		}
 	}
-	public function store($trans_id)
+	public function store()
 	{
+		$trans_id = $this->trans_id();
 		$material_id = $this->input->post('material_id');
-		$employee_id = $this->input->post('employee_id');
-		$oc_id = $this->input->post('oc_id');
+		$product_id = $this->input->post('product_id');
+		$description = $this->input->post('description');
+		$periode = date('Y') . '' . date('m');
+
+		$transactions = [
+			'trans_id'			=> $trans_id,
+			'periode'			=> $periode,
+			'product_id'		=> $product_id,
+			'description'		=> $description,
+			'trans_type'		=> 'bom'
+		];
+
 
 		foreach ($material_id as $x => $values) {
 			$materials[] = [
@@ -121,32 +132,33 @@ class M_bom extends CI_Model
 			];
 		}
 
-		foreach ($employee_id as $y => $values) {
-			$employees[] = [
-				'trans_id'		=> $trans_id,
-				'employee_id'	=> $employee_id[$y],
-				'cost'			=> $this->input->post('cost')[$y]
-			];
-		}
 
-		foreach ($employee_id as $z => $value) {
-			$overheads[] = [
-				'trans_id'				=> $trans_id,
-				'oc_id'					=> $oc_id[$z],
-				'overhead_cost'			=> $this->input->post('overhead_cost')[$z]
-			];
-		}
-
-		$data = [
-			'trans_id'			=> $trans_id,
-			'status'			=> 1
-		];
 		$this->db->trans_start();
-		$this->db->update('transactions', $data, ['trans_id' => $trans_id]);
-		$this->db->insert_batch('bill_of_materials', $employees);
+		$this->db->insert('transactions', $transactions);
 		$this->db->insert_batch('bill_of_materials', $materials);
-		$this->db->insert_batch('bill_of_materials', $overheads);
 		$this->db->trans_complete();
+		if ($this->db->trans_status() == true) {
+			$response = [
+				'status'		=> $this->db->trans_status(),
+				'title'			=> 'Berhasil!',
+				'message'		=> 'Data Berhasil di Simpan dengan No Bukti ' . $trans_id,
+				'type'			=> 'success',
+				'data'			=> [
+					'bom_desc'		=> $transactions,
+					'bom_details'	=> $materials
+				]
+			];
+		} else {
+			$response = [
+				'status'			=> $this->db->trans_status(),
+				'title'				=> 'Gagal!',
+				'message'			=> 'Data Gagal Disimpan',
+				'type'				=> 'error',
+				'data'				=> null,
+				'system_response'   => $this->db->trans_status()
+			];
+		}
+		return $response;
 	}
 	public function update($trans_id)
 	{

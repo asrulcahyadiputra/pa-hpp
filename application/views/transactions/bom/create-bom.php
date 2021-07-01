@@ -15,30 +15,6 @@ $this->load->view('_partials/header');
 		</div>
 
 		<div class="section-body">
-			<?php if ($this->session->flashdata('success')) : ?>
-				<div class="alert alert-success alert-dismissible fade show mt-3 col-md-4" role="alert">
-					<strong>Berhasil !</strong> <?= $this->session->flashdata('success') ?>
-					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-			<?php endif ?>
-			<?php if ($this->session->flashdata('error')) : ?>
-				<div class="alert alert-danger alert-dismissible fade show mt-3 col-md-4" role="alert">
-					<strong>Gagal !</strong> <?= $this->session->flashdata('error') ?>
-					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-			<?php endif ?>
-			<?php if ($this->session->flashdata('warning')) : ?>
-				<div class="alert alert-warning alert-dismissible fade show mt-3 col-md-4" role="alert">
-					<strong>Peringatan !</strong> <?= $this->session->flashdata('warning') ?>
-					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-			<?php endif ?>
 			<div class="row mt-4">
 				<div class="col-12">
 					<div class="card">
@@ -102,65 +78,7 @@ $this->load->view('_partials/header');
 													</div>
 												</div>
 											</div>
-											<div class="card">
-												<div class="card-header" id="headingTwo">
-													<h2 class="mb-0">
-														<button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-															#2 Biaya Tenaga Kerja Langsung
-														</button>
-													</h2>
-												</div>
-												<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-													<div class="card-body">
-														<div class="table-responsive">
-															<table class="table table-bordered table-sm table-striped" id="tbl_posts_btkl">
-																<thead>
-																	<tr>
-																		<th class="text-center">#</th>
-																		<th>Karyawan</th>
-																		<th>Nominal</th>
-																		<th class="no-content"></th>
-																	</tr>
-																</thead>
-																<tbody>
-																<tbody id="tbl_posts_body_btkl" class="contents">
 
-																</tbody>
-															</table>
-															<a href="#" class="btn btn-secondary btn-sm btn-block add-record-btkl" data-added="0"><i class="fa fa-plus"></i> Tambah Baris</a>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="card">
-												<div class="card-header" id="headingThree">
-													<h2 class="mb-0">
-														<button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-															#3 Biaya Overhead Pabrik
-														</button>
-													</h2>
-												</div>
-												<div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-													<div class="card-body">
-														<div class="table-responsive">
-															<table class="table table-bordered table-sm table-striped" id="tbl_posts_bop">
-																<thead>
-																	<tr>
-																		<th class="text-center">#</th>
-																		<th>Komponen Biaya</th>
-																		<th>Nominal</th>
-																		<th class="no-content"></th>
-																	</tr>
-																</thead>
-																<tbody id="tbl_posts_body_bop" class="contents">
-
-																</tbody>
-															</table>
-															<a href="#" class="btn btn-secondary btn-sm btn-block add-record-bop" data-added="0"><i class="fa fa-plus"></i> Tambah Baris</a>
-														</div>
-													</div>
-												</div>
-											</div>
 										</div>
 
 									</div>
@@ -181,6 +99,8 @@ $this->load->view('_partials/header');
 				</div>
 			</div>
 		</div>
+
+
 	</section>
 </div>
 

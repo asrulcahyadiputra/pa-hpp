@@ -20,6 +20,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 <script src="<?php echo base_url(); ?>assets/js/page/modules-datatables.js"></script>
 <script src="<?php echo base_url(); ?>assets/modules/prism/prism.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/page/bootstrap-modal.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- JS Libraies -->
 <?php
 if ($this->uri->segment(1) == "Dashboard") { ?>

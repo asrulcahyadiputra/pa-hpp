@@ -16,8 +16,8 @@ class Bom extends CI_Controller
 	{
 		$data = [
 			'title'			=> 'Bill of Materials',
-			'product'		=> $this->model->get_product(),
-			'all'			=> $this->model->get_bom()
+			'products'		=> $this->model->get_product(),
+			'materials'		=> $this->model->get_materials(),
 		];
 		$this->load->view('transactions/bom/bom-list', $data);
 	}
@@ -66,11 +66,11 @@ class Bom extends CI_Controller
 		redirect('transaksi/bom/create/' . $trans_id);
 	}
 	// this function for store bom final 
-	public function store($trans_id)
+	public function store()
 	{
-		$request = $this->model->store($trans_id);
-		$this->session->set_flashdata('success', 'Bill of Materials berhasil dibuat !');
-		redirect('transaksi/bom');
+		$request = $this->model->store();
+
+		echo json_encode($request);
 	}
 	// this function for updated bom final 
 	public function update($trans_id)

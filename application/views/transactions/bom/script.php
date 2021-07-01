@@ -20,9 +20,111 @@ defined('BASEPATH') or exit('No direct script access allowed');
 <script src="<?php echo base_url(); ?>assets/js/page/modules-datatables.js"></script>
 <script src="<?php echo base_url(); ?>assets/modules/prism/prism.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/page/bootstrap-modal.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- JS Libraies -->
 <script>
     $(document).ready(function() {
+        var BomTable = $('#table-bom-list')
+        var contentList = $('#list-data')
+        var formCreate = $('#form-create')
+        var btnAdd = $('#btn-pluss')
+        var btnBack = $('#btn-back')
+        var gridBB = $('#tbl_posts')
+        var btnSubmit = $('#btn-submit')
+        var btnCancel = $('#btn-cancel')
+        contentList.show()
+        formCreate.hide()
+        BomTable.DataTable({
+            "paging": true,
+            "ordering": false,
+            "info": true,
+            "columnDefs": [{
+                "searchable": false,
+                "orderable": false,
+                "targets": 0
+            }],
+            "columns": [{
+                    data: 'no'
+                },
+                {
+                    data: 'trans_id'
+                },
+                {
+                    data: 'product_name'
+                },
+                {
+                    data: 'date_created'
+                },
+                {
+                    data: 'status'
+                },
+                {
+                    data: 'action'
+                }
+            ]
+        })
+        btnAdd.on('click', function() {
+            contentList.hide()
+            formCreate.show()
+            $('#tbl_posts >tbody >tr').remove()
+        })
+        btnBack.on('click', function() {
+            contentList.show()
+            formCreate.hide()
+            $('#createBom').trigger('reset')
+        })
+
+        formCreate.on('submit', function(e) {
+            e.preventDefault()
+            var product_id = $('#product_id').val()
+            var keterangan = $('#keterangan').val()
+            var qty = $('qty').val()
+            var BahanBakuRowCount = $('#tbl_posts >tbody >tr').length
+            var form_data = $('form').serialize();
+            if (BahanBakuRowCount > 0) {
+                if (product_id == ' ' || keterangan == '') {
+                    Swal.fire({
+                        title: 'Error',
+                        icon: 'error',
+                        text: 'Form Tidak Boleh Kosong',
+                        buttonsStyling: true,
+                        confirmButtonText: 'OK',
+                        confirmButtonColor: '#3f37c9',
+                    })
+                } else {
+                    $.ajax({
+                        type: 'POST',
+                        url: '<?= base_url('transaksi/bom/store') ?>',
+                        data: form_data,
+                        dataType: 'JSON',
+                        success: function(data) {
+                            console.log(data)
+                            Swal.fire({
+                                title: data.title,
+                                icon: data.type,
+                                text: data.message,
+                                buttonsStyling: true,
+                                confirmButtonText: 'OK',
+                                confirmButtonColor: '#3f37c9',
+                            })
+                        }
+                    })
+                }
+
+            } else {
+                Swal.fire({
+                    title: 'Error',
+                    icon: 'error',
+                    text: 'Data Bahan Baku Tidak Valid',
+                    buttonsStyling: true,
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#3f37c9',
+                })
+            }
+        })
+
+
+
         $('#material_id').change(function() {
             var material_id = $('#material_id').val();
             $.ajax({
@@ -43,8 +145,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
             e.preventDefault()
             var transId = $('.btn-submit').attr('bom-id')
             var BahanBakuRowCount = $('#tbl_posts >tbody >tr').length;
-            var BtklRowCount = $('#tbl_posts_btkl >tbody >tr').length;
-            var BopRowCount = $('#tbl_posts_bop >tbody >tr').length;
             var html = ''
             console.log('Klik Submit Handler')
             console.log(transId)
@@ -55,24 +155,25 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 $('#alertModal').modal('show')
                 html += `<p class="text-center">Bill of Material tidak valid, mohon cek kembali isian Anda</p>`
                 $('.modal-body').html(html)
-            } else if (BahanBakuRowCount < 1) {
-                $('#alertModal').modal('show')
-                html += `<p class="text-center">Tabel bahan baku (BB) tidak boleh kosong</p>`
-                $('.modal-body').html(html)
-            } else if (BtklRowCount < 1) {
-                $('#alertModal').modal('show')
-                html += `<p class="text-center">Tabel biaya tenaga kerja langsung (BTKL) tidak boleh kosong</p>`
-                $('.modal-body').html(html)
-            } else if (BopRowCount < 1) {
-                $('#alertModal').modal('show')
-                html += `<p class="text-center">Tabel biaya overhead pabrik (BOP) tidak boleh kosong</p>`
-                $('.modal-body').html(html)
             } else {
                 $('#createBom').submit()
             }
         });
+
+        function loadData(data) {
+
+        }
+
+
+        function resetForm() {
+            document.getElementById("createBom").reset();
+        }
     });
 </script>
+
+
+
+
 <!-- material script -->
 <script type="text/javascript">
     jQuery(document).delegate('a.add-record', 'click', function(e) {
@@ -92,98 +193,21 @@ defined('BASEPATH') or exit('No direct script access allowed');
 <script>
     jQuery(document).delegate('a.delete-record', 'click', function(e) {
         e.preventDefault();
-        var didConfirm = confirm("Data Tidak dapat dikembalikan, Anda yakin ?");
-        if (didConfirm == true) {
-            var id = jQuery(this).attr('data-id');
-            var targetDiv = jQuery(this).attr('targetDiv');
-            jQuery('#rec-' + id).remove();
+        // var didConfirm = confirm("Data Tidak dapat dikembalikan, Anda yakin ?");
 
-            //regnerate index number on table
-            $('#tbl_posts_body tr').each(function(index) {
-                //alert(index);
-                $(this).find('span.sn').html(index + 1);
-            });
-            return true;
-        } else {
-            return false;
-        }
+        var id = jQuery(this).attr('data-id');
+        var targetDiv = jQuery(this).attr('targetDiv');
+        jQuery('#rec-' + id).remove();
+
+        //regnerate index number on table
+        $('#tbl_posts_body tr').each(function(index) {
+            //alert(index);
+            $(this).find('span.sn').html(index + 1);
+        });
+        return true;
+
     });
 </script>
-
-<!-- direct labor script -->
-<script type="text/javascript">
-    jQuery(document).delegate('a.add-record-btkl', 'click', function(e) {
-        console.log("add row")
-        e.preventDefault();
-        var content = jQuery('#sample_table_btkl tr'),
-            size = jQuery('#tbl_posts_btkl >tbody >tr').length + 1,
-            element = null,
-            element = content.clone();
-
-        element.attr('id', 'rec-btkl-' + size);
-        element.find('.delete-record-btkl').attr('btkl-id', size);
-        element.appendTo('#tbl_posts_body_btkl');
-        element.find('.sn').html(size);
-    });
-</script>
-<script>
-    jQuery(document).delegate('a.delete-record-btkl', 'click', function(e) {
-        e.preventDefault();
-        var didConfirm = confirm("Data BTKL dikembalikan, Anda yakin ?");
-        if (didConfirm == true) {
-            var id = jQuery(this).attr('btkl-id');
-            var targetDiv = jQuery(this).attr('targetDiv');
-            jQuery('#rec-btkl-' + id).remove();
-
-            //regnerate index number on table
-            $('#tbl_posts_body_btkl tr').each(function(index) {
-                //alert(index);
-                $(this).find('span.sn').html(index + 1);
-            });
-            return true;
-        } else {
-            return false;
-        }
-    });
-</script>
-
-<!-- overhead script -->
-<script type="text/javascript">
-    jQuery(document).delegate('a.add-record-bop', 'click', function(e) {
-        console.log("add row")
-        e.preventDefault();
-        var content = jQuery('#sample_table_bop tr'),
-            size = jQuery('#tbl_posts_bop >tbody >tr').length + 1,
-            element = null,
-            element = content.clone();
-
-        element.attr('id', 'rec-bop-' + size);
-        element.find('.delete-record-bop').attr('bop-id', size);
-        element.appendTo('#tbl_posts_body_bop');
-        element.find('.sn').html(size);
-    });
-</script>
-<script>
-    jQuery(document).delegate('a.delete-record-bop', 'click', function(e) {
-        e.preventDefault();
-        var didConfirm = confirm("Data BOP dikembalikan, Anda yakin ?");
-        if (didConfirm == true) {
-            var id = jQuery(this).attr('bop-id');
-            var targetDiv = jQuery(this).attr('targetDiv');
-            jQuery('#rec-bop-' + id).remove();
-
-            //regnerate index number on table
-            $('#tbl_posts_body_bop tr').each(function(index) {
-                //alert(index);
-                $(this).find('span.sn').html(index + 1);
-            });
-            return true;
-        } else {
-            return false;
-        }
-    });
-</script>
-
 
 
 <!-- Template JS File -->
