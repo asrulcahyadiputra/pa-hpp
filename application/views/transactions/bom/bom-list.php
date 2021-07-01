@@ -21,7 +21,7 @@ $this->load->view('_partials/header');
 					<div class="card">
 						<div class="card-body">
 							<div class="table-responsive">
-								<table class="table table-bordered table-hover" id="table-bom-list">
+								<table class="table  table-striped" id="table-bom-list">
 									<thead>
 										<tr>
 											<th style="width: 5%;">#</th>
