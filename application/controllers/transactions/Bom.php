@@ -21,44 +21,14 @@ class Bom extends CI_Controller
 		];
 		$this->load->view('transactions/bom/bom-list', $data);
 	}
-	// this function for create a new draff
-	public function create_draff()
+
+	public function get_bom()
 	{
-		$request = $this->model->create_draff();
-		redirect('transaksi/bom/create/' . $request['trans_id']);
-	}
-	public function find_material()
-	{
-		$material_id = $this->input->post('material_id');
-		$request = $this->model->find_material($material_id);
+		$request = $this->model->get_bom();
+
 		echo json_encode($request);
 	}
-	// this function for display bom form
-	public function create($trans_id)
-	{
-		$validate = $this->db->get_where('transactions', ['trans_id' => $trans_id, 'status' => 0])->row_array();
-		if ($validate) {
-			$data = [
-				'title'			=> 'Draf Bill of Materials Baru',
-				'trans_id'		=> $trans_id,
-				'materials'		=> $this->model->get_materials(),
-				'employees'		=> $this->model->get_employees(),
-				'bop'			=> $this->model->overhead_component(),
-				'product'		=> $this->model->select_product($trans_id),
-				'bom'			=> $this->model->select_bom($trans_id)
-			];
-			$this->load->view('transactions/bom/create-bom', $data);
-		} else {
-			$this->session->set_flashdata('error', 'Draf Bill of Materials gagal dibuat !');
-			redirect('transaksi/bom', 'refresh');
-		}
-	}
-	// this function for store item to bom
-	public function store_item()
-	{
-		$request = $this->model->insert_item();
-		redirect('transaksi/bom/create/' . $request['trans_id']);
-	}
+
 	// this function for destroy item to bom
 	public function delete_item($trans_id, $material_id)
 	{

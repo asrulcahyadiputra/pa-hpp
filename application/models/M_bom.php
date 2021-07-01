@@ -27,10 +27,35 @@ class M_bom extends CI_Model
 	}
 	public function get_bom()
 	{
-		$this->db->select('a.trans_id,a.product_id,b.product_name,a.status,a.date_created,a.updated_at')
+		$sql = $this->db->select('a.trans_id,a.product_id,b.product_name,a.description,a.status,a.date_created,a.updated_at')
 			->from('transactions as a')
-			->join('products as b', 'a.product_id=b.product_id');
-		return $this->db->get()->result_array();
+			->join('products as b', 'a.product_id=b.product_id')
+			->order_by('a.date_created', 'DESC')
+			->get()
+			->result_array();
+
+
+		$totData = count($sql);
+		$no = 1;
+		if ($totData > 0) {
+			foreach ($sql as $key => $val) {
+				$data[] = [
+					'no' 			=> $no++,
+					'kode_bom' 		=> $val['trans_id'],
+					'description'	=> $val['description'],
+					'product'		=> $val['product_id'] . ' - ' . $val['product_name']
+				];
+			}
+		} else {
+			$data = null;
+		}
+
+		$response = [
+			'total_data'	=> $totData,
+			'values'		=> $data
+		];
+
+		return $response;
 	}
 	public function select_bom($id)
 	{
@@ -141,7 +166,7 @@ class M_bom extends CI_Model
 			$response = [
 				'status'		=> $this->db->trans_status(),
 				'title'			=> 'Berhasil!',
-				'message'		=> 'Data Berhasil di Simpan dengan No Bukti ' . $trans_id,
+				'message'		=> 'Data Berhasil di Simpan dengan kode ' . $trans_id,
 				'type'			=> 'success',
 				'data'			=> [
 					'bom_desc'		=> $transactions,

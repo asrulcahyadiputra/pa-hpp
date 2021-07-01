@@ -21,15 +21,14 @@ $this->load->view('_partials/header');
 					<div class="card">
 						<div class="card-body">
 							<div class="table-responsive">
-								<table class="table table-striped" id="table-bom-list">
+								<table class="table table-bordered table-hover" id="table-bom-list">
 									<thead>
 										<tr>
-											<th>#</th>
-											<th>Kode BOM</th>
-											<th>Produk</th>
-											<th>Tanggal Dibuat</th>
-											<th>Status</th>
-											<th class="no-content"></th>
+											<th style="width: 5%;">#</th>
+											<th style="width: 15%;">Kode</th>
+											<th>Keterangan</th>
+											<th style="width: 20%;">Produk</th>
+											<!-- <th class="no-content"></th> -->
 										</tr>
 									</thead>
 									<tbody>
@@ -43,7 +42,7 @@ $this->load->view('_partials/header');
 			</div>
 		</div>
 
-
+		<!-- BEGIN FORM ADD CONTENT -->
 		<div class="section-body" id="form-create">
 			<div class="row mt-4">
 				<div class="col-md-6">
@@ -124,6 +123,9 @@ $this->load->view('_partials/header');
 				</div>
 			</div>
 		</div>
+		<!-- BEGIN FORM ADD CONTENT -->
+
+
 	</section>
 </div>
 

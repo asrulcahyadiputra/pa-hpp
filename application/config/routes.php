@@ -81,6 +81,7 @@ $route['master/coa/update/(:any)']            = 'master/Coa/update/$1';
 | -------------------------------------------------------------------------
 */
 $route['transaksi/bom']                                = 'transactions/Bom';
+$route['transaksi/get_bom']                            = 'transactions/Bom/get_Bom';
 $route['transaksi/bom/draf']                        = 'transactions/Bom/create_draff';
 $route['transaksi/bom/create/(:any)']                = 'transactions/Bom/create/$1';
 $route['transaksi/bom/store']                       = 'transactions/Bom/store';

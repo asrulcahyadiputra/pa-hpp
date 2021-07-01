@@ -24,7 +24,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 <!-- JS Libraies -->
 <script>
     $(document).ready(function() {
-        var BomTable = $('#table-bom-list')
+        // var BomTable = $('#table-bom-list')
         var contentList = $('#list-data')
         var formCreate = $('#form-create')
         var btnAdd = $('#btn-pluss')
@@ -34,40 +34,55 @@ defined('BASEPATH') or exit('No direct script access allowed');
         var btnCancel = $('#btn-cancel')
         contentList.show()
         formCreate.hide()
-        BomTable.DataTable({
+
+        BomTable = $('#table-bom-list').DataTable({
             "paging": true,
-            "ordering": false,
             "info": true,
             "columnDefs": [{
-                "searchable": false,
-                "orderable": false,
-                "targets": 0
-            }],
+                    "tragets": [1],
+                    "searchable": true,
+                    "orderable": true,
+                },
+                {
+                    "tragets": [2, 3],
+                    "searchable": true,
+                    "orderable": false,
+                },
+                {
+                    "searchable": false,
+                    "orderable": false,
+                    "targets": 0,
+                    'className': 'text-center'
+                },
+                // {
+                //     "searchable": false,
+                //     "orderable": false,
+                //     "targets": 4,
+                //     "data": null,
+                //     'defaultContent': action_html,
+                // }
+            ],
             "columns": [{
                     data: 'no'
                 },
                 {
-                    data: 'trans_id'
+                    data: 'kode_bom'
                 },
                 {
-                    data: 'product_name'
+                    data: 'description'
                 },
                 {
-                    data: 'date_created'
+                    data: 'product'
                 },
-                {
-                    data: 'status'
-                },
-                {
-                    data: 'action'
-                }
             ]
         })
+
         btnAdd.on('click', function() {
             contentList.hide()
             formCreate.show()
             $('#tbl_posts >tbody >tr').remove()
         })
+
         btnBack.on('click', function() {
             contentList.show()
             formCreate.hide()
@@ -107,6 +122,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                 confirmButtonText: 'OK',
                                 confirmButtonColor: '#3f37c9',
                             })
+                            resetForm()
+                            formCreate.hide()
+                            contentList.show()
+                            $('#tbl_posts >tbody >tr').remove()
+                            loadData()
                         }
                     })
                 }
@@ -123,47 +143,22 @@ defined('BASEPATH') or exit('No direct script access allowed');
             }
         })
 
-
-
-        $('#material_id').change(function() {
-            var material_id = $('#material_id').val();
+        function loadData() {
+            BomTable.clear().draw()
             $.ajax({
-                url: '<?= site_url() ?>transaksi/bom/find_material',
-                method: 'POST',
-                async: true,
-                dataType: "JSON",
-                data: {
-                    material_id: material_id
-                },
+                type: 'GET',
+                url: '<?= base_url('transaksi/get_bom') ?>',
+                dataType: 'JSON',
                 success: function(data) {
-                    $('#unit').html(data.material_unit);
+                    // console.log(data)
+                    var rowData = data.values
+                    BomTable.rows.add(rowData).draw(false)
                 }
-            });
-            return false;
-        });
-        $('.btn-submit').click(function(e) {
-            e.preventDefault()
-            var transId = $('.btn-submit').attr('bom-id')
-            var BahanBakuRowCount = $('#tbl_posts >tbody >tr').length;
-            var html = ''
-            console.log('Klik Submit Handler')
-            console.log(transId)
-            console.log(BahanBakuRowCount)
-            console.log(BtklRowCount)
-            console.log(BopRowCount)
-            if (BahanBakuRowCount < 1 && BtklRowCount < 1 && BopRowCount < 1) {
-                $('#alertModal').modal('show')
-                html += `<p class="text-center">Bill of Material tidak valid, mohon cek kembali isian Anda</p>`
-                $('.modal-body').html(html)
-            } else {
-                $('#createBom').submit()
-            }
-        });
 
-        function loadData(data) {
-
+            })
         }
 
+        loadData()
 
         function resetForm() {
             document.getElementById("createBom").reset();
