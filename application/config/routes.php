@@ -177,3 +177,4 @@ $route['laporan/kartu_pesanan']                            = 'reports/Order_card
 | -------------------------------------------------------------------------
 */
 $route['laporan/hpp']                                    = 'reports/Cogs';
+$route['laporan/hpp/load_report/(:any)']                 = 'reports/Cogs/load_report/$1';
