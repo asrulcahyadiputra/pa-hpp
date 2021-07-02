@@ -19,25 +19,63 @@ class M_production extends CI_Model
 
 	public function orders()
 	{
-		$this->db->select('a.trans_id,a.customer_id,b.order_id,b.order_qty,b.order_price,c.customer_id,c.cus_name,d.product_id,d.product_name,d.product_unit,a.status')
+		$this->db->select('a.trans_id,a.customer_id,c.customer_id,c.cus_name')
 			->from('transactions as a')
-			->join('orders as b', 'a.trans_id=b.trans_id')
 			->join('customers as c', 'c.customer_id=a.customer_id')
-			->join('products as d', 'd.product_id=b.product_id')
-			->where('a.status', 0)
+			->where('a.status_production', 0)
 			->order_by('a.trans_id', 'ASC');
 		return $this->db->get()->result_array();
 	}
 	public function find_order($id)
 	{
-		$this->db->select('a.trans_id,a.trans_date,a.customer_id,b.order_id,b.order_qty,b.order_price,c.customer_id,c.cus_name,d.product_id,d.product_name,d.product_unit,a.status')
+		$sql = $this->db->select('a.trans_id,a.trans_date,a.customer_id,b.order_id,b.order_size,b.order_qty,b.order_price,c.customer_id,c.cus_name,d.product_id,d.product_name,d.product_unit,a.status')
 			->from('transactions as a')
 			->join('orders as b', 'a.trans_id=b.trans_id')
 			->join('customers as c', 'c.customer_id=a.customer_id')
 			->join('products as d', 'd.product_id=b.product_id')
-			->where('a.trans_id', $id);
-		return $this->db->get()->row_array();
+			->where('a.trans_id', $id)
+			->get()
+			->result_array();
+		foreach ($sql as $key => $val) {
+			$bom_opsi = $this->db->get_where('transactions', ['trans_type' => 'bom', 'product_id' => $val['product_id']])->result_array();
+			$data[] = [
+				'product_id'		=> $val['product_id'],
+				'product_name'		=> $val['product_name'],
+				'order_qty'			=> $val['order_qty'],
+				'order_size'		=> $val['order_size'],
+				'opsi'				=> $bom_opsi
+			];
+		}
+
+		return $data;
 	}
+
+	public function load_bom()
+	{
+
+		$where = [];
+		$kode_bom = $this->input->post('kode_bom');
+		foreach ($kode_bom as $i => $val) {
+			array_push($where, $kode_bom[$i]);
+		}
+		$sql = $this->db->select('a.material_id,a.qty,a.unit,b.material_name,a.trans_id,avg(d.purchase_price) as unit_price,b.material_type')
+			->from('transactions as c')
+			->join('bill_of_materials as a', 'a.trans_id=c.trans_id')
+			->join('raw_materials as b', 'a.material_id=b.material_id')
+			->join('purchase as d', 'd.material_id=b.material_id')
+			->where_in('c.trans_id', $where)
+			->group_by('a.material_id')
+			->get()
+			->result_array();
+
+
+		$response = [
+			'where_clouse' => $where,
+			'bom'			=> $sql
+		];
+		return $response;
+	}
+
 	public function find_bom($id)
 	{
 		$find = $this->find_order($id);
@@ -55,6 +93,8 @@ class M_production extends CI_Model
 			->group_by('a.material_id');
 		return $this->db->get()->result_array();
 	}
+
+
 	private function trans_id()
 	{
 		$this->db->select('RIGHT(trans_id,9) as trans_id', FALSE);

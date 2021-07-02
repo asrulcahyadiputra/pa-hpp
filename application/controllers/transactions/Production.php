@@ -21,21 +21,28 @@ class Production extends CI_Controller
 	}
 	public function create()
 	{
-		$id_transaksi = $this->input->get('id_transaksi');
-		if ($id_transaksi === null) {
-			$id = '';
-		} else {
-			$id = $id_transaksi;
-		}
 		$data = [
-			'title'		=> 'Hitung Biaya Produksi (1)',
+			'title'			=> 'Produksi',
 			'orders'		=> $this->model->orders(),
-			'order'		=> $this->model->find_order($id),
-			'bom'		=> $this->model->find_bom($id),
-
 		];
 		$this->load->view('transactions/production/create_production', $data);
 	}
+
+	public function find_order($id)
+	{
+		$request = $this->model->find_order($id);
+
+		echo json_encode($request);
+	}
+
+	public function load_bom()
+	{
+		$request = $this->model->load_bom();
+
+		echo json_encode($request);
+	}
+
+
 	public function conversion($id_transaksi_order)
 	{
 		$requesrt =  $this->model->conversion($id_transaksi_order);

@@ -21,6 +21,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 <script src="<?php echo base_url(); ?>assets/modules/prism/prism.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/page/bootstrap-modal.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="<?php echo base_url(); ?>assets/js/downupPopup.js"></script>
 <!-- JS Libraies -->
 <script>
     $(document).ready(function() {
@@ -96,6 +97,17 @@ defined('BASEPATH') or exit('No direct script access allowed');
             var id = $(this).closest('tr').find('td').eq(1).html();
             editData(id)
         })
+
+        // click td
+        $('#table-bom-list').on('click', 'td', function(e) {
+            e.preventDefault()
+            if ($(this).index() != 9) {
+                var id = $(this).closest('tr').find('td').eq(1).html();
+                preview_data(id)
+            }
+
+        })
+
 
         btnBack.on('click', function() {
             contentList.show()
@@ -257,6 +269,85 @@ defined('BASEPATH') or exit('No direct script access allowed');
         }
 
         loadData()
+        // bottom sheet
+        $("#previewData").downupPopup({
+            distance: 20,
+            width: "80%",
+            headerText: "Detail Data Bill of Material",
+        });
+
+        function preview_data(id) {
+            console.log('preview data ' + id)
+            $.ajax({
+                type: 'POST',
+                url: '<?= base_url('transaksi/pesanan/find/') ?>' + id,
+                dataType: 'JSON',
+                success: function(data) {
+                    console.log(data)
+                    $('#previewData').downupPopup('open');
+                    var html = ''
+
+                    html += `<div class='row' style='margin:10px;border-top: double;'>
+                        <div class='col-md-12 overflow-auto'>
+                            <table class='table table-sm mt-3'>
+                                <tr>
+                                    <td style='width:20%'>No Pesanan</td>
+                                    <td style='width:1%'>:</td>
+                                    <td style='width:70%'>` + data[0].trans_id + `</td>
+                                </tr>
+                                <tr>
+                                    <td style='width:20%'>Tanggal</td>
+                                    <td style='width:1%'>:</td>
+                                    <td>` + data[0].tanggal + `</td>
+                                </tr>
+                                <tr>
+                                    <td style='width:20%'>Nama Pelanggan</td>
+                                    <td style='width:1%'>:</td>
+                                    <td>` + data[0].pelanggan + `</td>
+                                </tr>
+                                <tr>
+                                    <td style='width:20%'>Keterangan</td>
+                                    <td style='width:1%'>:</td>
+                                    <td>` + data[0].keterangan + `</td>
+                                </tr>
+                            </table>
+                            <div class='text-right'>
+                                <small><i>*Disajikan Dalam Rupiah</i></small>
+                            </div>
+                            <table class='table table-bordered table-sm'>
+                                <thead>
+                                    <tr style="background-color: #4361ee; color: #fff">
+                                        <th class='text-center' style='width:5%'>No</th>
+                                        <th class='text-center' style='width:10%'>Kode</th>
+                                        <th>Nama</th>
+                                        <th class='text-center' style='width:10%'>Ukuran</th>
+                                        <th class='text-center' style='width:10%'>Qty</th>
+                                        <th class='text-center' style='width:10%'>Satuan</th>
+                                        <th class='text-right' style='width:15%'>Harga Satuan</th>
+                                        <th class='text-right'>Jumlah</th>
+                                    </tr>
+                                </thead>`
+                    var detail = data[0].details
+                    var no = 1
+                    for (let i = 0; i < detail.length; i++) {
+                        html += `<tr>
+                            <td class='text-center'>` + no++ + `</td>
+                            <td>` + detail[i].product_id + `</td>
+                            <td>` + detail[i].product_name + `</td>
+                            <td class='text-center'>` + detail[i].order_size + `</td>
+                            <td class='text-center'>` + detail[i].order_qty + `</td>
+                            <td class='text-center'>` + detail[i].product_unit + `</td>
+                            <td class='text-right'>` + format_number(detail[i].order_price) + `</td>
+                            <td class='text-right'>` + format_number(detail[i].order_total) + `</td>
+                        </tr>`
+
+                    }
+                    html += `</table> </div> </div>`
+                    $('#previewHere').html(html);
+                }
+            })
+        }
+
 
         function resetForm() {
             document.getElementById("createBom").reset();

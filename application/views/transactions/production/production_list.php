@@ -53,7 +53,6 @@ $this->load->view('_partials/header');
 											<th>Tanggal</th>
 											<th>Biaya Produksi</th>
 											<th>Status</th>
-											<th class="no-content"></th>
 										</tr>
 									</thead>
 									<tbody>
@@ -71,9 +70,6 @@ $this->load->view('_partials/header');
 													<?php if ($row['status'] == 1) : ?>
 														<span class="text-success"><i class="fa fa-lock"></i> <i class="fa fa-check"></i>Selesai Produksi</span>
 													<?php endif ?>
-												</td>
-												<td>
-													<a href="<?= site_url('transaksi/produksi/production_step/' . $row['trans_id']) ?>" class="btn btn-info"><i class="fa fa-list"></i></a>
 												</td>
 											</tr>
 										<?php endforeach ?>

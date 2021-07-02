@@ -132,6 +132,15 @@ $this->load->view('_partials/header');
 	</section>
 </div>
 
+
+<div id="previewData">
+	<div class="downupPopup-content" id="previewHere">
+
+	</div>
+</div>
+
+
+
 <div class="invisible">
 	<table id="sample_table">
 		<tr>
