@@ -60,7 +60,7 @@
                     Swal.fire({
                         title: res.title,
                         icon: res.icon,
-                        text: res.status,
+                        text: res.text,
                         buttonsStyling: true,
                         confirmButtonText: 'OK',
                         confirmButtonColor: '#3f37c9',

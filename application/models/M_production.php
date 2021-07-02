@@ -173,16 +173,7 @@ class M_production extends CI_Model
 				];
 			}
 		}
-		$transactions = [
-			'trans_id'				=> $trans_id,
-			'trans_date'			=> $tanggal,
-			'periode'				=> $periode,
-			'description'			=> $description,
-			'ref_production'		=> $kode_pesanan,
-			'trans_type'			=> 'production',
-			'lock_doc'				=> 0,
-			'status'				=> 1
-		];
+
 		$total_btkl = 0;
 		foreach ($employee_id as $i => $val) {
 			$btkl[] = [
@@ -212,9 +203,117 @@ class M_production extends CI_Model
 			'overhead_cost'			=> $bop_final
 		];
 
+		$transactions = [
+			'trans_id'				=> $trans_id,
+			'trans_date'			=> $tanggal,
+			'periode'				=> $periode,
+			'description'			=> $description,
+			'ref_production'		=> $kode_pesanan,
+			'trans_total'			=> $total_bb + $total_btkl + $bop_final,
+			'trans_type'			=> 'production',
+			'lock_doc'				=> 0,
+			'status'				=> 1
+		];
+
+
 		$update_order = [
 			'lock_doc'				=> 0,
 			'status_production'		=> 3
+		];
+		$order 				= $this->db->get_where('transactions', ['trans_id' => $kode_pesanan])->row_array(); //data pesanan
+		$payment 			= $this->db->get_where('payments', ['trans_id' => $kode_pesanan])->row_array(); //Pendapatan diterima dimuka
+		$gl = [
+			[
+				'account_no'	     => '2-10001',
+				'periode'				=> $periode,
+				'trans_id'			=> $trans_id,
+				'nominal'			=> $payment['nominal'],
+				'gl_balance'		=> 'd'
+			],
+			[
+				'account_no'	    => '1-10002',
+				'periode'			=> $periode,
+				'trans_id'			=> $trans_id,
+				'nominal'			=> $order['trans_total'] - $payment['nominal'],
+				'gl_balance'		=> 'd'
+			],
+			[
+				'account_no'	     => '4-10001',
+				'periode'			=> $periode,
+				'trans_id'			=> $trans_id,
+				'nominal'			=> $order['trans_total'],
+				'gl_balance'		=> 'k'
+			],
+			[
+				'account_no'	     => '5-20001',
+				'periode'			=> $periode,
+				'trans_id'			=> $trans_id,
+				'nominal'			=> $total_bb,
+				'gl_balance'		=> 'd'
+			],
+			[
+				'account_no'	     => '1-10003',
+				'periode'			=> $periode,
+				'trans_id'			=> $trans_id,
+				'nominal'			=> $total_bb,
+				'gl_balance'		=> 'k'
+			],
+			[
+				'account_no'	     => '5-20004',
+				'periode'			=> $periode,
+				'trans_id'			=> $trans_id,
+				'nominal'			=> $total_bp,
+				'gl_balance'		=> 'd'
+			],
+			[
+				'account_no'	     => '1-10004',
+				'periode'			=> $periode,
+				'trans_id'			=> $trans_id,
+				'nominal'			=> $total_bp,
+				'gl_balance'		=> 'k'
+			],
+			[
+				'account_no'	     => '5-20003',
+				'periode'			=> $periode,
+				'trans_id'			=> $trans_id,
+				'nominal'			=> $bop_final,
+				'gl_balance'		=> 'd'
+			],
+			[
+				'account_no'	     => '5-20005',
+				'periode'			=> $periode,
+				'trans_id'			=> $trans_id,
+				'nominal'			=> $bop_final,
+				'gl_balance'		=> 'k'
+			],
+			[
+				'account_no'	     => '1-10005',
+				'periode'			=> $periode,
+				'trans_id'			=> $trans_id,
+				'nominal'			=> $total_bb,
+				'gl_balance'		=> 'd'
+			],
+			[
+				'account_no'	     => '5-20001',
+				'periode'			=> $periode,
+				'trans_id'			=> $trans_id,
+				'nominal'			=> $total_bb,
+				'gl_balance'		=> 'k'
+			],
+			[
+				'account_no'	     => '5-20002',
+				'periode'			=> $periode,
+				'trans_id'			=> $trans_id,
+				'nominal'			=> $total_btkl,
+				'gl_balance'		=> 'k'
+			],
+			[
+				'account_no'	    => '5-20003',
+				'periode'			=> $periode,
+				'trans_id'			=> $trans_id,
+				'nominal'			=> $total_btkl,
+				'gl_balance'		=> 'k'
+			],
 		];
 
 		$this->db->trans_start();
@@ -224,6 +323,7 @@ class M_production extends CI_Model
 		$this->db->insert_batch('overhead_cost', $bop);
 		$this->db->insert_batch('direct_material_cost', $direct_material);
 		$this->db->insert_batch('direct_labor_costs', $btkl);
+		$this->db->insert_batch('general_ledger', $gl);
 		$this->db->trans_complete();
 
 		if ($this->db->trans_status() == true) {
@@ -472,7 +572,7 @@ class M_production extends CI_Model
 		$p_cost 			= $this->production_costs($trans_id);
 		$production 		=  $this->db->get_where('transactions', ['trans_id' => $trans_id])->row_array(); //data hasil perhitungan biaya produksi
 		$production_cost 	= $p_cost['material_cost'] + $p_cost['direct_labor_cost'] + $p_cost['overhead_cost']; //total biaya produksi
-		$order 			= $this->db->get_where('transactions', ['trans_id' => $production['ref_production']])->row_array(); //data pesanan
+		$order 				= $this->db->get_where('transactions', ['trans_id' => $production['ref_production']])->row_array(); //data pesanan
 		$payment 			= $this->db->get_where('payments', ['trans_id' => $production['ref_production']])->row_array(); //Pendapatan diterima dimuka
 		$bbp				= $this->bbp($trans_id);
 		$transaksi = [
