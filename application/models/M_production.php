@@ -55,23 +55,31 @@ class M_production extends CI_Model
 
 		$where = [];
 		$kode_bom = $this->input->post('kode_bom');
+		$order_qty = $this->input->post('order_qty');
 		foreach ($kode_bom as $i => $val) {
-			array_push($where, $kode_bom[$i]);
+			$sql = $this->db->select('a.trans_id,a.material_id,b.material_name,a.qty,b.material_unit,b.material_type, d.avg_price')
+				->from('transactions as c')
+				->join('bill_of_materials as a', 'a.trans_id=c.trans_id')
+				->join('raw_materials as b', 'a.material_id=b.material_id')
+				->join('(SELECT material_id,AVG(purchase_price) as avg_price 
+			FROM purchase 
+			GROUP BY material_id) as d ', 'd.material_id = a.material_id')
+				->where('c.trans_id', $kode_bom[$i])
+				->order_by('c.trans_id', 'asc')
+				->get()
+				->result_array();
+
+			$data[] = [
+				'kode_bom'		=> $kode_bom[$i],
+				'order_qty'		=> $order_qty[$i],
+				'details'		=> $sql
+			];
 		}
-		$sql = $this->db->select('a.material_id,a.qty,a.unit,b.material_name,a.trans_id,avg(d.purchase_price) as unit_price,b.material_type')
-			->from('transactions as c')
-			->join('bill_of_materials as a', 'a.trans_id=c.trans_id')
-			->join('raw_materials as b', 'a.material_id=b.material_id')
-			->join('purchase as d', 'd.material_id=b.material_id')
-			->where_in('c.trans_id', $where)
-			->group_by('a.material_id')
-			->get()
-			->result_array();
+
 
 
 		$response = [
-			'where_clouse' => $where,
-			'bom'			=> $sql
+			'bom'			=> $data
 		];
 		return $response;
 	}

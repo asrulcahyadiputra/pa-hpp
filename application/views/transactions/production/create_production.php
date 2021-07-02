@@ -55,7 +55,7 @@ $this->load->view('_partials/header');
 									<div class="col-12">
 										<table class="table table-bordered table-sm" id="table-opsi-bom">
 											<thead>
-												<tr>
+												<tr style="background-color: #4361ee; color: #fff">
 													<th class="text-center" style="width:5%">No</th>
 													<th>Kode</th>
 													<th>Produk</th>
@@ -85,29 +85,65 @@ $this->load->view('_partials/header');
 											<div class="card-body">
 												<ul class="nav nav-tabs" id="myTab" role="tablist">
 													<li class="nav-item">
-														<a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Biaya Bahan Baku</a>
+														<a class="nav-link active" id="home-tab" data-toggle="tab" href="#bbb" role="tab" aria-controls="bbb" aria-selected="true">Biaya Bahan Baku</a>
 													</li>
 													<li class="nav-item">
-														<a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Biaya Tenaga Kerja Langsung</a>
+														<a class="nav-link" id="profile-tab" data-toggle="tab" href="#btkl" role="tab" aria-controls="btkl" aria-selected="false">Biaya Tenaga Kerja Langsung</a>
 													</li>
 													<li class="nav-item">
-														<a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Biaya Overhead Pabrik</a>
+														<a class="nav-link" id="contact-tab" data-toggle="tab" href="#bop" role="tab" aria-controls="bop" aria-selected="false">Biaya Overhead Pabrik</a>
 													</li>
 												</ul>
 												<div class="tab-content" id="myTabContent">
-													<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-														Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-														tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-														quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-														consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-														cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-														proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+													<div class="tab-pane fade show active overflow-auto" id="bbb" role="tabpanel" aria-labelledby="home-tab">
+														<!-- load biaya bahan baku here -->
 													</div>
-													<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-														Sed sed metus vel lacus hendrerit tempus. Sed efficitur velit tortor, ac efficitur est lobortis quis. Nullam lacinia metus erat, sed fermentum justo rutrum ultrices. Proin quis iaculis tellus. Etiam ac vehicula eros, pharetra consectetur dui. Aliquam convallis neque eget tellus efficitur, eget maximus massa imperdiet. Morbi a mattis velit. Donec hendrerit venenatis justo, eget scelerisque tellus pharetra a.
+
+
+													<!-- BTKL -->
+													<div class="tab-pane fade" id="btkl" role="tabpanel" aria-labelledby="profile-tab">
+														<div class="col-12 mt-4">
+															<div class="table-responsive">
+																<table class="table table-bordered table-sm" id="tbl_posts_btkl">
+																	<thead>
+																		<tr>
+																			<th class="text-center">#</th>
+																			<th style="width: 30%;">Btkl</th>
+																			<th>Nominal</th>
+																			<th class="no-content"></th>
+																		</tr>
+																	</thead>
+
+																	<tbody id="tbl_posts_body_btkl" class="contents"> </tbody>
+
+																</table>
+																<a href="#" class="btn btn-secondary btn-sm btn-block add-record-btkl" data-added="0"><i class="fa fa-plus"></i> Tambah Baris</a>
+															</div>
+														</div>
 													</div>
-													<div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-														Vestibulum imperdiet odio sed neque ultricies, ut dapibus mi maximus. Proin ligula massa, gravida in lacinia efficitur, hendrerit eget mauris. Pellentesque fermentum, sem interdum molestie finibus, nulla diam varius leo, nec varius lectus elit id dolor. Nam malesuada orci non ornare vulputate. Ut ut sollicitudin magna. Vestibulum eget ligula ut ipsum venenatis ultrices. Proin bibendum bibendum augue ut luctus.
+
+
+
+													<!-- BOP -->
+													<div class="tab-pane fade" id="bop" role="tabpanel" aria-labelledby="contact-tab">
+														<div class="col-12 mt-4">
+															<div class="table-responsive">
+																<table class="table table-bordered table-sm" id="tbl_posts_bop">
+																	<thead>
+																		<tr>
+																			<th class="text-center">#</th>
+																			<th style="width: 30%;">Komponen Biaya</th>
+																			<th>Nominal</th>
+																			<th class="no-content"></th>
+																		</tr>
+																	</thead>
+
+																	<tbody id="tbl_posts_body_bop" class="contents"> </tbody>
+
+																</table>
+																<a href="#" class="btn btn-secondary btn-sm btn-block add-record-bop" data-added="0"><i class="fa fa-plus"></i> Tambah Baris</a>
+															</div>
+														</div>
 													</div>
 												</div>
 											</div>
@@ -130,6 +166,43 @@ $this->load->view('_partials/header');
 	</section>
 </div>
 
+
+
+<div class="invisible">
+	<table id="sample_table">
+		<tr>
+			<td class="text-center">
+				<span class="sn"></span>
+			</td>
+			<td>
+				<select name="product_id[]" class="form-control form-calc product_id" id="product_id-" data-id="0" required>
+					<option value="">-pilih produk-</option>
+					<?php foreach ($product as $rowData) : ?>
+						<option value="<?= $rowData['product_id'] ?>"><?= $rowData['product_id'] . ' ' . $rowData['product_name'] ?></option>
+					<?php endforeach ?>
+				</select>
+			</td>
+			<td>
+				<input type="text" name="ukuran[]" id="ukuran" class="form-control" required>
+			</td>
+			<td>
+				<input type="text" name="unit_price[]" id="unit_price-" class="form-control form-calc unit_price" readonly required up-ke='0'>
+			</td>
+			<td>
+				<input type="number" name="qty[]" class="form-control form-calc qty" min="1" id="qty-" value="1" required>
+			</td>
+			<td>
+				<input type="text" name="jumlah[]" id="jumlah-" class="form-control form-line jumlah" readonly required>
+			</td>
+
+			<td class="text-center" style="vertical-align: middle;">
+				<a href="#" class="text-danger  btn-icon delete-record" data-id="0">
+					<i class="fa fa-trash-alt"></i>
+				</a>
+			</td>
+		</tr>
+	</table>
+</div>
 
 <?php $this->load->view('_partials/footer'); ?>
 <?php $this->load->view('transactions/production/script'); ?>
