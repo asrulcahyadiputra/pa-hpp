@@ -2,7 +2,7 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 ?>
 
-<body>
+<body class=" <?= $this->uri->segment(1) == 'transaksi' ? 'sidebar-mini' : '' ?> ">
 	<div id="app">
 		<div class="main-wrapper main-wrapper-1">
 			<div class="navbar-bg"></div>

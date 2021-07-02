@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 ?>
-<div class="main-sidebar sidebar-style-2">
+<div class="main-sidebar  sidebar-style-2">
 	<aside id="sidebar-wrapper">
 		<div class="sidebar-brand">
 			<a href="<?php echo base_url('Dashboard'); ?>">PA HPP</a>

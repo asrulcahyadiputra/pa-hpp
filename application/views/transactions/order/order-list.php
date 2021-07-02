@@ -189,5 +189,11 @@ $this->load->view('_partials/header');
 	</table>
 </div>
 
+<div id="previewData">
+	<div class="downupPopup-content" id="previewHere">
+
+	</div>
+</div>
+
 
 <?php $this->load->view('transactions/order/script'); ?>

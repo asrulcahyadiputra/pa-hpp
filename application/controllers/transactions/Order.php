@@ -20,6 +20,11 @@ class Order extends CI_Controller
 		];
 		$this->load->view('transactions/order/order-list', $data);
 	}
+	public function select($id)
+	{
+		$request = $this->model->find_pesanan($id);
+		echo json_encode($request);
+	}
 	public function get_order()
 	{
 		$request = $this->model->all();
