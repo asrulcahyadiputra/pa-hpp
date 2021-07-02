@@ -386,7 +386,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     var no = 1
                     for (let i = 0; i < detail.length; i++) {
                         html += `<tr>
-                            <td>` + no++ + `</td>
+                            <td class='text-center'>` + no++ + `</td>
                             <td>` + detail[i].product_id + `</td>
                             <td>` + detail[i].product_name + `</td>
                             <td class='text-center'>` + detail[i].order_size + `</td>
