@@ -29,6 +29,14 @@ class Bom extends CI_Controller
 		echo json_encode($request);
 	}
 
+	public function find($id)
+	{
+		$request = $this->model->select_bom($id);
+
+		echo json_encode($request);
+	}
+
+
 	public function edit($id)
 	{
 		$request = $this->model->find_bom($id);

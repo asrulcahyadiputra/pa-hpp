@@ -65,6 +65,8 @@ class M_bom extends CI_Model
 		return $response;
 	}
 
+
+
 	public function find_bom($id)
 	{
 		// find bom document open
@@ -103,11 +105,32 @@ class M_bom extends CI_Model
 
 	public function select_bom($id)
 	{
-		$this->db->select('a.material_id,a.qty,a.unit,b.material_name,a.trans_id')
-			->from('bill_of_materials as a')
-			->join('raw_materials as b', 'a.material_id=b.material_id')
-			->where('a.trans_id', $id);
-		return $this->db->get()->result_array();
+		$sql1 = $this->db->select('a.trans_id,a.product_id,b.product_name,a.description,a.status,a.lock_doc,a.date_created,a.updated_at')
+			->from('transactions as a')
+			->join('products as b', 'a.product_id=b.product_id')
+			->where('trans_id', $id)
+			->get()
+			->result_array();
+
+		$totData = count($sql1);
+		foreach ($sql1 as $i => $val) {
+			$sql2 = $this->db->select('a.material_id,a.qty,a.unit,b.material_name,a.trans_id,b.material_unit')
+				->from('bill_of_materials as a')
+				->join('raw_materials as b', 'a.material_id=b.material_id')
+				->where('a.trans_id', $val['trans_id'])
+				->get()
+				->result_array();
+			$data[] = [
+				'trans_id'		=> $val['trans_id'],
+				'produk'		=> $val['product_id'] . ' - ' . $val['product_name'],
+				'keterangan'	=> $val['description'],
+				'details'		=> $sql2
+			];
+		}
+
+
+		$response = $data;
+		return $response;
 	}
 	public function get_materials()
 	{

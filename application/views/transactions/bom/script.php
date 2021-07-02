@@ -25,6 +25,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
 <!-- JS Libraies -->
 <script>
     $(document).ready(function() {
+        function format_number(x) {
+            return new Intl.NumberFormat('de-DE').format(x)
+        }
         // var BomTable = $('#table-bom-list')
         var contentList = $('#list-data')
         var formCreate = $('#form-create')
@@ -101,7 +104,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
         // click td
         $('#table-bom-list').on('click', 'td', function(e) {
             e.preventDefault()
-            if ($(this).index() != 9) {
+            if ($(this).index() != 5) {
                 var id = $(this).closest('tr').find('td').eq(1).html();
                 preview_data(id)
             }
@@ -279,8 +282,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
         function preview_data(id) {
             console.log('preview data ' + id)
             $.ajax({
-                type: 'POST',
-                url: '<?= base_url('transaksi/pesanan/find/') ?>' + id,
+                type: 'GET',
+                url: '<?= base_url('transaksi/bom/find/') ?>' + id,
                 dataType: 'JSON',
                 success: function(data) {
                     console.log(data)
@@ -291,19 +294,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         <div class='col-md-12 overflow-auto'>
                             <table class='table table-sm mt-3'>
                                 <tr>
-                                    <td style='width:20%'>No Pesanan</td>
+                                    <td style='width:20%'>Kode Bom</td>
                                     <td style='width:1%'>:</td>
                                     <td style='width:70%'>` + data[0].trans_id + `</td>
                                 </tr>
                                 <tr>
-                                    <td style='width:20%'>Tanggal</td>
+                                    <td style='width:20%'>Nama Produk</td>
                                     <td style='width:1%'>:</td>
-                                    <td>` + data[0].tanggal + `</td>
-                                </tr>
-                                <tr>
-                                    <td style='width:20%'>Nama Pelanggan</td>
-                                    <td style='width:1%'>:</td>
-                                    <td>` + data[0].pelanggan + `</td>
+                                    <td>` + data[0].produk + `</td>
                                 </tr>
                                 <tr>
                                     <td style='width:20%'>Keterangan</td>
@@ -320,11 +318,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                         <th class='text-center' style='width:5%'>No</th>
                                         <th class='text-center' style='width:10%'>Kode</th>
                                         <th>Nama</th>
-                                        <th class='text-center' style='width:10%'>Ukuran</th>
                                         <th class='text-center' style='width:10%'>Qty</th>
-                                        <th class='text-center' style='width:10%'>Satuan</th>
-                                        <th class='text-right' style='width:15%'>Harga Satuan</th>
-                                        <th class='text-right'>Jumlah</th>
+                                        <th class='text-center' style='width:10%'>Unit</th>
                                     </tr>
                                 </thead>`
                     var detail = data[0].details
@@ -332,13 +327,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     for (let i = 0; i < detail.length; i++) {
                         html += `<tr>
                             <td class='text-center'>` + no++ + `</td>
-                            <td>` + detail[i].product_id + `</td>
-                            <td>` + detail[i].product_name + `</td>
-                            <td class='text-center'>` + detail[i].order_size + `</td>
-                            <td class='text-center'>` + detail[i].order_qty + `</td>
-                            <td class='text-center'>` + detail[i].product_unit + `</td>
-                            <td class='text-right'>` + format_number(detail[i].order_price) + `</td>
-                            <td class='text-right'>` + format_number(detail[i].order_total) + `</td>
+                            <td>` + detail[i].material_id + `</td>
+                            <td>` + detail[i].material_name + `</td>
+                            <td class='text-center'>` + detail[i].qty + `</td>
+                            <td class='text-center'>` + detail[i].material_unit + `</td>
                         </tr>`
 
                     }
