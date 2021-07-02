@@ -290,7 +290,7 @@ class M_production extends CI_Model
 				'account_no'	     => '1-10005',
 				'periode'			=> $periode,
 				'trans_id'			=> $trans_id,
-				'nominal'			=> $total_bb,
+				'nominal'			=> $total_bb + $total_btkl + $bop_final,
 				'gl_balance'		=> 'd'
 			],
 			[
@@ -311,7 +311,7 @@ class M_production extends CI_Model
 				'account_no'	    => '5-20003',
 				'periode'			=> $periode,
 				'trans_id'			=> $trans_id,
-				'nominal'			=> $total_btkl,
+				'nominal'			=> $bop_final,
 				'gl_balance'		=> 'k'
 			],
 		];
