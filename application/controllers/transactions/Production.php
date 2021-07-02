@@ -22,8 +22,10 @@ class Production extends CI_Controller
 	public function create()
 	{
 		$data = [
-			'title'			=> 'Produksi',
-			'orders'		=> $this->model->orders(),
+			'title'					=> 'Produksi',
+			'orders'				=> $this->model->orders(),
+			'employee'				=> $this->model->employee(),
+			'overhead_component'	=> $this->model->overhead_component(),
 		];
 		$this->load->view('transactions/production/create_production', $data);
 	}

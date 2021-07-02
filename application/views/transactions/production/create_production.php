@@ -23,7 +23,7 @@ $this->load->view('_partials/header');
 						</div>
 						<div class="card-body">
 							<form id="form-bom" class="needs-validation" novalidate></form>
-							<form method="GET" action="<?= site_url('transaksi/produksi/create') ?>">
+							<form method="POST" action="<?= site_url('transaksi/produksi/create') ?>" class="needs-validation" novalidate>
 								<div class="row">
 									<div class="col-4">
 										<div class="form-group">
@@ -169,34 +169,54 @@ $this->load->view('_partials/header');
 
 
 <div class="invisible">
-	<table id="sample_table">
+	<table id="sample_table_btkl">
 		<tr>
 			<td class="text-center">
 				<span class="sn"></span>
 			</td>
 			<td>
 				<select name="product_id[]" class="form-control form-calc product_id" id="product_id-" data-id="0" required>
-					<option value="">-pilih produk-</option>
-					<?php foreach ($product as $rowData) : ?>
-						<option value="<?= $rowData['product_id'] ?>"><?= $rowData['product_id'] . ' ' . $rowData['product_name'] ?></option>
+					<option value="">-pilih karyawan-</option>
+					<?php foreach ($employee as $e) : ?>
+						<option value="<?= $e['employee_id'] ?>"><?= $e['employee_id'] . '-' . $e['employee_name'] . '-' . $e['department'] ?></option>
 					<?php endforeach ?>
 				</select>
 			</td>
 			<td>
-				<input type="text" name="ukuran[]" id="ukuran" class="form-control" required>
+				<input type="text" name="nominal_btkl[]" id="ukuran" class="form-control" required>
+			</td>
+
+
+			<td class="text-center" style="vertical-align: middle;">
+				<a href="#" class="text-danger  btn-icon delete-record-btkl" data-id="0">
+					<i class="fa fa-trash-alt"></i>
+				</a>
+			</td>
+		</tr>
+	</table>
+</div>
+
+
+<div class="invisible">
+	<table id="sample_table_bop">
+		<tr>
+			<td class="text-center">
+				<span class="sn"></span>
 			</td>
 			<td>
-				<input type="text" name="unit_price[]" id="unit_price-" class="form-control form-calc unit_price" readonly required up-ke='0'>
+				<select name="product_id[]" class="form-control form-calc product_id" id="product_id-" data-id="0" required>
+					<option value="">--pilih komponen--</option>
+					<?php foreach ($overhead_component as $oc) : ?>
+						<option value="<?= $oc['oc_id'] ?>"><?= $oc['name'] ?></option>
+					<?php endforeach ?>
+				</select>
 			</td>
 			<td>
-				<input type="number" name="qty[]" class="form-control form-calc qty" min="1" id="qty-" value="1" required>
-			</td>
-			<td>
-				<input type="text" name="jumlah[]" id="jumlah-" class="form-control form-line jumlah" readonly required>
+				<input type="text" name="nominal_bop[]" id="ukuran" class="form-control" required>
 			</td>
 
 			<td class="text-center" style="vertical-align: middle;">
-				<a href="#" class="text-danger  btn-icon delete-record" data-id="0">
+				<a href="#" class="text-danger  btn-icon delete-record-bop" data-id="0">
 					<i class="fa fa-trash-alt"></i>
 				</a>
 			</td>
