@@ -141,6 +141,7 @@ class M_production extends CI_Model
 
 
 		foreach ($kode_bom_post as $kbp => $kbpVal) {
+			array_push($where, $kode_bom_post[$kbp]);
 			$sql = $this->db->select('a.trans_id,a.material_id,b.material_name,a.qty,b.material_unit,b.material_type, d.avg_price')
 				->from('transactions as c')
 				->join('bill_of_materials as a', 'a.trans_id=c.trans_id')
@@ -219,6 +220,9 @@ class M_production extends CI_Model
 		$update_order = [
 			'lock_doc'				=> 0,
 			'status_production'		=> 3
+		];
+		$update_bom					= [
+			'lock_doc'				=> 0
 		];
 		$order 				= $this->db->get_where('transactions', ['trans_id' => $kode_pesanan])->row_array(); //data pesanan
 		$payment 			= $this->db->get_where('payments', ['trans_id' => $kode_pesanan])->row_array(); //Pendapatan diterima dimuka
@@ -324,6 +328,9 @@ class M_production extends CI_Model
 		$this->db->insert_batch('direct_material_cost', $direct_material);
 		$this->db->insert_batch('direct_labor_costs', $btkl);
 		$this->db->insert_batch('general_ledger', $gl);
+
+		$this->db->where_in('trans_id', $where);
+		$this->db->update('transactions', $update_bom);
 		$this->db->trans_complete();
 
 		if ($this->db->trans_status() == true) {
