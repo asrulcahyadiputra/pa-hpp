@@ -59,7 +59,7 @@ $this->load->view('_partials/header');
 					<div class="card">
 						<div class="card-body">
 							<div class="row">
-								<div class="col-12 mb-4">
+								<div class="col-12 mb-4" style="border-bottom: double;">
 									<div class="text-center">
 										<h4>KONVEKSI KEN JR</h4>
 										<h6>Kartu Pesanan</h6>
@@ -70,9 +70,9 @@ $this->load->view('_partials/header');
 							<div class="row">
 								<div class="col-12">
 									<div class="table-responsive">
-										<table class="table  table-striped">
+										<table class="table table-sm table-bordered ">
 											<thead>
-												<tr class="text-center">
+												<tr class="text-center" style="background-color: #4361ee; color: #fff">
 													<th>#</th>
 													<th>Tanggal Pesanan</th>
 													<th>Kode Pesanan</th>
@@ -85,7 +85,7 @@ $this->load->view('_partials/header');
 												<?php $no = 1;
 												foreach ($all as $row) : ?>
 													<tr>
-														<td><?= $no++ ?></td>
+														<td class="text-center"><?= $no++ ?></td>
 														<td><?= date('d-m-Y H:i:s', strtotime($row['trans_date'])) ?></td>
 														<td><?= $row['trans_id'] ?></td>
 														<td>

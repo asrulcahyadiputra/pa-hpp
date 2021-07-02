@@ -70,7 +70,7 @@ $this->load->view('_partials/header');
 					<div class="card">
 						<div class="card-body">
 							<div class="row">
-								<div class="col-12 mb-4">
+								<div class="col-12 mb-4" style="border-bottom: double;">
 									<div class="text-center">
 										<h4>KONVEKSI KEN JR</h4>
 										<h6>Buku Besar <?= $akun ?></h6>
@@ -81,15 +81,15 @@ $this->load->view('_partials/header');
 							<div class="row">
 								<div class="col-12">
 									<div class="table-responsive">
-										<table class="table table-sm table-bordered">
-											<thead>
+										<table class="table table-sm  table-bordered">
+											<thead style="background-color: #4361ee; color: #fff">
 												<tr class="text-center">
-													<th rowspan="2">Tanggal</th>
-													<th rowspan="2">Keterangan</th>
-													<th rowspan="2">Ref</th>
-													<th rowspan="2">Debet</th>
-													<th rowspan="2">Kredit</th>
-													<th colspan="2">Saldo</th>
+													<th style="vertical-align: middle;" rowspan="2">Tanggal</th>
+													<th style="vertical-align: middle;" rowspan="2">Keterangan</th>
+													<th style="vertical-align: middle;" rowspan="2">Ref</th>
+													<th style="vertical-align: middle;" rowspan="2">Debet</th>
+													<th style="vertical-align: middle;" rowspan="2">Kredit</th>
+													<th style="vertical-align: middle;" colspan="2">Saldo</th>
 												</tr>
 												<tr class="text-center">
 													<th>Debet</th>

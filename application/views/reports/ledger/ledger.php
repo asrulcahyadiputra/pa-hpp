@@ -16,7 +16,7 @@ $this->load->view('_partials/header');
 
 		<div class="section-body">
 			<div class="row mt-4">
-				<div class="col-4">
+				<div class="col-12">
 					<div class="card mb-4">
 						<div class="card-body">
 							<form class="form-inline" method="POST" action="<?= site_url('laporan/jurnal') ?>">
@@ -46,9 +46,9 @@ $this->load->view('_partials/header');
 							<div class="row">
 								<div class="col-12">
 									<div class="table-responsive">
-										<table class="table table-bordered">
+										<table class="table table-sm table-bordered">
 											<thead>
-												<tr>
+												<tr style="background-color: #4361ee; color: #fff">
 													<th>Tanggal</th>
 													<th>Akun</th>
 													<th>Ref</th>
