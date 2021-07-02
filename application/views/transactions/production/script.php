@@ -29,8 +29,61 @@
                     confirmButtonColor: '#3f37c9',
                 })
             }
-
         })
+
+        $('#production-form').on('submit', function(e) {
+            e.preventDefault()
+            var form_data = $('#production-form').serialize()
+            var btklCount = $('#tbl_posts_btkl >tbody >tr').length
+            var bopCount = $('#tbl_posts_bop >tbody >tr').length
+            if (btklCount > 0 || bopCount > 0) {
+                simpan(form_data)
+            } else {
+                Swal.fire({
+                    title: 'Error',
+                    icon: 'error',
+                    text: 'BTKL tidak Valid',
+                    buttonsStyling: true,
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#3f37c9',
+                })
+            }
+        })
+
+        function simpan(data) {
+            $.ajax({
+                type: 'POST',
+                url: '<?= base_url('transaksi/produksi/store') ?>',
+                data: data,
+                dataType: 'JSON',
+                success: function(res) {
+                    Swal.fire({
+                        title: res.title,
+                        icon: res.icon,
+                        text: res.status,
+                        buttonsStyling: true,
+                        confirmButtonText: 'OK',
+                        confirmButtonColor: '#3f37c9',
+                    })
+                    $('#bbb').html('')
+                    $('#table-opsi-bom >tbody >tr').remove()
+                    $('#tbl_posts_bop >tbody >tr').remove()
+                    $('#tbl_posts_btkl >tbody >tr').remove()
+                    resetForm()
+                },
+                error: function(error) {
+                    Swal.fire({
+                        title: 'Error',
+                        icon: 'error',
+                        text: 'Internal Server Error',
+                        buttonsStyling: true,
+                        confirmButtonText: 'OK',
+                        confirmButtonColor: '#3f37c9',
+                    })
+                    $('#table-opsi-bom >tbody >tr').remove()
+                }
+            })
+        }
 
 
         function load_product(id) {
@@ -112,8 +165,16 @@
                                 <th  class='text-right' style='width:15%'>Harga Satuan</th>
                                 <th class='text-right'>Jumlah</th>
                             </tr>
+
+                            <input type='hidden' class='form-control' name='kode_bom_post[]' value="` + data[y].kode_bom + `" readonly>
+                            <input type="hidden" class='form-control' name='qty_post[]' value="` + data[y].order_qty + `" readonly>
+
+
+
                         </thead>
                         <tbody>`
+
+
                         var no = 1
                         var total = 0
                         var t_bp = 0
@@ -132,6 +193,7 @@
                             <td class='text-center'>` + detail[i].material_unit + `</td>
                             <td class='text-right'>` + format_number(detail[i].avg_price) + `</td>
                             <td class='text-right'>` + format_number(subtotal) + `</td>
+
                         </tr>`
                             if (detail[i].material_type == 'BBB') {
                                 t_bb = t_bb + subtotal
@@ -175,6 +237,10 @@
                     $('#bbb').html(html)
                 }
             })
+        }
+
+        function resetForm() {
+            document.getElementById("form-production").reset();
         }
     })
 </script>

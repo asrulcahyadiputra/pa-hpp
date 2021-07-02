@@ -44,6 +44,13 @@ class Production extends CI_Controller
 		echo json_encode($request);
 	}
 
+	public function store()
+	{
+		$request = $this->model->store();
+
+		echo json_encode($request);
+	}
+
 
 	public function conversion($id_transaksi_order)
 	{

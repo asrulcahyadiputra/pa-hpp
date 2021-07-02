@@ -23,7 +23,7 @@ $this->load->view('_partials/header');
 						</div>
 						<div class="card-body">
 							<form id="form-bom" class="needs-validation" novalidate></form>
-							<form method="POST" action="<?= site_url('transaksi/produksi/create') ?>" class="needs-validation" novalidate>
+							<form method="POST" id='production-form' class="needs-validation" novalidate>
 								<div class="row">
 									<div class="col-4">
 										<div class="form-group">
@@ -175,7 +175,7 @@ $this->load->view('_partials/header');
 				<span class="sn"></span>
 			</td>
 			<td>
-				<select name="product_id[]" class="form-control form-calc product_id" id="product_id-" data-id="0" required>
+				<select name="employee_id[]" class="form-control form-calc employee_id" id="employee_id-" data-id="0" required>
 					<option value="">-pilih karyawan-</option>
 					<?php foreach ($employee as $e) : ?>
 						<option value="<?= $e['employee_id'] ?>"><?= $e['employee_id'] . '-' . $e['employee_name'] . '-' . $e['department'] ?></option>
@@ -204,7 +204,7 @@ $this->load->view('_partials/header');
 				<span class="sn"></span>
 			</td>
 			<td>
-				<select name="product_id[]" class="form-control form-calc product_id" id="product_id-" data-id="0" required>
+				<select name="oc_id[]" class="form-control form-calc oc_id" id="oc_id-" data-id="0" required>
 					<option value="">--pilih komponen--</option>
 					<?php foreach ($overhead_component as $oc) : ?>
 						<option value="<?= $oc['oc_id'] ?>"><?= $oc['name'] ?></option>

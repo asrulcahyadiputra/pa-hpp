@@ -131,7 +131,7 @@ $route['transaksi/produksi']                                    = 'transactions/
 $route['transaksi/produksi/create']                             = 'transactions/Production/create';
 $route['transaksi/produksi/load']                               = 'transactions/Production/load_bom';
 $route['transaksi/produksi/find_product/(:any)']                = 'transactions/Production/find_order/$1';
-
+$route['transaksi/produksi/store']                              = 'transactions/Production/store';
 
 
 $route['transaksi/produksi/konversi/(:any)']                    = 'transactions/Production/conversion/$1';

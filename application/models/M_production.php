@@ -120,9 +120,152 @@ class M_production extends CI_Model
 		$trans_id = "TRX-PRD-" . $code;
 		return $trans_id;
 	}
+
+	// Store data
+	public function store()
+	{
+		$where = [];
+		$trans_id = $this->trans_id();
+		$kode_pesanan = $this->input->post('kode_pesanan');
+		$tanggal = $this->input->post('tanggal');
+		$periode = date('Y', strtotime($tanggal)) . '' . date('m', strtotime($tanggal));
+		$description = $this->input->post('description');
+		$employee_id = $this->input->post('employee_id');
+		$btkl_cost = $this->input->post('nominal_btkl');
+		$oc_id = $this->input->post('oc_id');
+		$bop_cost = $this->input->post('nominal_bop');
+		$total_bb = intval(preg_replace("/[^0-9]/", "", $this->input->post('total_bb')));
+		$total_bp = intval(preg_replace("/[^0-9]/", "", $this->input->post('total_bp')));
+		$kode_bom_post = $this->input->post('kode_bom_post');
+		$qty_post = $this->input->post('qty_post');
+
+
+		foreach ($kode_bom_post as $kbp => $kbpVal) {
+			$sql = $this->db->select('a.trans_id,a.material_id,b.material_name,a.qty,b.material_unit,b.material_type, d.avg_price')
+				->from('transactions as c')
+				->join('bill_of_materials as a', 'a.trans_id=c.trans_id')
+				->join('raw_materials as b', 'a.material_id=b.material_id')
+				->join('(SELECT material_id,AVG(purchase_price) as avg_price 
+			FROM purchase 
+			GROUP BY material_id) as d ', 'd.material_id = a.material_id')
+				->where('c.trans_id', $kode_bom_post[$kbp])
+				->order_by('c.trans_id', 'asc')
+				->get()
+				->result_array();
+
+			$data_bom[] = [
+				'kode_bom'		=> $kode_bom_post[$kbp],
+				'order_qty'		=> $qty_post[$kbp],
+				'details'		=> $sql
+			];
+		}
+
+		for ($x = 0; $x < count($data_bom); $x++) {
+			$details = $data_bom[$x]['details'];
+			$qty_order = $data_bom[$x]['order_qty'];
+			for ($z = 0; $z < count($details); $z++) {
+				$direct_material[] = [
+					'trans_id'			=> $trans_id,
+					'material_id'		=> $details[$z]['material_id'],
+					'qty'				=> $details[$z]['qty'] * $qty_order,
+					'unit_price'		=> $details[$z]['avg_price'],
+					'type'				=> $details[$z]['material_type']
+				];
+			}
+		}
+		$transactions = [
+			'trans_id'				=> $trans_id,
+			'trans_date'			=> $tanggal,
+			'periode'				=> $periode,
+			'description'			=> $description,
+			'ref_production'		=> $kode_pesanan,
+			'trans_type'			=> 'production',
+			'lock_doc'				=> 0,
+			'status'				=> 1
+		];
+		$total_btkl = 0;
+		foreach ($employee_id as $i => $val) {
+			$btkl[] = [
+				'trans_id'		=> $trans_id,
+				'employee_id'	=> $employee_id[$i],
+				'cost'			=> $btkl_cost[$i]
+			];
+			$total_btkl = $total_btkl + $btkl_cost[$i];
+		}
+
+		$total_bop = 0;
+		foreach ($oc_id as $y => $req) {
+			$bop[] = [
+				'trans_id'		=> $trans_id,
+				'oc_id'			=> $oc_id[$y],
+				'overhead_cost'	=> $bop_cost[$y]
+			];
+			$total_bop = $total_bop + $bop_cost[$y];
+		}
+
+		$bop_final = $total_bop + $total_bp;
+
+		$production_cost = [
+			'trans_id'				=> $trans_id,
+			'material_cost'			=> $total_bb,
+			'direct_labor_cost'		=> $total_btkl,
+			'overhead_cost'			=> $bop_final
+		];
+
+		$update_order = [
+			'lock_doc'				=> 0,
+			'status_production'		=> 3
+		];
+
+		$this->db->trans_start();
+		$this->db->update('transactions', $update_order, ['trans_id' => $kode_pesanan]);
+		$this->db->insert('transactions', $transactions);
+		$this->db->insert('production_costs', $production_cost);
+		$this->db->insert_batch('overhead_cost', $bop);
+		$this->db->insert_batch('direct_material_cost', $direct_material);
+		$this->db->insert_batch('direct_labor_costs', $btkl);
+		$this->db->trans_complete();
+
+		if ($this->db->trans_status() == true) {
+			$response = [
+				'status'			=> true,
+				'icon'				=> 'success',
+				'title'				=> 'Berhasil',
+				'text'				=> 'Berhasil menyimpan data dengan Kode' . $trans_id,
+				'store_data'		=> [
+					'trx'					=> $transactions,
+					'btkl'					=> $btkl,
+					'bop'					=> $bop,
+					'biaya_produksi'		=> $production_cost,
+					'direct_labor'			=> $direct_material
+				]
+			];
+		} else {
+			$response = [
+				'status'			=> false,
+				'icon'				=> 'error',
+				'title'				=> 'Error',
+				'text'				=> 'Database Error',
+				'store_data'		=> [
+					'trx'					=> $transactions,
+					'btkl'					=> $btkl,
+					'bop'					=> $bop,
+					'biaya_produksi'		=> $production_cost,
+					'direct_labor'			=> $direct_material
+				]
+			];
+		}
+
+
+		return $response;
+	}
+
+
+
 	public function conversion($id_transaksi_order)
 	{
 		$id_transaksi = $this->trans_id();
+
 		// insert into transaction for new production
 		$transaksi = [
 			'trans_id'				=> $id_transaksi,
