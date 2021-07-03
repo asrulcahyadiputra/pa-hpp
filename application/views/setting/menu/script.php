@@ -94,6 +94,25 @@
             $('#addModal').modal('show')
         })
 
+        table_menu.on('click', '#btn-delete', function(e) {
+            e.preventDefault
+            var id = $(this).closest('tr').find('td').eq(0).html();
+            Swal.fire({
+                title: 'Anda Yakin?',
+                text: "Data " + id + " akan dihapus secara permanen",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3f37c9',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Hapus'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    destroy(id)
+                    load_menu()
+                }
+            })
+        })
+
 
 
         $('#btn-close').on('click', function(e) {
@@ -170,6 +189,32 @@
                     $('#head_id').val(res.head_id)
 
                     $('#tcode').prop('readonly', true);
+                },
+                error: function(xhr, status, error) {
+                    var errorMessage = xhr.status + ': ' + xhr.statusText
+                    Swal.fire({
+                        title: '500',
+                        icon: 'error',
+                        text: errorMessage,
+                        buttonsStyling: true,
+                        confirmButtonText: 'OK',
+                        confirmButtonColor: '#3f37c9',
+                    })
+                }
+            })
+        }
+
+        function destroy(id) {
+            $.ajax({
+                type: 'DELETE',
+                url: '<?= base_url('setting/menu/delete/') ?>' + id,
+                dataType: 'JSON',
+                success: function(res) {
+                    Swal.fire(
+                        'Deleted!',
+                        res.message,
+                        'success'
+                    )
                 },
                 error: function(xhr, status, error) {
                     var errorMessage = xhr.status + ': ' + xhr.statusText

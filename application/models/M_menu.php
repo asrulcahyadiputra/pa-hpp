@@ -104,6 +104,23 @@ class M_menu extends CI_Model
 
         return $res;
     }
+
+    public function destroy($id)
+    {
+        if ($this->db->delete('menu_item', ['tcode' => $id])) {
+            $res = [
+                'status'        => true,
+                'message'       => 'Data ' . $id . ' Berhasil di hapus '
+            ];
+        } else {
+            $res = [
+                'status'        => false,
+                'message'       => $this->db->error()
+            ];
+        }
+
+        return $res;
+    }
 }
 
 /* End of file M_menu.php */

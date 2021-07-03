@@ -32,7 +32,7 @@ $this->load->view('_partials/header');
                             </ul>
                             <div class="tab-content" id="myTabContent">
                                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                                    <table class='table table-sm table-striped' id="table-menu">
+                                    <table class='table table-sm table-hover table-striped' id="table-menu">
                                         <thead style="background-color: #4361ee; color: #fff">
                                             <tr>
 

@@ -73,6 +73,13 @@ class Menu extends CI_Controller
 
         echo json_encode($req);
     }
+
+    public function destroy($id)
+    {
+        $req = $this->model->destroy($id);
+
+        echo json_encode($req);
+    }
 }
 
 /* End of file Menu.php */
