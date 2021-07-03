@@ -39,7 +39,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
         contentList.show()
         formCreate.hide()
-        var action_html = '<a href="#" id="btn-edit" class="text-warning"><i class="fa fa-pen"></i></a>'
+        var action_html = '<a href="#" id="btn-delete" class="text-danger"><i class="fa fa-trash"></i></a>'
         var BomTable = $('#table-bom-list').DataTable({
             "paging": true,
             "info": true,
