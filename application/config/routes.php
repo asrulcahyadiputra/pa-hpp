@@ -178,3 +178,11 @@ $route['laporan/kartu_pesanan']                            = 'reports/Order_card
 */
 $route['laporan/hpp']                                    = 'reports/Cogs';
 $route['laporan/hpp/load_report/(:any)']                 = 'reports/Cogs/load_report/$1';
+
+/*
+| -------------------------------------------------------------------------
+| Setting Menu
+| -------------------------------------------------------------------------
+*/
+$route['setting/menu']                                  = 'setting/Menu';
+$route['setting/menu/get_menu']                         = 'setting/Menu/load_menu_list';
