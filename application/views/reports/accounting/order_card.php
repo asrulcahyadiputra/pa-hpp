@@ -83,7 +83,15 @@ $this->load->view('_partials/header');
 											</thead>
 											<tbody>
 												<?php $no = 1;
+												$tot_bb = 0;
+												$tot_btkl = 0;
+												$tot_bop = 0;
 												foreach ($all as $row) : ?>
+													<?php
+													$tot_bb = $tot_bb + $row['material_cost'];
+													$tot_btkl = $tot_btkl + $row['direct_labor_cost'];
+													$tot_bop = $tot_bop + $row['overhead_cost'];
+													?>
 													<tr>
 														<td class="text-center"><?= $no++ ?></td>
 														<td><?= date('d-m-Y H:i:s', strtotime($row['trans_date'])) ?></td>
@@ -108,6 +116,27 @@ $this->load->view('_partials/header');
 														</td>
 													</tr>
 												<?php endforeach ?>
+												<tr>
+													<td class="text-right" colspan="3">Total</td>
+													<td>
+														<span class="text-left">Rp</span>
+														<span style="float:right;">
+															<?= nominal1($tot_bb) ?>
+														</span>
+													</td>
+													<td>
+														<span class="text-left">Rp</span>
+														<span style="float:right;">
+															<?= nominal1($tot_btkl) ?>
+														</span>
+													</td>
+													<td>
+														<span class="text-left">Rp</span>
+														<span style="float:right;">
+															<?= nominal1($tot_bop) ?>
+														</span>
+													</td>
+												</tr>
 											</tbody>
 										</table>
 									</div>
