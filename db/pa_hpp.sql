@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Jul 03, 2021 at 01:34 AM
+-- Generation Time: Jul 03, 2021 at 01:36 PM
 -- Server version: 5.7.32
 -- PHP Version: 7.4.12
 
@@ -89,7 +89,7 @@ CREATE TABLE `chart_of_accounts` (
 
 INSERT INTO `chart_of_accounts` (`account_no`, `account_name`, `normal_balance`, `sub_code`) VALUES
 ('1-10001', 'Kas', 'd', '1-1'),
-('1-10002', 'Piutang Usaha', 'd', '1-1'),
+('1-10002', 'Piutang Penjualan', 'd', '1-1'),
 ('1-10003', 'Persediaan Bahan Baku', 'd', '1-1'),
 ('1-10004', 'Persedian Bahan Penolong', 'd', '1-1'),
 ('1-10005', 'Persediaan Produk Jadi', 'd', '1-1'),
@@ -347,6 +347,106 @@ INSERT INTO `general_ledger` (`gl_id`, `account_no`, `periode`, `gl_date`, `tran
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `menu_access`
+--
+
+CREATE TABLE `menu_access` (
+  `id` bigint(20) NOT NULL,
+  `tcode` varchar(20) NOT NULL,
+  `role_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `menu_access`
+--
+
+INSERT INTO `menu_access` (`id`, `tcode`, `role_id`) VALUES
+(3, 'LP03', 2),
+(4, 'LP04', 2),
+(5, 'MD03', 2),
+(6, 'MD04', 2),
+(7, 'TR01', 2),
+(8, 'TR03', 2),
+(9, 'TR04', 2),
+(10, 'LP01', 1),
+(11, 'LP02', 1),
+(12, 'LP03', 1),
+(13, 'LP04', 1),
+(14, 'MD01', 1),
+(15, 'MD02', 1),
+(16, 'MD03', 1),
+(17, 'MD04', 1),
+(18, 'MD05', 1),
+(19, 'ST01', 1),
+(20, 'ST02', 1),
+(21, 'TR01', 1),
+(22, 'TR02', 1),
+(23, 'TR03', 1),
+(24, 'TR04', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `menu_head`
+--
+
+CREATE TABLE `menu_head` (
+  `head_id` varchar(20) NOT NULL,
+  `head_name` varchar(150) NOT NULL,
+  `icon` longtext NOT NULL,
+  `nu` int(11) NOT NULL,
+  `id` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `menu_head`
+--
+
+INSERT INTO `menu_head` (`head_id`, `head_name`, `icon`, `nu`, `id`) VALUES
+('L01', 'Laporan', 'fas fa-file-invoice-dollar', 3, 'laporan'),
+('M01', 'Master Data', 'fas fa-database', 1, 'master'),
+('S01', 'Pengaturan', 'fas fa-cogs', 4, 'setting'),
+('T01', 'Transaksi', 'fas fa-industry', 2, 'transaksi');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `menu_item`
+--
+
+CREATE TABLE `menu_item` (
+  `tcode` varchar(20) NOT NULL,
+  `nu` int(11) NOT NULL,
+  `menu_name` varchar(150) NOT NULL,
+  `menu_icon` longtext,
+  `url` varchar(150) NOT NULL,
+  `head_id` varchar(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `menu_item`
+--
+
+INSERT INTO `menu_item` (`tcode`, `nu`, `menu_name`, `menu_icon`, `url`, `head_id`) VALUES
+('LP01', 1, 'Jurnal Umum', '-', 'laporan/jurnal', 'L01'),
+('LP02', 2, 'Buku Besar', '-', 'laporan/buku_besar', 'L01'),
+('LP03', 3, 'Kartu Pesanan', '-', 'laporan/kartu_pesanan', 'L01'),
+('LP04', 4, 'Harga Pokok Produksi', '-', 'laporan/hpp', 'L01'),
+('MD01', 1, 'Pelanggan', '-', 'master/pelanggan', 'M01'),
+('MD02', 2, 'Karyawan', '-', 'master/karyawan', 'M01'),
+('MD03', 3, 'Produk', '-', 'master/produk', 'M01'),
+('MD04', 4, 'Bahan Baku', '-', 'master/bahan_baku', 'M01'),
+('MD05', 5, 'Chart of Account', '-', 'master/coa', 'M01'),
+('ST01', 1, 'Pengguna', '-', 'setting/user', 'S01'),
+('ST02', 2, 'Menu', '-', 'setting/menu', 'S01'),
+('TR01', 1, 'Bill of Materials', '-', 'transaksi/bom', 'T01'),
+('TR02', 2, 'Pesanan', '-', 'transaksi/pesanan', 'T01'),
+('TR03', 3, 'Pembelian', '-', 'transaksi/pembelian', 'T01'),
+('TR04', 4, 'Produksi', '-', 'transaksi/produksi', 'T01');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `orders`
 --
 
@@ -549,6 +649,25 @@ INSERT INTO `raw_materials` (`material_id`, `material_name`, `material_stock`, `
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `roles`
+--
+
+CREATE TABLE `roles` (
+  `role_id` int(11) NOT NULL,
+  `role_name` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `roles`
+--
+
+INSERT INTO `roles` (`role_id`, `role_name`) VALUES
+(1, 'Admin'),
+(2, 'Produksi');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `transactions`
 --
 
@@ -625,11 +744,19 @@ INSERT INTO `type_of_materials` (`id`, `name`) VALUES
 
 CREATE TABLE `users` (
   `user_id` bigint(20) NOT NULL,
-  `name` int(100) NOT NULL,
+  `name` varchar(100) NOT NULL,
   `username` varchar(100) NOT NULL,
   `password` varchar(256) NOT NULL,
-  `role` int(1) NOT NULL
+  `role` int(11) NOT NULL,
+  `status` int(11) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`user_id`, `name`, `username`, `password`, `role`, `status`) VALUES
+(6, 'Riska', 'admin', '$2y$10$kez8d2lf4yabSsgLq4up5u6fLcjyY2JDNMVHbnzolR445rD29OOri', 1, 1);
 
 --
 -- Indexes for dumped tables
@@ -699,6 +826,27 @@ ALTER TABLE `general_ledger`
   ADD KEY `trans_id` (`trans_id`);
 
 --
+-- Indexes for table `menu_access`
+--
+ALTER TABLE `menu_access`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `role_id` (`role_id`),
+  ADD KEY `tcode` (`tcode`);
+
+--
+-- Indexes for table `menu_head`
+--
+ALTER TABLE `menu_head`
+  ADD PRIMARY KEY (`head_id`);
+
+--
+-- Indexes for table `menu_item`
+--
+ALTER TABLE `menu_item`
+  ADD PRIMARY KEY (`tcode`),
+  ADD KEY `head_id` (`head_id`);
+
+--
 -- Indexes for table `orders`
 --
 ALTER TABLE `orders`
@@ -756,6 +904,12 @@ ALTER TABLE `raw_materials`
   ADD KEY `material_type` (`material_type`);
 
 --
+-- Indexes for table `roles`
+--
+ALTER TABLE `roles`
+  ADD PRIMARY KEY (`role_id`);
+
+--
 -- Indexes for table `transactions`
 --
 ALTER TABLE `transactions`
@@ -773,7 +927,8 @@ ALTER TABLE `type_of_materials`
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`user_id`);
+  ADD PRIMARY KEY (`user_id`),
+  ADD KEY `role` (`role`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -802,6 +957,12 @@ ALTER TABLE `direct_material_cost`
 --
 ALTER TABLE `general_ledger`
   MODIFY `gl_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=115;
+
+--
+-- AUTO_INCREMENT for table `menu_access`
+--
+ALTER TABLE `menu_access`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `orders`
@@ -834,10 +995,16 @@ ALTER TABLE `purchase`
   MODIFY `purchase_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
+-- AUTO_INCREMENT for table `roles`
+--
+ALTER TABLE `roles`
+  MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `user_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Constraints for dumped tables
@@ -881,6 +1048,19 @@ ALTER TABLE `direct_material_cost`
 ALTER TABLE `general_ledger`
   ADD CONSTRAINT `general_ledger_ibfk_2` FOREIGN KEY (`account_no`) REFERENCES `chart_of_accounts` (`account_no`),
   ADD CONSTRAINT `general_ledger_ibfk_3` FOREIGN KEY (`trans_id`) REFERENCES `transactions` (`trans_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `menu_access`
+--
+ALTER TABLE `menu_access`
+  ADD CONSTRAINT `menu_access_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `roles` (`role_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `menu_access_ibfk_2` FOREIGN KEY (`tcode`) REFERENCES `menu_item` (`tcode`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `menu_item`
+--
+ALTER TABLE `menu_item`
+  ADD CONSTRAINT `menu_item_ibfk_1` FOREIGN KEY (`head_id`) REFERENCES `menu_head` (`head_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `orders`
@@ -927,3 +1107,9 @@ ALTER TABLE `raw_materials`
 ALTER TABLE `transactions`
   ADD CONSTRAINT `transactions_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`customer_id`),
   ADD CONSTRAINT `transactions_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`);
+
+--
+-- Constraints for table `users`
+--
+ALTER TABLE `users`
+  ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`role`) REFERENCES `roles` (`role_id`) ON DELETE CASCADE ON UPDATE CASCADE;
