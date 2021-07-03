@@ -14,7 +14,7 @@ $route['translate_uri_dashes'] = FALSE;
 # 						-MAIN ROUTING- 					   #
 ##########################################################################
 $route['Dasboard']                    = 'Dashboard';
-
+$route['login']                       = 'Auth';
 
 
 

@@ -1,5 +1,13 @@
 <?php
 
+function user_log()
+{
+    $CI3 = get_instance();
+    if (!$CI3->session->userdata('user_id')) {
+        redirect('login');
+    }
+}
+
 function getMenu()
 {
     $CI3 = get_instance();
