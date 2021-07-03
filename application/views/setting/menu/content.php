@@ -41,6 +41,7 @@ $this->load->view('_partials/header');
                                                 <th style="width: 20%;">Url</th>
                                                 <th style="width: 5%;">Icon</th>
                                                 <th style="width: 5%;">NU</th>
+                                                <th style="width: 10%;">Kode Header</th>
                                                 <th class='text-center' style="width: 10%;">Aksi</th>
                                             </tr>
                                         </thead>
@@ -64,10 +65,9 @@ $this->load->view('_partials/header');
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Tambah Menu Baru</h5>
-
+                <h5 class="modal-title" id="modal-label"></h5>
             </div>
-            <form method="POST" id="form-tambah" class="needs-validation" novalidate>
+            <form method="POST" id="form-tambah" form-type='' class="needs-validation" novalidate>
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="tcode">Tcode</label>

@@ -8,6 +8,10 @@ class M_menu extends CI_Model
     {
         return $this->db->get('menu_item')->result_array();
     }
+    public function select($id)
+    {
+        return $this->db->get_where('menu_item', ['tcode' => $id])->row_array();
+    }
     public function menu_head()
     {
         return $this->db->get('menu_head')->result_array();
@@ -60,6 +64,36 @@ class M_menu extends CI_Model
             $res = [
                 'status'        => true,
                 'message'       => 'Data Berhasil di Simpan dengan tcode ' . $tcode
+            ];
+        } else {
+            $res = [
+                'status'        => false,
+                'message'       => $this->db->error()
+            ];
+        }
+
+        return $res;
+    }
+    public function update()
+    {
+        $tcode          = $this->input->post('tcode');
+        $menu_name      = $this->input->post('menu_name');
+        $url            = $this->input->post('url');
+        $menu_icon      = $this->input->post('menu_icon');
+        $nu             = $this->input->post('nu');
+        $head_id        = $this->input->post('head_id');
+
+        $data = [
+            'menu_name'     => $menu_name,
+            'url'           => $url,
+            'menu_icon'     => $menu_icon,
+            'nu'            => $nu,
+            'head_id'       => $head_id
+        ];
+        if ($this->db->update('menu_item', $data,  ['tcode' => $tcode])) {
+            $res = [
+                'status'        => true,
+                'message'       => 'Data ' . $tcode . ' Berhasil di update '
             ];
         } else {
             $res = [

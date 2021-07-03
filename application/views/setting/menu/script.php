@@ -1,7 +1,7 @@
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     $(document).ready(function() {
-        var action_html = '<a href="#" id="btn-edit" class="text-warning"><i class="fa fa-pen"></i></a>'
+        var action_html = '<a href="#" id="btn-edit" class="text-warning"><i class="fa fa-pen"></i></a> <a href="#" id="btn-delete" class="text-danger ml-3"><i class="fa fa-trash"></i></a>'
         var table_menu = $('#table-menu').DataTable({
             "paging": true,
             "ordering": false,
@@ -15,7 +15,7 @@
                 {
                     "searchable": false,
                     "orderable": false,
-                    "targets": 5,
+                    "targets": 6,
                     "data": null,
                     'className': 'text-center',
                     'defaultContent': action_html,
@@ -37,6 +37,9 @@
                 {
                     data: 'nu'
                 },
+                {
+                    data: 'head_id'
+                }
 
             ]
         })
@@ -77,9 +80,22 @@
 
         $('#btn-tambah').on('click', function(e) {
             e.preventDefault()
-            // console.log('show-modal')
+            $('#form-tambah').attr('form-type', 'store');
+            $('#modal-label').html('Tambah Menu Baru')
             $('#addModal').modal('show')
         })
+
+        table_menu.on('click', '#btn-edit', function(e) {
+            e.preventDefault()
+            var id = $(this).closest('tr').find('td').eq(0).html();
+            edit(id)
+            $('#form-tambah').attr('form-type', 'update');
+            $('#modal-label').html('Edit Menu')
+            $('#addModal').modal('show')
+        })
+
+
+
         $('#btn-close').on('click', function(e) {
             e.preventDefault
             $('#addModal').modal('hide')
@@ -88,8 +104,15 @@
 
         $('#form-tambah').on('submit', function(e) {
             e.preventDefault()
+            var form_type = $(this).attr("form-type")
+            if (form_type == 'store') {
+                var url = '<?= base_url('setting/menu/store') ?>'
+            } else {
+                var url = '<?= base_url('setting/menu/update') ?>'
+            }
+
             var form_data = $(this).serialize();
-            simpan(form_data)
+            simpan(form_data, url)
 
         })
 
@@ -98,10 +121,10 @@
         }
 
 
-        function simpan(form_data) {
+        function simpan(form_data, url) {
             $.ajax({
                 type: 'POST',
-                url: '<?= base_url('setting/menu/store') ?>',
+                url: url,
                 data: form_data,
                 dataType: 'JSON',
                 success: function(res) {
@@ -120,6 +143,36 @@
                 error: function(xhr, status, error) {
                     var errorMessage = xhr.status + ': ' + xhr.statusText
 
+                    Swal.fire({
+                        title: '500',
+                        icon: 'error',
+                        text: errorMessage,
+                        buttonsStyling: true,
+                        confirmButtonText: 'OK',
+                        confirmButtonColor: '#3f37c9',
+                    })
+                }
+            })
+        }
+
+        function edit(id) {
+            $.ajax({
+                type: 'GET',
+                url: '<?= base_url('setting/menu/select/') ?>' + id,
+                dataType: 'JSON',
+                success: function(res) {
+                    console.log(res)
+                    $('#tcode').val(res.tcode)
+                    $('#menu_name').val(res.menu_name)
+                    $('#url').val(res.url)
+                    $('#menu_icon').val(res.menu_icon)
+                    $('#nu').val(res.nu)
+                    $('#head_id').val(res.head_id)
+
+                    $('#tcode').prop('readonly', true);
+                },
+                error: function(xhr, status, error) {
+                    var errorMessage = xhr.status + ': ' + xhr.statusText
                     Swal.fire({
                         title: '500',
                         icon: 'error',

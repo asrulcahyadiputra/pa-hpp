@@ -44,10 +44,34 @@ class Menu extends CI_Controller
                 'text'      => $req['message']
             ];
         }
-
-
-
         echo json_encode($response);
+    }
+
+    public function update()
+    {
+        $req = $this->model->update();
+
+        if ($req['status'] == true) {
+            $response = [
+                'icon'      => 'success',
+                'title'     => 'Berhasil',
+                'text'      => $req['message']
+            ];
+        } else {
+            $response = [
+                'icon'      => 'error',
+                'title'     => '500',
+                'text'      => $req['message']
+            ];
+        }
+        echo json_encode($response);
+    }
+
+    public function select($id)
+    {
+        $req = $this->model->select($id);
+
+        echo json_encode($req);
     }
 }
 
