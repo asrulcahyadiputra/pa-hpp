@@ -37,3 +37,16 @@ function getMenu()
 
     return $res;
 }
+
+function getProfile($user_id)
+{
+    $CI3 = get_instance();
+    $sql = $CI3->db->select('a.username, a.user_id, a.name, b.role_name')
+        ->from('users as a')
+        ->join('roles as b', 'a.role = b.role_id')
+        ->where('a.user_id', $user_id)
+        ->get()
+        ->row_array();
+
+    return $sql;
+}
