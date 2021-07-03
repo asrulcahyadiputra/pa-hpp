@@ -27,6 +27,28 @@ class Menu extends CI_Controller
 
         echo json_encode($req);
     }
+    public function store()
+    {
+        $req = $this->model->store();
+
+        if ($req['status'] == true) {
+            $response = [
+                'icon'      => 'success',
+                'title'     => 'Berhasil',
+                'text'      => $req['message']
+            ];
+        } else {
+            $response = [
+                'icon'      => 'error',
+                'title'     => '500',
+                'text'      => $req['message']
+            ];
+        }
+
+
+
+        echo json_encode($response);
+    }
 }
 
 /* End of file Menu.php */

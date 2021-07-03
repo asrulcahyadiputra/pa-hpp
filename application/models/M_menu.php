@@ -39,6 +39,37 @@ class M_menu extends CI_Model
 
         return $res;
     }
+    public function store()
+    {
+        $tcode          = $this->input->post('tcode');
+        $menu_name      = $this->input->post('menu_name');
+        $url            = $this->input->post('url');
+        $menu_icon      = $this->input->post('menu_icon');
+        $nu             = $this->input->post('nu');
+        $head_id        = $this->input->post('head_id');
+
+        $data = [
+            'tcode'         => $tcode,
+            'menu_name'     => $menu_name,
+            'url'           => $url,
+            'menu_icon'     => $menu_icon,
+            'nu'            => $nu,
+            'head_id'       => $head_id
+        ];
+        if ($this->db->insert('menu_item', $data)) {
+            $res = [
+                'status'        => true,
+                'message'       => 'Data Berhasil di Simpan dengan tcode ' . $tcode
+            ];
+        } else {
+            $res = [
+                'status'        => false,
+                'message'       => $this->db->error()
+            ];
+        }
+
+        return $res;
+    }
 }
 
 /* End of file M_menu.php */

@@ -185,4 +185,5 @@ $route['laporan/hpp/load_report/(:any)']                 = 'reports/Cogs/load_re
 | -------------------------------------------------------------------------
 */
 $route['setting/menu']                                  = 'setting/Menu';
+$route['setting/menu/store']                            = 'setting/Menu/store';
 $route['setting/menu/get_menu']                         = 'setting/Menu/load_menu_list';

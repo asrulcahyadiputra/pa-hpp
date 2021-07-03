@@ -86,8 +86,50 @@
             $("#form-tambah").trigger("reset");
         })
 
+        $('#form-tambah').on('submit', function(e) {
+            e.preventDefault()
+            var form_data = $(this).serialize();
+            simpan(form_data)
+
+        })
+
         function resetForm() {
             document.getElementById("#form-tambah").reset();
+        }
+
+
+        function simpan(form_data) {
+            $.ajax({
+                type: 'POST',
+                url: '<?= base_url('setting/menu/store') ?>',
+                data: form_data,
+                dataType: 'JSON',
+                success: function(res) {
+                    Swal.fire({
+                        title: res.title,
+                        icon: res.icon,
+                        text: res.text,
+                        buttonsStyling: true,
+                        confirmButtonText: 'OK',
+                        confirmButtonColor: '#3f37c9',
+                    })
+                    $('#addModal').modal('hide')
+                    $("#form-tambah").trigger("reset");
+                    load_menu()
+                },
+                error: function(xhr, status, error) {
+                    var errorMessage = xhr.status + ': ' + xhr.statusText
+
+                    Swal.fire({
+                        title: '500',
+                        icon: 'error',
+                        text: errorMessage,
+                        buttonsStyling: true,
+                        confirmButtonText: 'OK',
+                        confirmButtonColor: '#3f37c9',
+                    })
+                }
+            })
         }
 
     })
