@@ -192,3 +192,16 @@ $route['setting/menu/delete/(:any)']                    = 'setting/Menu/destroy/
 $route['setting/menu/select/(:any)']                    = 'setting/Menu/select/$1';
 $route['setting/menu/get_menu']                         = 'setting/Menu/load_menu_list';
 $route['setting/menu/load_akses/(:any)']                = 'setting/Menu/load_akses/$1';
+
+
+/*
+| -------------------------------------------------------------------------
+| Setting Menu
+| -------------------------------------------------------------------------
+*/
+$route['setting/user']                                  = 'setting/Users';
+$route['setting/user/get_user']                         = 'setting/Users/all';
+$route['setting/user/store']                            = 'setting/Users/store';
+$route['setting/user/update']                           = 'setting/Users/update';
+$route['setting/user/select/(:any)']                    = 'setting/Users/select/$1';
+$route['setting/user/delete/(:any)']                    = 'setting/Users/destroy/$1';
