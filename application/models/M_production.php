@@ -227,27 +227,27 @@ class M_production extends CI_Model
 		$order 				= $this->db->get_where('transactions', ['trans_id' => $kode_pesanan])->row_array(); //data pesanan
 		$payment 			= $this->db->get_where('payments', ['trans_id' => $kode_pesanan])->row_array(); //Pendapatan diterima dimuka
 		$gl = [
-			[
-				'account_no'	     => '2-10001',
-				'periode'				=> $periode,
-				'trans_id'			=> $trans_id,
-				'nominal'			=> $payment['nominal'],
-				'gl_balance'		=> 'd'
-			],
-			[
-				'account_no'	    => '1-10002',
-				'periode'			=> $periode,
-				'trans_id'			=> $trans_id,
-				'nominal'			=> $order['trans_total'] - $payment['nominal'],
-				'gl_balance'		=> 'd'
-			],
-			[
-				'account_no'	     => '4-10001',
-				'periode'			=> $periode,
-				'trans_id'			=> $trans_id,
-				'nominal'			=> $order['trans_total'],
-				'gl_balance'		=> 'k'
-			],
+			// [
+			// 	'account_no'	     => '2-10001',
+			// 	'periode'				=> $periode,
+			// 	'trans_id'			=> $trans_id,
+			// 	'nominal'			=> $payment['nominal'],
+			// 	'gl_balance'		=> 'd'
+			// ],
+			// [
+			// 	'account_no'	    => '1-10002',
+			// 	'periode'			=> $periode,
+			// 	'trans_id'			=> $trans_id,
+			// 	'nominal'			=> $order['trans_total'] - $payment['nominal'],
+			// 	'gl_balance'		=> 'd'
+			// ],
+			// [
+			// 	'account_no'	     => '4-10001',
+			// 	'periode'			=> $periode,
+			// 	'trans_id'			=> $trans_id,
+			// 	'nominal'			=> $order['trans_total'],
+			// 	'gl_balance'		=> 'k'
+			// ],
 			[
 				'account_no'	     => '5-20001',
 				'periode'			=> $periode,

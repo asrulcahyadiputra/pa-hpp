@@ -188,14 +188,23 @@ class M_order extends CI_Model
 					'gl_balance'		=> 'd'
 				],
 				[
-					'account_no'		=> '2-10001',
+					'account_no'		=> '1-10002',
 					'periode'			=> $periode,
 					'trans_id'			=> $trans_id,
-					'nominal'			=> $payment,
+					'nominal'			=> $total - $payment,
+					'gl_balance'		=> 'd'
+				],
+				[
+					'account_no'		=> '4-10001',
+					'periode'			=> $periode,
+					'trans_id'			=> $trans_id,
+					'nominal'			=> $total,
 					'gl_balance'		=> 'k'
 				],
 
 			];
+
+
 			$py = [
 				'trans_id'			=> $trans_id,
 				'periode'			=> $periode,
