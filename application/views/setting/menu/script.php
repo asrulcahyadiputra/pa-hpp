@@ -135,6 +135,95 @@
 
         })
 
+        $('#form-akses').on('click', '#btn-load-akses', function(e) {
+            e.preventDefault()
+            var role_id = $('#role_id').val()
+            html = ''
+            if (role_id != '') {
+                $.ajax({
+                    type: 'GET',
+                    url: '<?= base_url('setting/menu/load_akses/') ?>' + role_id,
+                    dataType: 'JSON',
+                    success: function(res) {
+                        var data = res.list
+                        var values = res.value_selected
+
+                        console.log(values)
+
+                        $("#list").find('[value=' + values.join('], [value=') + ']').prop("checked", true);
+                        // console.log(res)
+                        html += `<table class="table table-sm table-bordered">
+                        <thead style="background-color: #4361ee; color: #fff">
+                            <tr>
+                                <th  class="text-center" style='width:10%'>Tcode</th>
+                                <th style='width:30%'>Menu</th>
+                                <th  class="text-center" style='width:5%'>Akses</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <div id="list">`
+                        for (let i = 0; i < data.length; i++) {
+                            html += `<tr>
+                                <td class="text-center">` + data[i].tcode + `</td>
+                                <td>` + data[i].menu_name + `</td>
+                                <td class="text-center">
+                                <input type="checkbox" name="tcode[]" value="` + data[i].tcode + `"/> 
+                                </td>
+                            </tr>`
+                        }
+                        html += `</div>
+                        </tbody>
+                    </table>
+                    <div class="text-right mt-4">
+                        <button type="submit" class='btn btn-primary col-2'>Simpan</button>
+                    </div>`
+
+                        $('#load-akses-here').html(html)
+                    },
+                    error: function(err) {
+                        // console.log(err)
+                        Swal.fire({
+                            title: 'Error',
+                            icon: 'error',
+                            text: 'Internal Server Error',
+                            buttonsStyling: true,
+                            confirmButtonText: 'OK',
+                            confirmButtonColor: '#3f37c9',
+                        })
+                    }
+                })
+            } else {
+                Swal.fire({
+                    title: 'Error',
+                    icon: 'error',
+                    text: 'Pilih Role ID terlebih dahulu',
+                    buttonsStyling: true,
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#3f37c9',
+                })
+            }
+
+        })
+
+        $('#form-akses').on('submit', function(e) {
+            e.preventDefault()
+            var form_data = $(this).serialize();
+            $.ajax({
+                type: 'POST',
+                url: '<?= base_url('setting/menu/store_akses') ?>',
+                data: form_data,
+                dataType: 'JSON',
+                success: function(data) {
+                    Swal.fire(
+                        'Berhasil',
+                        'Akses Menu Berhasil Disimpan',
+                        'success'
+                    )
+                }
+            })
+            console.log('submit')
+        })
+
         function resetForm() {
             document.getElementById("#form-tambah").reset();
         }

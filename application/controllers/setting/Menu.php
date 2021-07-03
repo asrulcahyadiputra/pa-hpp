@@ -16,7 +16,8 @@ class Menu extends CI_Controller
     {
         $data = [
             'title'        => 'Pengaturan Menu',
-            'head'         => $this->model->menu_head()
+            'head'         => $this->model->menu_head(),
+            'roles'        => $this->model->roles()
         ];
         $this->load->view('setting/menu/content', $data);
     }
@@ -24,6 +25,12 @@ class Menu extends CI_Controller
     public function load_menu_list()
     {
         $req = $this->model->all();
+
+        echo json_encode($req);
+    }
+    public function load_akses($id)
+    {
+        $req = $this->model->all($id);
 
         echo json_encode($req);
     }
@@ -36,6 +43,27 @@ class Menu extends CI_Controller
                 'icon'      => 'success',
                 'title'     => 'Berhasil',
                 'text'      => $req['message']
+            ];
+        } else {
+            $response = [
+                'icon'      => 'error',
+                'title'     => '500',
+                'text'      => $req['message']
+            ];
+        }
+        echo json_encode($response);
+    }
+
+    public function store_akses()
+    {
+        $req = $this->model->store_akses();
+
+        if ($req['status'] == true) {
+            $response = [
+                'icon'      => 'success',
+                'title'     => 'Berhasil',
+                'text'      => $req['message'],
+                'store'     => $req['store']
             ];
         } else {
             $response = [

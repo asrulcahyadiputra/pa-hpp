@@ -186,7 +186,9 @@ $route['laporan/hpp/load_report/(:any)']                 = 'reports/Cogs/load_re
 */
 $route['setting/menu']                                  = 'setting/Menu';
 $route['setting/menu/store']                            = 'setting/Menu/store';
+$route['setting/menu/store_akses']                      = 'setting/Menu/store_akses';
 $route['setting/menu/update']                           = 'setting/Menu/update';
 $route['setting/menu/delete/(:any)']                    = 'setting/Menu/destroy/$1';
 $route['setting/menu/select/(:any)']                    = 'setting/Menu/select/$1';
 $route['setting/menu/get_menu']                         = 'setting/Menu/load_menu_list';
+$route['setting/menu/load_akses/(:any)']                = 'setting/Menu/load_akses/$1';

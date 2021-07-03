@@ -4,9 +4,29 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class M_menu extends CI_Model
 {
-    public function all()
+    public function all($role_id = null)
     {
-        return $this->db->get('menu_item')->result_array();
+        if ($role_id != null) {
+            $values = [];
+            $sql1 = $this->db->get_where('menu_access', ['role_id' => $role_id])->result_array();
+            foreach ($sql1 as $key => $val) {
+                array_push($values, $val['tcode']);
+            }
+
+            $sql2 = $this->db->get('menu_item')->result_array();
+
+            $res = [
+                'value_selected'        => $values,
+                'list'                  => $sql2
+            ];
+            return $res;
+        } else {
+            return  $this->db->get('menu_item')->result_array();
+        }
+    }
+    public function roles()
+    {
+        return $this->db->get('roles')->result_array();
     }
     public function select($id)
     {
@@ -74,6 +94,41 @@ class M_menu extends CI_Model
 
         return $res;
     }
+
+    public function store_akses()
+    {
+        $tcode              = $this->input->post('tcode');
+        $role_id            = $this->input->post('role_id');
+
+
+        foreach ($tcode as $key => $val) {
+            $data[] = [
+                'role_id'   => $role_id,
+                'tcode'     => $tcode[$key]
+            ];
+        }
+
+        $this->db->trans_start();
+        $this->db->delete('menu_access', ['role_id' => $role_id]);
+        $this->db->insert_batch('menu_access', $data);
+        $this->db->trans_complete();
+        if ($this->db->trans_status() == true) {
+            $res = [
+                'status'        => true,
+                'message'       => 'Data Berhasil di Simpan',
+                'store'         => $data
+            ];
+        } else {
+            $res = [
+                'status'        => false,
+                'message'       => $this->db->error()
+            ];
+        }
+
+        return $res;
+    }
+
+
     public function update()
     {
         $tcode          = $this->input->post('tcode');

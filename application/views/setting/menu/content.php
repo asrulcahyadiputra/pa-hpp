@@ -49,7 +49,18 @@ $this->load->view('_partials/header');
                                 </div>
 
                                 <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                                    Vestibulum imperdiet odio sed neque ultricies, ut dapibus mi maximus. Proin ligula massa, gravida in lacinia efficitur, hendrerit eget mauris. Pellentesque fermentum, sem interdum molestie finibus, nulla diam varius leo, nec varius lectus elit id dolor. Nam malesuada orci non ornare vulputate. Ut ut sollicitudin magna. Vestibulum eget ligula ut ipsum venenatis ultrices. Proin bibendum bibendum augue ut luctus.
+                                    <form class="form-inline mt-4" id="form-akses">
+                                        <label class="my-1 mr-2" for="role_id">Role User</label>
+                                        <select class="custom-select my-1 mr-sm-4" name="role_id" id="role_id">
+                                            <option value="">Pilih Role User</option>
+                                            <?php foreach ($roles as $row) : ?>
+                                                <option value="<?= $row['role_id'] ?>"><?= $row['role_id'] . ' - ' . $row['role_name'] ?></option>
+                                            <?php endforeach ?>
+                                        </select>
+                                        <button type="button" class="btn btn-light my-1" id="btn-load-akses"><i class="fa fa-sync"></i></button>
+
+                                        <div class="col-12 mt-4" id="load-akses-here"></div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
