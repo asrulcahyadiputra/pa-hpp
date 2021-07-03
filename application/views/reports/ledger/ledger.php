@@ -35,7 +35,7 @@ $this->load->view('_partials/header');
 					<div class="card">
 						<div class="card-body">
 							<div class="row">
-								<div class="col-12 mb-4">
+								<div class="col-12 mb-4" style="border-bottom: double;">
 									<div class="text-center">
 										<h4>KONVEKSI KEN JR</h4>
 										<h6>Jurnal Umum</h6>

@@ -1,12 +1,18 @@
 .downupPopup {
 	position: fixed;
+	top: 0;
+	right: 0;
 	bottom: 0;
+	left: 0;
 	overflow: hidden;
-	z-index: 99;
+	z-index: 1050;
 	will-change: transform;
 	background-color: #fff;
 	height: 100%;
 	left: 50%;
+	right: 50%;
+	overflow-x: hidden;
+	overflow-y: auto;
 }
 
 .downupPopup.no-act {
@@ -22,7 +28,7 @@
 
 .downupPopup-header .downupPopup-kapat {
 	align-self: center;
-	font-size: 20px;
+	font-size: 50px;
 	cursor: pointer;
 }
 
