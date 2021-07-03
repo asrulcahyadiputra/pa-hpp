@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Jul 03, 2021 at 01:36 PM
+-- Generation Time: Jul 03, 2021 at 02:24 PM
 -- Server version: 5.7.32
 -- PHP Version: 7.4.12
 
@@ -106,7 +106,7 @@ INSERT INTO `chart_of_accounts` (`account_no`, `account_name`, `normal_balance`,
 ('5-20002', 'BDP-BTKL', 'd', '5-2'),
 ('5-20003', 'BDP-BOP', 'd', '5-2'),
 ('5-20004', 'BDP-BBP', 'd', '5-2'),
-('5-20005', 'BOP yang sesungguhnya', 'd', '5-2');
+('5-20005', 'BOP yang dibebankan', 'd', '5-2');
 
 -- --------------------------------------------------------
 
@@ -209,7 +209,9 @@ INSERT INTO `direct_labor_costs` (`direct_labor_id`, `trans_id`, `employee_id`, 
 (17, 'TRX-PRD-000000002', 'KAR-0001', 200000),
 (18, 'TRX-PRD-000000002', 'KAR-0002', 250000),
 (19, 'TRX-PRD-000000003', 'KAR-0001', 150000),
-(20, 'TRX-PRD-000000003', 'KAR-0002', 250000);
+(20, 'TRX-PRD-000000003', 'KAR-0002', 250000),
+(21, 'TRX-PRD-000000004', 'KAR-0001', 1000000),
+(22, 'TRX-PRD-000000004', 'KAR-0002', 5000000);
 
 -- --------------------------------------------------------
 
@@ -242,7 +244,10 @@ INSERT INTO `direct_material_cost` (`id`, `material_id`, `qty`, `trans_id`, `typ
 (40, 'MTR-0005', 10, 'TRX-PRD-000000002', 'BBB', 4000),
 (41, 'MTR-0001', 30, 'TRX-PRD-000000003', 'BBB', 15000),
 (42, 'MTR-0005', 40, 'TRX-PRD-000000003', 'BBB', 4000),
-(43, 'MTR-0008', 30, 'TRX-PRD-000000003', 'BBP', 375);
+(43, 'MTR-0008', 30, 'TRX-PRD-000000003', 'BBP', 375),
+(44, 'MTR-0001', 500, 'TRX-PRD-000000004', 'BBB', 15000),
+(45, 'MTR-0008', 1000, 'TRX-PRD-000000004', 'BBP', 375),
+(46, 'MTR-0005', 500, 'TRX-PRD-000000004', 'BBB', 4000);
 
 -- --------------------------------------------------------
 
@@ -342,7 +347,20 @@ INSERT INTO `general_ledger` (`gl_id`, `account_no`, `periode`, `gl_date`, `tran
 (111, '1-10005', 202107, '2021-07-02 16:20:04', 'TRX-PRD-000000003', 1028250, 'd'),
 (112, '5-20001', 202107, '2021-07-02 16:20:04', 'TRX-PRD-000000003', 610000, 'k'),
 (113, '5-20002', 202107, '2021-07-02 16:20:04', 'TRX-PRD-000000003', 400000, 'k'),
-(114, '5-20003', 202107, '2021-07-02 16:20:04', 'TRX-PRD-000000003', 18250, 'k');
+(114, '5-20003', 202107, '2021-07-02 16:20:04', 'TRX-PRD-000000003', 18250, 'k'),
+(115, '1-10001', 202107, '2021-07-03 13:57:20', 'TRX-PSN-000000004', 30000000, 'd'),
+(116, '1-10002', 202107, '2021-07-03 13:57:20', 'TRX-PSN-000000004', 25000000, 'd'),
+(117, '4-10001', 202107, '2021-07-03 13:57:20', 'TRX-PSN-000000004', 55000000, 'k'),
+(118, '5-20001', 202107, '2021-07-03 14:02:17', 'TRX-PRD-000000004', 9500000, 'd'),
+(119, '1-10003', 202107, '2021-07-03 14:02:17', 'TRX-PRD-000000004', 9500000, 'k'),
+(120, '5-20004', 202107, '2021-07-03 14:02:17', 'TRX-PRD-000000004', 375000, 'd'),
+(121, '1-10004', 202107, '2021-07-03 14:02:17', 'TRX-PRD-000000004', 375000, 'k'),
+(122, '5-20003', 202107, '2021-07-03 14:02:17', 'TRX-PRD-000000004', 1375000, 'd'),
+(123, '5-20005', 202107, '2021-07-03 14:02:17', 'TRX-PRD-000000004', 1375000, 'k'),
+(124, '1-10005', 202107, '2021-07-03 14:02:17', 'TRX-PRD-000000004', 16875000, 'd'),
+(125, '5-20001', 202107, '2021-07-03 14:02:17', 'TRX-PRD-000000004', 9500000, 'k'),
+(126, '5-20002', 202107, '2021-07-03 14:02:17', 'TRX-PRD-000000004', 6000000, 'k'),
+(127, '5-20003', 202107, '2021-07-03 14:02:17', 'TRX-PRD-000000004', 1375000, 'k');
 
 -- --------------------------------------------------------
 
@@ -468,7 +486,8 @@ INSERT INTO `orders` (`order_id`, `trans_id`, `product_id`, `order_size`, `order
 (30, 'TRX-PSN-000000001', 'PRD-0001', 'M', '1000', 55000, 55000000),
 (31, 'TRX-PSN-000000001', 'PRD-0002', 'M', '500', 60000, 30000000),
 (32, 'TRX-PSN-000000002', 'PRD-0001', 'M', '20', 55000, 1100000),
-(33, 'TRX-PSN-000000003', 'PRD-0003', 'L', '10', 120000, 1200000);
+(33, 'TRX-PSN-000000003', 'PRD-0003', 'L', '10', 120000, 1200000),
+(34, 'TRX-PSN-000000004', 'PRD-0001', 'M', '1000', 55000, 55000000);
 
 -- --------------------------------------------------------
 
@@ -514,7 +533,8 @@ INSERT INTO `overhead_cost` (`id`, `trans_id`, `oc_id`, `overhead_cost`) VALUES
 (20, 'TRX-PRD-000000001', 'OV03', 2500000),
 (21, 'TRX-PRD-000000001', 'OV04', 1000000),
 (22, 'TRX-PRD-000000002', 'OV03', 7000),
-(23, 'TRX-PRD-000000003', 'OV03', 7000);
+(23, 'TRX-PRD-000000003', 'OV03', 7000),
+(24, 'TRX-PRD-000000004', 'OV01', 1000000);
 
 -- --------------------------------------------------------
 
@@ -537,7 +557,8 @@ CREATE TABLE `payments` (
 INSERT INTO `payments` (`payment_id`, `trans_id`, `periode`, `nominal`, `description`) VALUES
 (15, 'TRX-PSN-000000001', 202107, 45000000, 'Down Payment (DP)'),
 (16, 'TRX-PSN-000000002', 202107, 500000, 'Down Payment (DP)'),
-(17, 'TRX-PSN-000000003', 202107, 250000, 'Down Payment (DP)');
+(17, 'TRX-PSN-000000003', 202107, 250000, 'Down Payment (DP)'),
+(18, 'TRX-PSN-000000004', 202107, 30000000, 'Down Payment (DP)');
 
 -- --------------------------------------------------------
 
@@ -560,7 +581,8 @@ CREATE TABLE `production_costs` (
 INSERT INTO `production_costs` (`cost_id`, `trans_id`, `material_cost`, `direct_labor_cost`, `overhead_cost`) VALUES
 (8, 'TRX-PRD-000000001', 17750000, 16500000, 12062500),
 (9, 'TRX-PRD-000000002', 190000, 450000, 14500),
-(10, 'TRX-PRD-000000003', 610000, 400000, 18250);
+(10, 'TRX-PRD-000000003', 610000, 400000, 18250),
+(11, 'TRX-PRD-000000004', 9500000, 6000000, 1375000);
 
 -- --------------------------------------------------------
 
@@ -696,7 +718,7 @@ CREATE TABLE `transactions` (
 --
 
 INSERT INTO `transactions` (`trans_id`, `periode`, `description`, `trans_date`, `customer_id`, `product_id`, `order_done`, `production_step`, `ref_production`, `trans_total`, `dp`, `status`, `status_production`, `lock_doc`, `trans_type`, `date_created`, `updated_at`) VALUES
-('TRX-BOM-000000001', 202107, 'Bom Kaos Anak', '2021-07-01 06:14:41', NULL, 'PRD-0001', NULL, NULL, NULL, 0, NULL, 1, NULL, 1, 'bom', '2021-07-01 03:59:38', NULL),
+('TRX-BOM-000000001', 202107, 'Bom Kaos Anak', '2021-07-03 14:02:17', NULL, 'PRD-0001', NULL, NULL, NULL, 0, NULL, 1, NULL, 0, 'bom', '2021-07-01 03:59:38', '2021-07-03 14:02:17'),
 ('TRX-BOM-000000002', 202107, 'Bom Kaos Anak Ukuran XXL', '2021-07-01 05:28:48', NULL, 'PRD-0001', NULL, NULL, NULL, 0, NULL, 1, NULL, 1, 'bom', '2021-07-01 04:00:45', NULL),
 ('TRX-BOM-000000003', 202107, 'Bom Kaos Anak Ukuran XL', '2021-07-01 05:28:48', NULL, 'PRD-0001', NULL, NULL, NULL, 0, NULL, 1, NULL, 1, 'bom', '2021-07-01 04:01:53', NULL),
 ('TRX-BOM-000000004', 202107, 'Bom Kaos Anak Ukuran L', '2021-07-01 05:28:48', NULL, 'PRD-0001', NULL, NULL, NULL, 0, NULL, 1, NULL, 1, 'bom', '2021-07-01 04:02:46', NULL),
@@ -713,9 +735,11 @@ INSERT INTO `transactions` (`trans_id`, `periode`, `description`, `trans_date`, 
 ('TRX-PRD-000000001', 202107, 'Produksi 1', '2021-07-01 17:00:00', NULL, NULL, NULL, NULL, 'TRX-PSN-000000001', 46312500, NULL, 1, NULL, 0, 'production', '2021-07-02 15:33:39', NULL),
 ('TRX-PRD-000000002', 202107, 'Produksi 2', '2021-07-01 17:00:00', NULL, NULL, NULL, NULL, 'TRX-PSN-000000002', 654500, NULL, 1, NULL, 0, 'production', '2021-07-02 16:14:51', NULL),
 ('TRX-PRD-000000003', 202107, 'Produksi 3', '2021-07-01 17:00:00', NULL, NULL, NULL, NULL, 'TRX-PSN-000000003', 1028250, NULL, 1, NULL, 0, 'production', '2021-07-02 16:20:03', NULL),
+('TRX-PRD-000000004', 202107, 'test', '2021-07-02 17:00:00', NULL, NULL, NULL, NULL, 'TRX-PSN-000000004', 16875000, NULL, 1, NULL, 0, 'production', '2021-07-03 14:02:17', NULL),
 ('TRX-PSN-000000001', 202107, 'Pesanan 1', '2021-07-02 15:33:39', 'CUS-0003', NULL, '0000-00-00', NULL, NULL, 85000000, 45000000, 1, 3, 0, 'order', '2021-07-02 15:32:05', '2021-07-02 15:33:39'),
 ('TRX-PSN-000000002', 202107, 'Pesanan 2', '2021-07-02 16:14:51', 'CUS-0002', NULL, '0000-00-00', NULL, NULL, 1100000, 500000, 1, 3, 0, 'order', '2021-07-02 16:13:59', '2021-07-02 16:14:51'),
-('TRX-PSN-000000003', 202107, 'Produksi 3', '2021-07-02 16:20:03', 'CUS-0002', NULL, '0000-00-00', NULL, NULL, 1200000, 250000, 1, 3, 0, 'order', '2021-07-02 16:19:22', '2021-07-02 16:20:03');
+('TRX-PSN-000000003', 202107, 'Produksi 3', '2021-07-02 16:20:03', 'CUS-0002', NULL, '0000-00-00', NULL, NULL, 1200000, 250000, 1, 3, 0, 'order', '2021-07-02 16:19:22', '2021-07-02 16:20:03'),
+('TRX-PSN-000000004', 202107, 'Test', '2021-07-03 14:02:17', 'CUS-0001', NULL, '0000-00-00', NULL, NULL, 55000000, 30000000, 1, 3, 0, 'order', '2021-07-03 13:57:20', '2021-07-03 14:02:17');
 
 -- --------------------------------------------------------
 
@@ -944,19 +968,19 @@ ALTER TABLE `bill_of_materials`
 -- AUTO_INCREMENT for table `direct_labor_costs`
 --
 ALTER TABLE `direct_labor_costs`
-  MODIFY `direct_labor_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `direct_labor_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `direct_material_cost`
 --
 ALTER TABLE `direct_material_cost`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `general_ledger`
 --
 ALTER TABLE `general_ledger`
-  MODIFY `gl_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=115;
+  MODIFY `gl_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=128;
 
 --
 -- AUTO_INCREMENT for table `menu_access`
@@ -968,25 +992,25 @@ ALTER TABLE `menu_access`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `order_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `overhead_cost`
 --
 ALTER TABLE `overhead_cost`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `payment_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `payment_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `production_costs`
 --
 ALTER TABLE `production_costs`
-  MODIFY `cost_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `cost_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `purchase`
