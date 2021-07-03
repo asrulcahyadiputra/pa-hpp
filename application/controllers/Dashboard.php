@@ -22,6 +22,12 @@ class Dashboard extends CI_Controller
 			'sum_order'		=> $this->model->sum_order(),
 			'sum_product'		=> $this->model->sum_product(),
 		];
+
+		// $menu = getMenu();
+		// echo "<pre>";
+		// print_r($menu);
+		// echo "</pre>";
+		// die;
 		$this->load->view('dashboard', $data);
 	}
 }
