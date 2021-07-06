@@ -49,7 +49,7 @@ $this->load->view('_partials/header');
 							<h4>Pesanan Selesai</h4>
 						</div>
 						<div class="card-body">
-							0
+							<?= $sum_order_done['total'] ?>
 						</div>
 					</div>
 				</div>

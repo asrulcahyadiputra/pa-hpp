@@ -17,6 +17,7 @@ class Dashboard extends CI_Controller
 	{
 		$data = [
 			'title'			=> 'Dashboard',
+			'sum_order_done'	=> $this->model->sum_order_done(),
 			'new_purchasing'	=> $this->model->new_purchasing(),
 			'new_order'		=> $this->model->new_order(),
 			'sum_customer'		=> $this->model->sum_customer(),

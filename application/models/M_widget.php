@@ -33,6 +33,14 @@ class M_widget extends CI_Model
 			->where('trans_type', 'order');
 		return $this->db->get()->row_array();
 	}
+	public function sum_order_done()
+	{
+		$this->db->select('count(trans_id) as total')
+			->from('transactions')
+			->where('trans_type', 'order')
+			->where('status_bayar', 1);
+		return $this->db->get()->row_array();
+	}
 	public function sum_product()
 	{
 		return $this->db->count_all('products');
