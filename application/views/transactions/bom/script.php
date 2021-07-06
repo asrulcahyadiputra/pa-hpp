@@ -110,7 +110,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
             }
 
         })
-
+        // button delete
+        $('#table-bom-list').on('click', '#btn-delete', function(e) {
+            e.preventDefault()
+            var id = $(this).closest('tr').find('td').eq(1).html();
+            destroy(id);
+        });
 
         btnBack.on('click', function() {
             contentList.show()
@@ -340,6 +345,41 @@ defined('BASEPATH') or exit('No direct script access allowed');
             })
         }
 
+        function destroy(id) {
+            console.log('hapus data');
+            Swal.fire({
+                title: 'Anda Yakin?',
+                text: "Data " + id + " Akan dihapus secara permanen",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, Hapus!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: "DELETE",
+                        url: '<?= base_url('transaksi/bom/delete/') ?>' + id,
+                        dataType: 'JSON',
+                        success: (data) => {
+                            console.log(data);
+                            Swal.fire({
+                                title: data.title,
+                                icon: data.type,
+                                text: data.message,
+                                buttonsStyling: true,
+                                confirmButtonText: 'OK',
+                                confirmButtonColor: '#3f37c9',
+                            });
+                            loadData()
+                        },
+                        error: (err) => {
+
+                        }
+                    });
+                }
+            })
+        }
 
         function resetForm() {
             document.getElementById("createBom").reset();

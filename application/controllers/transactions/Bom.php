@@ -73,17 +73,11 @@ class Bom extends CI_Controller
 			$this->load->view('transactions/bom/detail-bom', $data);
 		}
 	}
-	public function destroy($trans_id)
+
+	public function delete($id)
 	{
-		$validate = $this->db->get_where('transactions', ['trans_id' => $trans_id, 'status' => 1])->row_array();
-		if ($validate) {
-			$this->session->set_flashdata('warning', 'Bill of Materials tidak dapat dihapus !');
-			redirect('transaksi/bom');
-		} else {
-			$this->model->delete($trans_id);
-			$this->session->set_flashdata('success', 'Bill of Materials berhasil dihapus !');
-			redirect('transaksi/bom');
-		}
+		$request = $this->model->delete($id);
+		echo json_encode($request);
 	}
 }
 

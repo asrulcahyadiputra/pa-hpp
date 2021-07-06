@@ -86,11 +86,13 @@ $route['transaksi/bom']                                = 'transactions/Bom';
 $route['transaksi/get_bom']                            = 'transactions/Bom/get_Bom';
 $route['transaksi/bom/edit/(:any)']                    = 'transactions/Bom/edit/$1';
 $route['transaksi/bom/find/(:any)']                    = 'transactions/Bom/find/$1';
+$route['transaksi/bom/delete/(:any)']                  = 'transactions/Bom/delete/$1';
+
 
 $route['transaksi/bom/create/(:any)']                  = 'transactions/Bom/create/$1';
 $route['transaksi/bom/store']                          = 'transactions/Bom/store';
 $route['transaksi/bom/update/(:any)']                  = 'transactions/Bom/update/$1';
-$route['transaksi/bom/delete/(:any)']                  = 'transactions/Bom/destroy/$1';
+
 $route['transaksi/bom/show/(:any)']                    = 'transactions/Bom/show/$1';
 $route['transaksi/bom/find_material']                  = 'transactions/Bom/find_material';
 $route['transaksi/bom/store_item']                     = 'transactions/Bom/store_item';

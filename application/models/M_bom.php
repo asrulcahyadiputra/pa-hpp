@@ -268,13 +268,39 @@ class M_bom extends CI_Model
 	{
 		return $this->db->delete('bill_of_materials', ['trans_id' => $trans_id, 'material_id' => $material_id]);
 	}
-	public function delete($trans_id)
-	{
-		$this->db->trans_start();
-		$this->db->delete('bill_of_materials', ['trans_id' => $trans_id]);
-		$this->db->delete('transactions', ['trans_id' => $trans_id]);
 
-		$this->db->trans_complete();
+	// delete bom
+	public function delete($id)
+	{
+		$validate = $this->db->get_where('transactions', ['trans_id' => $id])->row();
+		if ($validate->lock_doc != 0) {
+			$this->db->trans_start();
+			$this->db->delete('transactions', ['trans_id' => $id]);
+			$this->db->trans_complete();
+			if ($this->db->trans_status() == true) {
+				$res = [
+					'status'		=> false,
+					'title'			=> 'Berhasil;',
+					'type'			=> 'success',
+					'message'		=> 'BoM ' . $id . ' Berhasil di hapus !',
+				];
+			} else {
+				$res = [
+					'status'		=> false,
+					'title'			=> '500',
+					'type'			=> 'error',
+					'message'		=> 'Internal Server Error!'
+				];
+			}
+		} else {
+			$res = [
+				'status'		=> false,
+				'title'			=> 'Oops..',
+				'type'			=> 'error',
+				'message'		=> 'BoM ' . $id . ' dalam keadaan terkunci !'
+			];
+		}
+		return $res;
 	}
 }
 
