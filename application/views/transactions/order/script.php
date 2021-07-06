@@ -40,7 +40,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
         contentList.show()
         formCreate.hide()
-        var action_html = '<a href="#" id="btn-delete" class="text-danger"><i class="fa fa-trash"></i></a>'
+        var action_html = '<a href="#" id="btn-delete" class="text-danger"><i class="fa fa-trash"></i></a>  <a href="#" id="btn-bayar" class="ml-4 text-success"><i class="fa fa-check"></i></a>'
         var OrderTable = $('#table-order').DataTable({
             "paging": true,
             "info": true,
@@ -55,15 +55,15 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     "orderable": false,
                 },
                 {
+                    "targets": 0,
                     "searchable": false,
                     "orderable": false,
-                    "targets": 0,
                     'className': 'text-center'
                 },
                 {
+                    "targets": [10],
                     "searchable": false,
                     "orderable": false,
-                    "targets": 9,
                     "data": null,
                     'defaultContent': action_html,
                 }
@@ -90,6 +90,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     data: 'dp'
                 },
                 {
+                    data: 'status_bayar'
+                },
+                {
                     data: 'lock'
                 },
                 {
@@ -98,6 +101,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                 {
                     data: 'lock_doc'
                 },
+
             ]
         })
 
@@ -116,16 +120,22 @@ defined('BASEPATH') or exit('No direct script access allowed');
             e.preventDefault()
             var id = $(this).closest('tr').find('td').eq(1).html();
             editData(id)
-        })
+        });
+
+        // button bayar data
+        $('#table-order').on('click', '#btn-bayar', function(e) {
+            e.preventDefault()
+            var id = $(this).closest('tr').find('td').eq(1).html();
+            bayar(id);
+        });
 
         // click td
         $('#table-order').on('click', 'td', function(e) {
             e.preventDefault()
-            if ($(this).index() != 9) {
+            if ($(this).index() != 10) {
                 var id = $(this).closest('tr').find('td').eq(1).html();
                 preview_data(id)
             }
-
         })
 
         $('#tbl_posts').on('change', '.form-calc', function(e) {
@@ -401,6 +411,33 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     $('#previewHere').html(html);
                 }
             })
+        }
+
+        function bayar(id) {
+            console.log('bayar piutang')
+            $.ajax({
+                type: 'POST',
+                url: '<?= base_url('transaksi/pesanan/bayar') ?>',
+                data: {
+                    trans_id: id
+                },
+                dataType: 'JSON',
+                success: (data) => {
+                    console.log(data);
+                    Swal.fire({
+                        title: data.title,
+                        icon: data.type,
+                        text: data.message,
+                        buttonsStyling: true,
+                        confirmButtonText: 'OK',
+                        confirmButtonColor: '#3f37c9',
+                    });
+                    loadData()
+                },
+                error: (err) => {
+                    console.log(err);
+                }
+            });
         }
 
         loadData()

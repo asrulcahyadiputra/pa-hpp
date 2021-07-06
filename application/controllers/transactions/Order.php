@@ -44,6 +44,15 @@ class Order extends CI_Controller
 		echo json_encode($request);
 	}
 
+	public function lunas()
+	{
+		$id = $this->input->post('trans_id');
+		$request = $this->model->pelunasan($id);
+		echo json_encode($request);
+	}
+
+
+
 	public function delete($id)
 	{
 		$request = $this->model->delete($id);

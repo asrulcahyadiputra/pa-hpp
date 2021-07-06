@@ -18,7 +18,7 @@ class M_order extends CI_Model
 	}
 	public function all()
 	{
-		$sql = $this->db->select('a.trans_id,a.customer_id,a.trans_date,a.description,c.customer_id,c.cus_name,a.status_production,a.trans_total,a.dp,a.lock_doc')
+		$sql = $this->db->select('a.trans_id,a.customer_id,a.trans_date,a.description,c.customer_id,c.cus_name,a.status_production,a.trans_total,a.dp,a.lock_doc, a.status_bayar')
 			->from('transactions as a')
 			->join('customers as c', 'c.customer_id=a.customer_id')
 			->get()
@@ -39,6 +39,14 @@ class M_order extends CI_Model
 			} else {
 				$lock_html = '<i class="fa fa-lock"></i>';
 			}
+
+
+			if ($val['status_bayar'] == 0) {
+				$status_bayar = "<p class='text-warning'>Belum Lunas</p>";
+			} else {
+				$status_bayar = "<p class='text-success'>Sudah Lunas</p>";
+			}
+
 			$data[] = [
 				'no'			=> $no++,
 				'trans_id'		=> $val['trans_id'],
@@ -48,7 +56,8 @@ class M_order extends CI_Model
 				'total'			=> nominal($val['trans_total']),
 				'dp'			=> nominal($val['dp']),
 				'lock'			=> $lock_html,
-				'status'		=> $status_html
+				'status'		=> $status_html,
+				'status_bayar'	=> $status_bayar
 			];
 		}
 		if ($totRow > 0) {
@@ -133,7 +142,23 @@ class M_order extends CI_Model
 		return $trans_id;
 	}
 
-
+	private function trans_id2()
+	{
+		$this->db->select('RIGHT(trans_id,9) as trans_id', FALSE);
+		$this->db->where('trans_type', 'payment');
+		$this->db->order_by('trans_id', 'DESC');
+		$this->db->limit(1);
+		$query = $this->db->get('transactions');
+		if ($query->num_rows() <> 0) {
+			$data = $query->row();
+			$id = intval($data->trans_id) + 1;
+		} else {
+			$id = 1;
+		}
+		$code = str_pad($id, 9, "0", STR_PAD_LEFT);
+		$trans_id = "TRX-PYM-" . $code;
+		return $trans_id;
+	}
 
 	public function insert()
 	{
@@ -249,6 +274,82 @@ class M_order extends CI_Model
 		return $response;
 	}
 
+	public function pelunasan($id)
+	{
+		$trans_id = $this->trans_id2();
+		$find_pesanan = $this->db->get_where('transactions', ['trans_id' => $id])->row_array();
+		$sisa = $find_pesanan['trans_total'] - $find_pesanan['dp'];
+		$periode = date('Y') . '' . date('m');
+		if ($find_pesanan['status_bayar'] == 0) {
+			$transaksi = [
+				'trans_id'		=> $trans_id,
+				'periode'		=> $periode,
+				'trans_total'	=> $sisa,
+				'trans_type'	=> 'payment',
+				'description'	=> 'Pelunasan Pesanan' . $id
+			];
+			$update_trans = [
+				'status_bayar'		=> 1
+			];
+			$payment = [
+				'trans_id'		=> $id,
+				'periode'		=> $periode,
+				'nominal'		=> $sisa,
+				'description'	=> 'Pelunasan'
+			];
+			$gl = [
+				[
+					'periode'		=> $periode,
+					'account_no'	=> '1-10001',
+					'nominal'		=> $sisa,
+					'trans_id'		=> $trans_id,
+					'gl_balance'	=> 'd'
+				],
+				[
+					'periode'		=> $periode,
+					'account_no'	=> '1-10002',
+					'nominal'		=> $sisa,
+					'trans_id'		=> $trans_id,
+					'gl_balance'	=> 'k'
+				],
+			];
+			$this->db->trans_start();
+			$this->db->insert('transactions', $transaksi);
+			$this->db->insert('payments', $payment);
+			$this->db->insert_batch('general_ledger', $gl);
+			$this->db->update('transactions', $update_trans, ['trans_id' => $id]);
+			$this->db->trans_complete();
+			if ($this->db->trans_status() == true) {
+				$res = [
+					'status'		=> false,
+					'title'			=> 'Berhasil;',
+					'type'			=> 'success',
+					'message'		=> 'Pesanan ' . $id . ' Berhasil di Lunasi !',
+					'store_data'	=> [
+						'payment'	=> $payment,
+						'gl'		=> $gl
+					],
+					'update_data'	=> $update_trans
+				];
+			} else {
+				$res = [
+					'status'		=> false,
+					'title'			=> '500',
+					'type'			=> 'error',
+					'message'		=> 'Internal Server Error!'
+				];
+			}
+		} else {
+			$res = [
+				'status'		=> false,
+				'title'			=> 'Oops..',
+				'type'			=> 'error',
+				'message'		=> 'Pesanan ' . $id . ' sudah lunas !'
+			];
+		}
+
+		return $res;
+	}
 
 
 	public function delete($id)

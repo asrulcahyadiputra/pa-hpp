@@ -105,7 +105,7 @@ $route['transaksi/pesanan']                             = 'transactions/Order';
 $route['transaksi/get_order']                           = 'transactions/Order/get_order';
 $route['transaksi/pesanan/store']                       = 'transactions/Order/store';
 $route['transaksi/pesanan/find/(:any)']                 = 'transactions/Order/select/$1';
-
+$route['transaksi/pesanan/bayar']                       = 'transactions/Order/lunas';
 
 $route['transaksi/order/find_product']                  = 'transactions/Order/find_product';
 $route['transaksi/pesanan/add']                         = 'transactions/Order/add';

@@ -31,9 +31,11 @@ $this->load->view('_partials/header');
 											<th>Pelanggan</th>
 											<th class="text-center">Total</th>
 											<th class="text-right">DP</th>
+											<th>Pembayaran</th>
 											<th>Kunci</th>
 											<th>Status</th>
-											<th class="no-content"></th>
+
+											<th class="text-center">Aksi</th>
 										</tr>
 									</thead>
 									<tbody>
