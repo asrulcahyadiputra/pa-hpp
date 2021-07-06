@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Jul 03, 2021 at 02:24 PM
+-- Generation Time: Jul 06, 2021 at 12:18 PM
 -- Server version: 5.7.32
 -- PHP Version: 7.4.12
 
@@ -59,16 +59,7 @@ INSERT INTO `bill_of_materials` (`bom_id`, `trans_id`, `material_id`, `qty`, `un
 (24, 'TRX-BOM-000000008', 'MTR-0008', 3, NULL),
 (25, 'TRX-BOM-000000009', 'MTR-0001', 3, NULL),
 (26, 'TRX-BOM-000000009', 'MTR-0005', 4, NULL),
-(27, 'TRX-BOM-000000009', 'MTR-0008', 3, NULL),
-(28, 'TRX-BOM-000000010', 'MTR-0001', 4, NULL),
-(29, 'TRX-BOM-000000010', 'MTR-0005', 4, NULL),
-(30, 'TRX-BOM-000000010', 'MTR-0008', 3, NULL),
-(31, 'TRX-BOM-000000011', 'MTR-0004', 1, NULL),
-(32, 'TRX-BOM-000000011', 'MTR-0005', 1, NULL),
-(33, 'TRX-BOM-000000011', 'MTR-0008', 1, NULL),
-(34, 'TRX-BOM-000000012', 'MTR-0004', 0.5, NULL),
-(35, 'TRX-BOM-000000012', 'MTR-0005', 0.5, NULL),
-(36, 'TRX-BOM-000000012', 'MTR-0008', 1, NULL);
+(27, 'TRX-BOM-000000009', 'MTR-0008', 3, NULL);
 
 -- --------------------------------------------------------
 
@@ -348,9 +339,6 @@ INSERT INTO `general_ledger` (`gl_id`, `account_no`, `periode`, `gl_date`, `tran
 (112, '5-20001', 202107, '2021-07-02 16:20:04', 'TRX-PRD-000000003', 610000, 'k'),
 (113, '5-20002', 202107, '2021-07-02 16:20:04', 'TRX-PRD-000000003', 400000, 'k'),
 (114, '5-20003', 202107, '2021-07-02 16:20:04', 'TRX-PRD-000000003', 18250, 'k'),
-(115, '1-10001', 202107, '2021-07-03 13:57:20', 'TRX-PSN-000000004', 30000000, 'd'),
-(116, '1-10002', 202107, '2021-07-03 13:57:20', 'TRX-PSN-000000004', 25000000, 'd'),
-(117, '4-10001', 202107, '2021-07-03 13:57:20', 'TRX-PSN-000000004', 55000000, 'k'),
 (118, '5-20001', 202107, '2021-07-03 14:02:17', 'TRX-PRD-000000004', 9500000, 'd'),
 (119, '1-10003', 202107, '2021-07-03 14:02:17', 'TRX-PRD-000000004', 9500000, 'k'),
 (120, '5-20004', 202107, '2021-07-03 14:02:17', 'TRX-PRD-000000004', 375000, 'd'),
@@ -360,7 +348,11 @@ INSERT INTO `general_ledger` (`gl_id`, `account_no`, `periode`, `gl_date`, `tran
 (124, '1-10005', 202107, '2021-07-03 14:02:17', 'TRX-PRD-000000004', 16875000, 'd'),
 (125, '5-20001', 202107, '2021-07-03 14:02:17', 'TRX-PRD-000000004', 9500000, 'k'),
 (126, '5-20002', 202107, '2021-07-03 14:02:17', 'TRX-PRD-000000004', 6000000, 'k'),
-(127, '5-20003', 202107, '2021-07-03 14:02:17', 'TRX-PRD-000000004', 1375000, 'k');
+(127, '5-20003', 202107, '2021-07-03 14:02:17', 'TRX-PRD-000000004', 1375000, 'k'),
+(130, '1-10001', 202107, '2021-07-06 11:59:15', 'TRX-PYM-000000001', 600000, 'd'),
+(131, '1-10002', 202107, '2021-07-06 11:59:15', 'TRX-PYM-000000001', 600000, 'k'),
+(132, '1-10001', 202107, '2021-07-06 12:01:38', 'TRX-PYM-000000002', 950000, 'd'),
+(133, '1-10002', 202107, '2021-07-06 12:01:38', 'TRX-PYM-000000002', 950000, 'k');
 
 -- --------------------------------------------------------
 
@@ -486,8 +478,7 @@ INSERT INTO `orders` (`order_id`, `trans_id`, `product_id`, `order_size`, `order
 (30, 'TRX-PSN-000000001', 'PRD-0001', 'M', '1000', 55000, 55000000),
 (31, 'TRX-PSN-000000001', 'PRD-0002', 'M', '500', 60000, 30000000),
 (32, 'TRX-PSN-000000002', 'PRD-0001', 'M', '20', 55000, 1100000),
-(33, 'TRX-PSN-000000003', 'PRD-0003', 'L', '10', 120000, 1200000),
-(34, 'TRX-PSN-000000004', 'PRD-0001', 'M', '1000', 55000, 55000000);
+(33, 'TRX-PSN-000000003', 'PRD-0003', 'L', '10', 120000, 1200000);
 
 -- --------------------------------------------------------
 
@@ -558,7 +549,8 @@ INSERT INTO `payments` (`payment_id`, `trans_id`, `periode`, `nominal`, `descrip
 (15, 'TRX-PSN-000000001', 202107, 45000000, 'Down Payment (DP)'),
 (16, 'TRX-PSN-000000002', 202107, 500000, 'Down Payment (DP)'),
 (17, 'TRX-PSN-000000003', 202107, 250000, 'Down Payment (DP)'),
-(18, 'TRX-PSN-000000004', 202107, 30000000, 'Down Payment (DP)');
+(21, 'TRX-PSN-000000002', 202107, 600000, 'Pelunasan'),
+(22, 'TRX-PSN-000000003', 202107, 950000, 'Pelunasan');
 
 -- --------------------------------------------------------
 
@@ -706,6 +698,7 @@ CREATE TABLE `transactions` (
   `trans_total` double NOT NULL,
   `dp` double DEFAULT NULL,
   `status` int(1) NOT NULL DEFAULT '1' COMMENT '1 = Aktif, 0 Tidak Aktif',
+  `status_bayar` int(11) DEFAULT NULL COMMENT '0: belum lunas, 1: Lunas',
   `status_production` int(11) DEFAULT NULL COMMENT '0 Belum Produksi, 1 Dalam Produksi, 3 Sudah Produksi',
   `lock_doc` int(11) NOT NULL DEFAULT '1' COMMENT '0: Lock,1 : Open',
   `trans_type` varchar(100) NOT NULL,
@@ -717,29 +710,27 @@ CREATE TABLE `transactions` (
 -- Dumping data for table `transactions`
 --
 
-INSERT INTO `transactions` (`trans_id`, `periode`, `description`, `trans_date`, `customer_id`, `product_id`, `order_done`, `production_step`, `ref_production`, `trans_total`, `dp`, `status`, `status_production`, `lock_doc`, `trans_type`, `date_created`, `updated_at`) VALUES
-('TRX-BOM-000000001', 202107, 'Bom Kaos Anak', '2021-07-03 14:02:17', NULL, 'PRD-0001', NULL, NULL, NULL, 0, NULL, 1, NULL, 0, 'bom', '2021-07-01 03:59:38', '2021-07-03 14:02:17'),
-('TRX-BOM-000000002', 202107, 'Bom Kaos Anak Ukuran XXL', '2021-07-01 05:28:48', NULL, 'PRD-0001', NULL, NULL, NULL, 0, NULL, 1, NULL, 1, 'bom', '2021-07-01 04:00:45', NULL),
-('TRX-BOM-000000003', 202107, 'Bom Kaos Anak Ukuran XL', '2021-07-01 05:28:48', NULL, 'PRD-0001', NULL, NULL, NULL, 0, NULL, 1, NULL, 1, 'bom', '2021-07-01 04:01:53', NULL),
-('TRX-BOM-000000004', 202107, 'Bom Kaos Anak Ukuran L', '2021-07-01 05:28:48', NULL, 'PRD-0001', NULL, NULL, NULL, 0, NULL, 1, NULL, 1, 'bom', '2021-07-01 04:02:46', NULL),
-('TRX-BOM-000000005', 202107, 'Bom Kaos Dewasa Ukuran M', '2021-07-01 05:28:48', NULL, 'PRD-0002', NULL, NULL, NULL, 0, NULL, 1, NULL, 1, 'bom', '2021-07-01 04:04:17', NULL),
-('TRX-BOM-000000006', 202107, 'Bom Kaos Dewasa Ukuran XL', '2021-07-01 05:28:48', NULL, 'PRD-0002', NULL, NULL, NULL, 0, NULL, 1, NULL, 1, 'bom', '2021-07-01 04:07:01', NULL),
-('TRX-BOM-000000007', 202107, 'Bom Kaos Dewasa Ukuran XXL', '2021-07-01 05:28:48', NULL, 'PRD-0002', NULL, NULL, NULL, 0, NULL, 1, NULL, 1, 'bom', '2021-07-01 04:07:57', NULL),
-('TRX-BOM-000000008', 202107, 'Bom Seragam Olahraga SD Ukuran M', '2021-07-01 05:28:48', NULL, 'PRD-0003', NULL, NULL, NULL, 0, NULL, 1, NULL, 1, 'bom', '2021-07-01 04:13:19', NULL),
-('TRX-BOM-000000009', 202107, 'Bom Seragam Olahraga Ukuran L', '2021-07-02 16:20:04', NULL, 'PRD-0003', NULL, NULL, NULL, 0, NULL, 1, NULL, 0, 'bom', '2021-07-01 04:14:25', '2021-07-02 16:20:04'),
-('TRX-BOM-000000010', 202107, 'BOM Seragam Olahraga Ukuran XL', '2021-07-01 05:28:48', NULL, 'PRD-0003', NULL, NULL, NULL, 0, NULL, 1, NULL, 1, 'bom', '2021-07-01 04:15:42', NULL),
-('TRX-BOM-000000011', 202107, 'Bom Kaos Polos All Size', '2021-07-01 05:28:48', NULL, 'PRD-0004', NULL, NULL, NULL, 0, NULL, 1, NULL, 1, 'bom', '2021-07-01 04:54:04', NULL),
-('TRX-BOM-000000012', 202107, 'BOM Kaos Polos Ukruan S', '2021-07-02 08:50:29', NULL, 'PRD-0004', NULL, NULL, NULL, 0, NULL, 1, NULL, 1, 'bom', '2021-07-02 08:46:00', NULL),
-('TRX-PMB-000000001', 202107, NULL, '2021-07-02 06:21:26', NULL, NULL, NULL, NULL, NULL, 20750000, NULL, 1, NULL, 1, 'purchasing', '2021-07-02 06:19:40', '2021-07-02 06:21:26'),
-('TRX-PMB-000000002', 202107, NULL, '2021-07-02 07:49:08', NULL, NULL, NULL, NULL, NULL, 3250000, NULL, 1, NULL, 1, 'purchasing', '2021-07-02 07:30:45', '2021-07-02 07:49:08'),
-('TRX-PRD-000000001', 202107, 'Produksi 1', '2021-07-01 17:00:00', NULL, NULL, NULL, NULL, 'TRX-PSN-000000001', 46312500, NULL, 1, NULL, 0, 'production', '2021-07-02 15:33:39', NULL),
-('TRX-PRD-000000002', 202107, 'Produksi 2', '2021-07-01 17:00:00', NULL, NULL, NULL, NULL, 'TRX-PSN-000000002', 654500, NULL, 1, NULL, 0, 'production', '2021-07-02 16:14:51', NULL),
-('TRX-PRD-000000003', 202107, 'Produksi 3', '2021-07-01 17:00:00', NULL, NULL, NULL, NULL, 'TRX-PSN-000000003', 1028250, NULL, 1, NULL, 0, 'production', '2021-07-02 16:20:03', NULL),
-('TRX-PRD-000000004', 202107, 'test', '2021-07-02 17:00:00', NULL, NULL, NULL, NULL, 'TRX-PSN-000000004', 16875000, NULL, 1, NULL, 0, 'production', '2021-07-03 14:02:17', NULL),
-('TRX-PSN-000000001', 202107, 'Pesanan 1', '2021-07-02 15:33:39', 'CUS-0003', NULL, '0000-00-00', NULL, NULL, 85000000, 45000000, 1, 3, 0, 'order', '2021-07-02 15:32:05', '2021-07-02 15:33:39'),
-('TRX-PSN-000000002', 202107, 'Pesanan 2', '2021-07-02 16:14:51', 'CUS-0002', NULL, '0000-00-00', NULL, NULL, 1100000, 500000, 1, 3, 0, 'order', '2021-07-02 16:13:59', '2021-07-02 16:14:51'),
-('TRX-PSN-000000003', 202107, 'Produksi 3', '2021-07-02 16:20:03', 'CUS-0002', NULL, '0000-00-00', NULL, NULL, 1200000, 250000, 1, 3, 0, 'order', '2021-07-02 16:19:22', '2021-07-02 16:20:03'),
-('TRX-PSN-000000004', 202107, 'Test', '2021-07-03 14:02:17', 'CUS-0001', NULL, '0000-00-00', NULL, NULL, 55000000, 30000000, 1, 3, 0, 'order', '2021-07-03 13:57:20', '2021-07-03 14:02:17');
+INSERT INTO `transactions` (`trans_id`, `periode`, `description`, `trans_date`, `customer_id`, `product_id`, `order_done`, `production_step`, `ref_production`, `trans_total`, `dp`, `status`, `status_bayar`, `status_production`, `lock_doc`, `trans_type`, `date_created`, `updated_at`) VALUES
+('TRX-BOM-000000001', 202107, 'Bom Kaos Anak', '2021-07-03 14:02:17', NULL, 'PRD-0001', NULL, NULL, NULL, 0, NULL, 1, NULL, NULL, 0, 'bom', '2021-07-01 03:59:38', '2021-07-03 14:02:17'),
+('TRX-BOM-000000002', 202107, 'Bom Kaos Anak Ukuran XXL', '2021-07-01 05:28:48', NULL, 'PRD-0001', NULL, NULL, NULL, 0, NULL, 1, NULL, NULL, 1, 'bom', '2021-07-01 04:00:45', NULL),
+('TRX-BOM-000000003', 202107, 'Bom Kaos Anak Ukuran XL', '2021-07-01 05:28:48', NULL, 'PRD-0001', NULL, NULL, NULL, 0, NULL, 1, NULL, NULL, 1, 'bom', '2021-07-01 04:01:53', NULL),
+('TRX-BOM-000000004', 202107, 'Bom Kaos Anak Ukuran L', '2021-07-01 05:28:48', NULL, 'PRD-0001', NULL, NULL, NULL, 0, NULL, 1, NULL, NULL, 1, 'bom', '2021-07-01 04:02:46', NULL),
+('TRX-BOM-000000005', 202107, 'Bom Kaos Dewasa Ukuran M', '2021-07-01 05:28:48', NULL, 'PRD-0002', NULL, NULL, NULL, 0, NULL, 1, NULL, NULL, 1, 'bom', '2021-07-01 04:04:17', NULL),
+('TRX-BOM-000000006', 202107, 'Bom Kaos Dewasa Ukuran XL', '2021-07-01 05:28:48', NULL, 'PRD-0002', NULL, NULL, NULL, 0, NULL, 1, NULL, NULL, 1, 'bom', '2021-07-01 04:07:01', NULL),
+('TRX-BOM-000000007', 202107, 'Bom Kaos Dewasa Ukuran XXL', '2021-07-01 05:28:48', NULL, 'PRD-0002', NULL, NULL, NULL, 0, NULL, 1, NULL, NULL, 1, 'bom', '2021-07-01 04:07:57', NULL),
+('TRX-BOM-000000008', 202107, 'Bom Seragam Olahraga SD Ukuran M', '2021-07-01 05:28:48', NULL, 'PRD-0003', NULL, NULL, NULL, 0, NULL, 1, NULL, NULL, 1, 'bom', '2021-07-01 04:13:19', NULL),
+('TRX-BOM-000000009', 202107, 'Bom Seragam Olahraga Ukuran L', '2021-07-02 16:20:04', NULL, 'PRD-0003', NULL, NULL, NULL, 0, NULL, 1, NULL, NULL, 0, 'bom', '2021-07-01 04:14:25', '2021-07-02 16:20:04'),
+('TRX-PMB-000000001', 202107, NULL, '2021-07-02 06:21:26', NULL, NULL, NULL, NULL, NULL, 20750000, NULL, 1, NULL, NULL, 1, 'purchasing', '2021-07-02 06:19:40', '2021-07-02 06:21:26'),
+('TRX-PMB-000000002', 202107, NULL, '2021-07-02 07:49:08', NULL, NULL, NULL, NULL, NULL, 3250000, NULL, 1, NULL, NULL, 1, 'purchasing', '2021-07-02 07:30:45', '2021-07-02 07:49:08'),
+('TRX-PRD-000000001', 202107, 'Produksi 1', '2021-07-01 17:00:00', NULL, NULL, NULL, NULL, 'TRX-PSN-000000001', 46312500, NULL, 1, NULL, NULL, 0, 'production', '2021-07-02 15:33:39', NULL),
+('TRX-PRD-000000002', 202107, 'Produksi 2', '2021-07-01 17:00:00', NULL, NULL, NULL, NULL, 'TRX-PSN-000000002', 654500, NULL, 1, NULL, NULL, 0, 'production', '2021-07-02 16:14:51', NULL),
+('TRX-PRD-000000003', 202107, 'Produksi 3', '2021-07-01 17:00:00', NULL, NULL, NULL, NULL, 'TRX-PSN-000000003', 1028250, NULL, 1, NULL, NULL, 0, 'production', '2021-07-02 16:20:03', NULL),
+('TRX-PRD-000000004', 202107, 'test', '2021-07-02 17:00:00', NULL, NULL, NULL, NULL, 'TRX-PSN-000000004', 16875000, NULL, 1, NULL, NULL, 0, 'production', '2021-07-03 14:02:17', NULL),
+('TRX-PSN-000000001', 202107, 'Pesanan 1', '2021-07-06 09:22:01', 'CUS-0003', NULL, '0000-00-00', NULL, NULL, 85000000, 45000000, 1, 0, 3, 0, 'order', '2021-07-02 15:32:05', '2021-07-06 09:22:01'),
+('TRX-PSN-000000002', 202107, 'Pesanan 2', '2021-07-06 11:59:15', 'CUS-0002', NULL, '0000-00-00', NULL, NULL, 1100000, 500000, 1, 1, 3, 0, 'order', '2021-07-02 16:13:59', '2021-07-06 11:59:15'),
+('TRX-PSN-000000003', 202107, 'Produksi 3', '2021-07-06 12:01:38', 'CUS-0002', NULL, '0000-00-00', NULL, NULL, 1200000, 250000, 1, 1, 3, 0, 'order', '2021-07-02 16:19:22', '2021-07-06 12:01:38'),
+('TRX-PYM-000000001', 202107, 'payment', '2021-07-06 12:00:50', NULL, NULL, NULL, NULL, NULL, 600000, NULL, 1, NULL, NULL, 1, 'payment', '2021-07-06 11:59:15', '2021-07-06 12:00:50'),
+('TRX-PYM-000000002', 202107, 'Pelunasan PesananTRX-PSN-000000003', '2021-07-06 12:01:38', NULL, NULL, NULL, NULL, NULL, 950000, NULL, 1, NULL, NULL, 1, 'payment', '2021-07-06 12:01:38', NULL);
 
 -- --------------------------------------------------------
 
@@ -980,7 +971,7 @@ ALTER TABLE `direct_material_cost`
 -- AUTO_INCREMENT for table `general_ledger`
 --
 ALTER TABLE `general_ledger`
-  MODIFY `gl_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=128;
+  MODIFY `gl_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=137;
 
 --
 -- AUTO_INCREMENT for table `menu_access`
@@ -992,7 +983,7 @@ ALTER TABLE `menu_access`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `order_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `overhead_cost`
@@ -1004,7 +995,7 @@ ALTER TABLE `overhead_cost`
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `payment_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `payment_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `production_costs`
