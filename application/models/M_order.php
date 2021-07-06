@@ -355,19 +355,34 @@ class M_order extends CI_Model
 	public function delete($id)
 	{
 		$validate = $this->db->get_where('transactions', ['trans_id' => $id])->row();
-		if ($validate->status > 0) {
-			$response = [
-				'status' 	=> 0
-			];
-		} else {
+		if ($validate->lock_doc != 0) {
 			$this->db->trans_start();
 			$this->db->delete('transactions', ['trans_id' => $id]);
 			$this->db->trans_complete();
-			$response = [
-				'status'	=> 1
+			if ($this->db->trans_status() == true) {
+				$res = [
+					'status'		=> false,
+					'title'			=> 'Berhasil;',
+					'type'			=> 'success',
+					'message'		=> 'Pesanan ' . $id . ' Berhasil di hapus !',
+				];
+			} else {
+				$res = [
+					'status'		=> false,
+					'title'			=> '500',
+					'type'			=> 'error',
+					'message'		=> 'Internal Server Error!'
+				];
+			}
+		} else {
+			$res = [
+				'status'		=> false,
+				'title'			=> 'Oops..',
+				'type'			=> 'error',
+				'message'		=> 'Pesanan ' . $id . ' dalam keadaan terkunci !'
 			];
 		}
-		return $response;
+		return $res;
 	}
 }
 

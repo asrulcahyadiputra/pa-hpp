@@ -56,13 +56,7 @@ class Order extends CI_Controller
 	public function delete($id)
 	{
 		$request = $this->model->delete($id);
-		if ($request['status'] == 1) {
-			$this->session->set_flashdata('success', 'Pesanan berhasil dibuat !');
-			redirect('transaksi/pesanan');
-		} else {
-			$this->session->set_flashdata('warning', 'Pesanan tidak dapat dihapus !');
-			redirect('transaksi/pesanan');
-		}
+		echo json_encode($request);
 	}
 }
 
