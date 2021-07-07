@@ -259,6 +259,14 @@
         element.find('.delete-record-btkl').attr('data-id', size);
         element.appendTo('#tbl_posts_body_btkl');
         element.find('.sn').html(size);
+        $("input[data-type='currency']").on({
+            keyup: function() {
+                formatCurrency($(this));
+            },
+            blur: function() {
+                formatCurrency($(this), "blur");
+            }
+        });
     });
 
     jQuery(document).delegate('a.delete-record-btkl', 'click', function(e) {
@@ -295,6 +303,14 @@
         element.find('.delete-record-bop').attr('data-id', size);
         element.appendTo('#tbl_posts_body_bop');
         element.find('.sn').html(size);
+        $("input[data-type='currency']").on({
+            keyup: function() {
+                formatCurrency($(this));
+            },
+            blur: function() {
+                formatCurrency($(this), "blur");
+            }
+        });
     });
 
     jQuery(document).delegate('a.delete-record-bop', 'click', function(e) {

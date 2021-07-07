@@ -180,9 +180,9 @@ class M_production extends CI_Model
 			$btkl[] = [
 				'trans_id'		=> $trans_id,
 				'employee_id'	=> $employee_id[$i],
-				'cost'			=> $btkl_cost[$i]
+				'cost'			=> intval(preg_replace("/[^0-9]/", "", $btkl_cost[$i]))
 			];
-			$total_btkl = $total_btkl + $btkl_cost[$i];
+			$total_btkl = $total_btkl + intval(preg_replace("/[^0-9]/", "", $btkl_cost[$i]));
 		}
 
 		$total_bop = 0;
@@ -190,9 +190,9 @@ class M_production extends CI_Model
 			$bop[] = [
 				'trans_id'		=> $trans_id,
 				'oc_id'			=> $oc_id[$y],
-				'overhead_cost'	=> $bop_cost[$y]
+				'overhead_cost'	=> intval(preg_replace("/[^0-9]/", "", $bop_cost[$y]))
 			];
-			$total_bop = $total_bop + $bop_cost[$y];
+			$total_bop = $total_bop + intval(preg_replace("/[^0-9]/", "", $bop_cost[$y]));
 		}
 
 		$bop_final = $total_bop + $total_bp;

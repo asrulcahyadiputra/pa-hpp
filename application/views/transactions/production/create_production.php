@@ -183,7 +183,7 @@ $this->load->view('_partials/header');
 				</select>
 			</td>
 			<td>
-				<input type="text" name="nominal_btkl[]" id="ukuran" class="form-control" required>
+				<input type="text" name="nominal_btkl[]" id="ukuran" class="form-control" data-type='currency' required>
 			</td>
 
 
@@ -212,7 +212,7 @@ $this->load->view('_partials/header');
 				</select>
 			</td>
 			<td>
-				<input type="text" name="nominal_bop[]" id="ukuran" class="form-control" required>
+				<input type="text" name="nominal_bop[]" id="ukuran" class="form-control" data-type='currency' required>
 			</td>
 
 			<td class="text-center" style="vertical-align: middle;">
